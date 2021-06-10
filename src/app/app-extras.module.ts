@@ -3,9 +3,21 @@ import {
 } from '@angular/core';
 
 import {
+  SkyIdModule
+} from '@skyux/core';
+
+import {
   SkyDocsToolsModule,
   SkyDocsToolsOptions
 } from '@skyux/docs-tools';
+
+import {
+  SkyInputBoxModule
+} from '@skyux/forms';
+
+import {
+  SkyIconModule
+} from '@skyux/indicators';
 
 import {
   SkyPageModule
@@ -15,11 +27,32 @@ import {
   SkyAppLinkModule
 } from '@skyux/router';
 
+import {
+  SkyRichTextExpandModule
+} from './public/modules/rich-text-expand/rich-text-expand.module';
+
+import {
+  SkyTooltipModule
+} from './public/modules/tooltip/tooltip.module';
+
+import {
+  SkyRichTextDisplayModule,
+  SkyRichTextEditorModule
+} from './public/public_api';
+
 @NgModule({
   exports: [
     SkyAppLinkModule,
     SkyDocsToolsModule,
-    SkyPageModule
+    SkyPageModule,
+    SkyAppLinkModule,
+    SkyRichTextEditorModule,
+    SkyRichTextDisplayModule,
+    SkyRichTextExpandModule,
+    SkyTooltipModule,
+    SkyIconModule,
+    SkyIdModule,
+    SkyInputBoxModule
   ],
   providers: [
     {

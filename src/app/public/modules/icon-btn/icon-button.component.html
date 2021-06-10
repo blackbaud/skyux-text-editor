@@ -1,0 +1,18 @@
+<sky-tooltip
+  [disabled]="disabled"
+  [label]="label"
+>
+  <button
+      class="sky-btn sky-switch-control sky-switch-control-icon"
+      [attr.aria-label]="label || icon"
+      [disabled]="disabled"
+      [ngClass]="{
+        'icon-btn-active': isActive
+      }"
+  >
+    <sky-icon
+      [icon]="icon"
+    >
+    </sky-icon>
+  </button>
+</sky-tooltip>

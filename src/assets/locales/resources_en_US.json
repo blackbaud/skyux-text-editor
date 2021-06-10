@@ -1,2 +1,18 @@
 {
+  "expand_modal_default_header": {
+    "message": "Full view",
+    "_description": "The title of the modal for viewing a full text expansion"
+  },
+  "expand_button_text": {
+    "message": "See more",
+    "_description": "The button text of the expand button"
+  },
+  "collapse_button_text": {
+    "message": "See less",
+    "_description": "The button text of the collapse button"
+  },
+  "shared_close_button_text": {
+    "message": "Close",
+    "_description": "The common text of a close button"
+  }
 }

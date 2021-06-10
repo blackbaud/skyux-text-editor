@@ -1,0 +1,25 @@
+<div
+  class="sky-rich-text-expand-container"
+  #container
+>
+  <div
+    class="sky-rich-text-expand-text"
+    [id]="contentSectionId"
+    [innerHTML]="sanitizedText"
+    [ngStyle]="{
+      'max-height': !isExpanded ? maxHeight + 'px' : '100%'
+    }"
+    #text
+  >
+  </div>
+  <button *ngIf="expandable"
+    class="sky-btn sky-btn-link-inline sky-text-expand-see-more"
+    type="button"
+    [attr.aria-expanded]="isModal ? undefined : isExpanded"
+    [attr.aria-controls]="isModal ? undefined : contentSectionId"
+    [attr.aria-haspopup]="isModal ? 'dialog' : undefined"
+    (click)="textExpand()"
+  >
+    {{ (isExpanded ? 'collapse_button_text' : 'expand_button_text') | skyLibResources }}
+  </button>
+</div>
