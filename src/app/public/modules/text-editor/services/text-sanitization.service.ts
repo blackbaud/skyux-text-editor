@@ -24,8 +24,11 @@ domPurify.addHook('afterSanitizeAttributes', (node: Element) => {
 export class SkyTextSanitizationService {
 
   // Allowing target for new tab links
-  private allowedAttributes: string[] = ['target'] ;
+  private allowedAttributes: string[] = ['target'];
 
+  /**
+   * Returns a sanitized string, allowing target attribute for new tab links.
+   */
   public sanitize(htmlString: string): string {
     return domPurify.sanitize(htmlString, { ADD_ATTR: this.allowedAttributes });
   }

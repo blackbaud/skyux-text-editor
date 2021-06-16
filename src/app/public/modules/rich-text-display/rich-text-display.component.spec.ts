@@ -1,12 +1,33 @@
-import { CommonModule } from '@angular/common';
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
-import { RichTextDisplayFixtureComponent } from './fixtures/text-display-fixture.component';
-import { SkyTextDisplayModule } from './text-display.module';
+import {
+  CommonModule
+} from '@angular/common';
+
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick
+} from '@angular/core/testing';
+
+import {
+  FormsModule
+} from '@angular/forms';
+
+import {
+  RouterTestingModule
+} from '@angular/router/testing';
+
 import {
   expect
 } from '@skyux-sdk/testing';
+
+import {
+  RichTextDisplayFixtureComponent
+} from './fixtures/rich-text-display-fixture.component';
+
+import {
+  SkyRichTextDisplayModule
+} from './rich-text-display.module';
 
 describe('Rich text display', () => {
   let fixture: ComponentFixture<RichTextDisplayFixtureComponent>;
@@ -17,7 +38,7 @@ describe('Rich text display', () => {
         CommonModule,
         FormsModule,
         RouterTestingModule,
-        SkyTextDisplayModule
+        SkyRichTextDisplayModule
       ],
       declarations: [
         RichTextDisplayFixtureComponent

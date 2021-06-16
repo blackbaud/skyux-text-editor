@@ -1,7 +1,6 @@
 import {
   by,
-  element,
-  browser
+  element
 } from 'protractor';
 
 import {
@@ -9,7 +8,7 @@ import {
   SkyHostBrowser
 } from '@skyux-sdk/e2e';
 
-describe('Rich text editor', () => {
+describe('Text editor', () => {
   beforeEach(() => {
     SkyHostBrowser.get('visual/text-editor');
     SkyHostBrowser.setWindowBreakpoint('lg');
