@@ -18,11 +18,14 @@ import {
 })
 export class SkyRichTextDisplayComponent {
 
+  /**
+   * Rich text to display.
+   */
   @Input()
-  public set text(value: string) {
+  public set richText(value: string) {
     const cleaned = this.sanitizationService.sanitize(value);
-    if (cleaned !== this._text) {
-      this._text = cleaned;
+    if (cleaned !== this._richText) {
+      this._richText = cleaned;
 
       // Text has already been sanitized with DOMPurifier.
       // Tell Angular to bypass its own internal sanitization.
@@ -32,7 +35,7 @@ export class SkyRichTextDisplayComponent {
 
   public sanitizedText: SafeHtml = '';
 
-  private _text: string = '';
+  private _richText: string = '';
 
   constructor(
     private sanitizer: DomSanitizer,
