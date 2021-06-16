@@ -1,0 +1,37 @@
+<sky-docs-demo-control-panel-theme
+  (themeSettingsChange)="themeSettingsChange($event)"
+></sky-docs-demo-control-panel-theme>
+
+<div
+  class="sky-padding-even-large"
+>
+  <h1>Text Editor</h1>
+  <form>
+    <sky-text-editor
+      name="text-editor"
+      [autofocus]="true"
+      [mergeFields]="mergeFields"
+      [menubarSections]="menubarSections"
+      [placeholder]="placeholder"
+      [toolbarSections]="toolbarSections"
+      [(ngModel)]="value"
+    >
+    </sky-text-editor>
+    <h2>
+      Preview html
+    </h2>
+    <div *ngIf="value"
+      class="content-display"
+    >
+      {{ value }}
+    </div>
+    <h2>
+      Preview render
+    </h2>
+    <div
+      class="content-display"
+      [innerHTML]="displayValue"
+    >
+    </div>
+  </form>
+</div>

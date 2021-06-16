@@ -28,16 +28,8 @@ import {
 } from '@skyux/router';
 
 import {
-  SkyRichTextExpandModule
-} from './public/modules/rich-text-expand/rich-text-expand.module';
-
-import {
-  SkyTooltipModule
-} from './public/modules/tooltip/tooltip.module';
-
-import {
   SkyRichTextDisplayModule,
-  SkyRichTextEditorModule
+  SkyTextEditorModule
 } from './public/public_api';
 
 @NgModule({
@@ -46,10 +38,8 @@ import {
     SkyDocsToolsModule,
     SkyPageModule,
     SkyAppLinkModule,
-    SkyRichTextEditorModule,
+    SkyTextEditorModule,
     SkyRichTextDisplayModule,
-    SkyRichTextExpandModule,
-    SkyTooltipModule,
     SkyIconModule,
     SkyIdModule,
     SkyInputBoxModule

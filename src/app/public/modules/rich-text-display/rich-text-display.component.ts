@@ -4,21 +4,20 @@ import {
 } from '@angular/core';
 
 import {
-  DomSanitizer, SafeHtml
+  DomSanitizer,
+  SafeHtml
 } from '@angular/platform-browser';
 
 import {
-  SkyRichTextSanitizationService
-} from '../rich-text-editor/services/rich-text-sanitization.service';
+  SkyTextSanitizationService
+} from '../text-editor/services/text-sanitization.service';
 
-/**
- * @internal
- */
 @Component({
   selector: 'sky-rich-text-display',
   templateUrl: './rich-text-display.component.html'
 })
 export class SkyRichTextDisplayComponent {
+
   @Input()
   public set text(value: string) {
     const cleaned = this.sanitizationService.sanitize(value);
@@ -26,16 +25,18 @@ export class SkyRichTextDisplayComponent {
       this.setup(value);
     }
   }
-  private _text: string = '';
 
   public sanitizedText: SafeHtml = '';
 
+  private _text: string = '';
+
   constructor(
     private sanitizer: DomSanitizer,
-    private sanitizationService: SkyRichTextSanitizationService
+    private sanitizationService: SkyTextSanitizationService
   ) { }
 
   private setup(value: string): void {
     this.sanitizedText = this.sanitizer.bypassSecurityTrustHtml(value);
   }
+
 }

@@ -1,0 +1,106 @@
+@import "~@skyux/theme/scss/variables";
+@import "~@skyux/theme/scss/mixins";
+
+@function set-color($color) {
+  @if (lightness($color) > 40) {
+    @return #000;
+  }
+  @else {
+    @return #FFF;
+  }
+}
+
+.toolbar-section {
+
+  .sky-toolbar-item {
+    margin-right: 15px;
+  }
+
+  .font-picker .sky-dropdown-button-content-container {
+    width: 140px;
+    height: 20px;
+    text-align: left;
+  }
+
+  .colorpicker-group {
+    display: flex;
+
+    .colorpicker-container {
+      position: relative;
+      top: 3px;
+      margin: 0 5px 0 0;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      .colorpicker-overlay {
+        position: absolute;
+        left: 13px;
+        top: 8px;
+        color: #ffffff;
+        z-index: 999;
+        pointer-events: none;
+      }
+    }
+
+  }
+
+  .sky-switch-icon-group {
+
+    .sky-btn {
+      margin-left: 0;
+      margin-right: 0;
+      border-radius: 0;
+      border-right: none;
+    }
+
+    .sky-btn:first-of-type {
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+    }
+    .sky-btn:last-of-type {
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+      @include sky-border(dark, right);
+    }
+  }
+
+}
+
+.sky-theme-modern {
+
+  .sky-text-editor {
+    .sky-text-editor-toolbar {
+      .sky-toolbar-section {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  }
+
+  .colorpicker-group {
+    .colorpicker-container {
+      top: -2px;
+
+      sky-colorpicker {
+        button {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  .sky-switch-icon-group {
+    .sky-btn {
+      margin: inherit;
+      border-radius: 6px;
+    }
+
+    .sky-btn:first-of-type,
+    .sky-btn:last-of-type  {
+      border-radius: 6px;
+    }
+  }
+
+}

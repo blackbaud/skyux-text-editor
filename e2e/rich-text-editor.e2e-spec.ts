@@ -11,13 +11,13 @@ import {
 
 describe('Rich text editor', () => {
   beforeEach(() => {
-    SkyHostBrowser.get('visual/rich-text-editor');
+    SkyHostBrowser.get('visual/text-editor');
     SkyHostBrowser.setWindowBreakpoint('lg');
   });
 
   it('should match basic screenshot', (done) => {
     expect('form').toMatchBaselineScreenshot(done, {
-      screenshotName: 'rich-text-editor-basic'
+      screenshotName: 'text-editor-basic'
     });
   });
 
@@ -25,7 +25,7 @@ describe('Rich text editor', () => {
     element(by.css('.Link button')).click();
     SkyHostBrowser.moveCursorOffScreen();
     expect('body').toMatchBaselineScreenshot(done, {
-      screenshotName: 'rich-text-editor-link-modal'
+      screenshotName: 'text-editor-link-modal'
     });
   });
 
@@ -35,19 +35,8 @@ describe('Rich text editor', () => {
 
     setTimeout(() => {
       expect('form').toMatchBaselineScreenshot(done, {
-        screenshotName: 'rich-text-editor-merge-field'
+        screenshotName: 'text-editor-merge-field'
       });
     }, 1000);
-  });
-
-  it('should match tooltip screenshot', (done) => {
-    browser
-      .actions()
-      .mouseMove(element(by.css('.FontSize .sky-tooltip-container')))
-      .perform();
-
-    expect('form').toMatchBaselineScreenshot(done, {
-      screenshotName: 'rich-text-editor-tooltip'
-    });
   });
 });
