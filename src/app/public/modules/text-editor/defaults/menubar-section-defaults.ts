@@ -1,11 +1,11 @@
 import {
-  SkyuxRichTextEditorMenubarSection
+  SkyTextEditorMenubarSection
 } from '../types/menubar-section';
 
 /**
  * @internal
  */
-export const menubarSectionDefaults: SkyuxRichTextEditorMenubarSection[] = [
-  SkyuxRichTextEditorMenubarSection.Edit,
-  SkyuxRichTextEditorMenubarSection.Format
+export const MENUBAR_SECTION_DEFAULTS: SkyTextEditorMenubarSection[] = [
+  SkyTextEditorMenubarSection.Edit,
+  SkyTextEditorMenubarSection.Format
 ];

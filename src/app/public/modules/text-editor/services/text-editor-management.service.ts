@@ -12,7 +12,7 @@ import {
 } from 'rxjs';
 
 import {
-  styleStateDefaults
+  STYLE_STATE_DEFAULTS
 } from '../defaults/style-state-defaults';
 
 import {
@@ -24,7 +24,7 @@ import {
 } from '../types/editor-setting';
 
 import {
-  SkyuxRichTextEditorStyleState
+  SkyTextEditorStyleState
 } from '../types/style-state';
 
 import {
@@ -58,7 +58,7 @@ export class SkyTextEditorManagementService {
   public addEditor(
     id: string,
     iframeElement: HTMLIFrameElement,
-    styleState: SkyuxRichTextEditorStyleState,
+    styleState: SkyTextEditorStyleState,
     placeholder?: string
   ): void {
     if (!(id in this.editors)) {
@@ -77,7 +77,7 @@ export class SkyTextEditorManagementService {
       }`;
       documentEl.head.appendChild(styleEl);
 
-      const style: SkyuxRichTextEditorStyleState = { ...styleStateDefaults, ...styleState };
+      const style: SkyTextEditorStyleState = { ...STYLE_STATE_DEFAULTS, ...styleState };
       const bodyStyle = `background-color: ${style.backColor};
         color: ${style.fontColor};
         font-family: ${style.font};
@@ -162,7 +162,7 @@ export class SkyTextEditorManagementService {
     return this.editors[id].commandChangeObservable;
   }
 
-  public getStyleState(id: string): Partial<SkyuxRichTextEditorStyleState> {
+  public getStyleState(id: string): Partial<SkyTextEditorStyleState> {
     const documentEl = this.getDocumentEl(id);
 
     if (this.editorSelected(documentEl)) {
@@ -314,7 +314,7 @@ export class SkyTextEditorManagementService {
 
   private getFontSize(id: string): string {
     /* istanbul ignore next */
-    let fontSize = styleStateDefaults.fontSize.toString();
+    let fontSize = STYLE_STATE_DEFAULTS.fontSize.toString();
     const selection = this.getCurrentSelection(id);
     if (
       selection &&
@@ -405,7 +405,7 @@ export class SkyTextEditorManagementService {
     // Firefox uses 'Transparent' instead of a color value
     /* istanbul ignore next */
     if (commandValue.toString().toLowerCase() === 'transparent') {
-      return styleStateDefaults.backColor;
+      return STYLE_STATE_DEFAULTS.backColor;
     }
     return commandValue;
   }

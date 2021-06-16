@@ -27,7 +27,7 @@ import {
 } from '@skyux/popovers';
 
 import {
-  SkyuxRichTextEditorStyleState
+  SkyTextEditorStyleState
 } from '../types/style-state';
 
 import {
@@ -35,11 +35,11 @@ import {
 } from '../types/available-font-list';
 
 import {
-  SkyuxRichTextEditorToolbarSection
+  SkyTextEditorToolbarSection
 } from '../types/toolbar-section';
 
 import {
-  toolbarSectionDefaults
+  TOOLBAR_SECTION_DEFAULTS
 } from '../defaults/toolbar-section-defaults';
 
 import {
@@ -55,7 +55,7 @@ import {
 } from '../services/text-editor-management.service';
 
 import {
-  styleStateDefaults
+  STYLE_STATE_DEFAULTS
 } from '../defaults/style-state-defaults';
 
 import {
@@ -90,13 +90,13 @@ export class SkyTextEditorToolbarComponent implements OnInit {
   public fontSizeList = availableFontSizeList;
 
   @Input()
-  public toolbarSections: SkyuxRichTextEditorToolbarSection[] = toolbarSectionDefaults;
+  public toolbarSections: SkyTextEditorToolbarSection[] = TOOLBAR_SECTION_DEFAULTS;
 
   @Input()
-  public get styleState(): SkyuxRichTextEditorStyleState {
+  public get styleState(): SkyTextEditorStyleState {
     return this._styleState;
   }
-  public set styleState(value: SkyuxRichTextEditorStyleState) {
+  public set styleState(value: SkyTextEditorStyleState) {
     this._styleState = value;
     if (value.font !== this.styleStateFontName) {
       this.styleStateFontName = this.getFontName(value.font);
@@ -113,9 +113,9 @@ export class SkyTextEditorToolbarComponent implements OnInit {
 
   public styleStateFontName: string;
 
-  public toolbarSectionEnum = SkyuxRichTextEditorToolbarSection;
+  public toolbarSectionEnum = SkyTextEditorToolbarSection;
 
-  private _styleState = styleStateDefaults;
+  private _styleState = STYLE_STATE_DEFAULTS;
 
   constructor(
     private changeDetector: ChangeDetectorRef,

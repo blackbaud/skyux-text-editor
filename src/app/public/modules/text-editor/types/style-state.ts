@@ -1,7 +1,4 @@
-/**
- * @internal
- */
-export interface SkyuxRichTextEditorStyleState {
+export interface SkyTextEditorStyleState {
   backColor: string;
   fontColor: string;
   fontSize: number;

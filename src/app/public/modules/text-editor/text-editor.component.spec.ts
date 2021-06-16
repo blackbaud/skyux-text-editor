@@ -30,7 +30,7 @@ import {
 } from '@skyux-sdk/testing';
 
 import {
-  styleStateDefaults
+  STYLE_STATE_DEFAULTS
 } from './defaults/style-state-defaults';
 
 import {
@@ -42,15 +42,15 @@ import {
 } from './services/text-editor-management.service';
 
 import {
-  SkyuxRichTextEditorMenubarSection
+  SkyTextEditorMenubarSection
 } from './types/menubar-section';
 
 import {
-  SkyuxRichTextEditorStyleState
+  SkyTextEditorStyleState
 } from './types/style-state';
 
 import {
-  SkyuxRichTextEditorToolbarSection
+  SkyTextEditorToolbarSection
 } from './types/toolbar-section';
 
 import {
@@ -208,33 +208,33 @@ describe('Rich text editor', () => {
 
   it('Shows correct toolbar content', () => {
     fixture.componentInstance.menubarSections = [
-      SkyuxRichTextEditorMenubarSection.Edit,
-      SkyuxRichTextEditorMenubarSection.MergeField,
-      SkyuxRichTextEditorMenubarSection.Format
+      SkyTextEditorMenubarSection.Edit,
+      SkyTextEditorMenubarSection.MergeField,
+      SkyTextEditorMenubarSection.Format
     ];
     fixture.componentInstance.toolbarSections = [
-      SkyuxRichTextEditorToolbarSection.Alignment,
-      SkyuxRichTextEditorToolbarSection.Color,
-      SkyuxRichTextEditorToolbarSection.FontFamily,
-      SkyuxRichTextEditorToolbarSection.FontSize,
-      SkyuxRichTextEditorToolbarSection.FontStyle,
-      SkyuxRichTextEditorToolbarSection.Indentation,
-      SkyuxRichTextEditorToolbarSection.Link,
-      SkyuxRichTextEditorToolbarSection.List,
-      SkyuxRichTextEditorToolbarSection.UndoRedo
+      SkyTextEditorToolbarSection.Alignment,
+      SkyTextEditorToolbarSection.Color,
+      SkyTextEditorToolbarSection.FontFamily,
+      SkyTextEditorToolbarSection.FontSize,
+      SkyTextEditorToolbarSection.FontStyle,
+      SkyTextEditorToolbarSection.Indentation,
+      SkyTextEditorToolbarSection.Link,
+      SkyTextEditorToolbarSection.List,
+      SkyTextEditorToolbarSection.UndoRedo
     ];
 
     fixture.detectChanges();
     const sections = fixture.nativeElement.querySelectorAll('.toolbar-section');
     expect(sections.length).toBe(9);
     for (let i = 0; i < sections.length; i++) {
-      sections[i].classList.contains(SkyuxRichTextEditorToolbarSection[i]);
+      sections[i].classList.contains(SkyTextEditorToolbarSection[i]);
     }
 
     const menuSections = fixture.nativeElement.querySelectorAll('.menubar-section');
     expect(menuSections.length).toBe(3);
     for (let i = 0; i < menuSections.length; i++) {
-      menuSections[i].classList.contains(SkyuxRichTextEditorMenubarSection[i]);
+      menuSections[i].classList.contains(SkyTextEditorMenubarSection[i]);
     }
   });
 
@@ -957,8 +957,8 @@ describe('Rich text editor', () => {
     let style: CSSStyleDeclaration = fixture.nativeElement.querySelector('iframe').contentDocument.querySelector('body').style;
     expect(style.getPropertyValue('background-color')).toEqual('rgba(0, 0, 0, 0)');
     expect(style.getPropertyValue('color')).toEqual('rgb(0, 0, 0)');
-    expect(style.getPropertyValue('font-family')).toEqual(styleStateDefaults.font);
-    expect(style.getPropertyValue('font-size')).toEqual(`${styleStateDefaults.fontSize}px`);
+    expect(style.getPropertyValue('font-family')).toEqual(STYLE_STATE_DEFAULTS.font);
+    expect(style.getPropertyValue('font-size')).toEqual(`${STYLE_STATE_DEFAULTS.fontSize}px`);
   }));
 
   it('should set the style of the iframe body to the provided style state', fakeAsync(() => {
@@ -972,7 +972,7 @@ describe('Rich text editor', () => {
       fontColor: fontColor,
       font: font,
       fontSize: fontSize
-    } as SkyuxRichTextEditorStyleState;
+    } as SkyTextEditorStyleState;
     fixture.detectChanges();
 
     let style: CSSStyleDeclaration = fixture.nativeElement.querySelector('iframe').contentDocument.querySelector('body').style;

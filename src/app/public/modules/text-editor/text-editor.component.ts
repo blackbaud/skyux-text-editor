@@ -7,7 +7,8 @@ import {
   ViewChild,
   ElementRef,
   OnDestroy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import {
@@ -20,15 +21,15 @@ import {
 } from 'rxjs';
 
 import {
-  menubarSectionDefaults
+  MENUBAR_SECTION_DEFAULTS
 } from './defaults/menubar-section-defaults';
 
 import {
-  styleStateDefaults
+  STYLE_STATE_DEFAULTS
 } from './defaults/style-state-defaults';
 
 import {
-  toolbarSectionDefaults
+  TOOLBAR_SECTION_DEFAULTS
 } from './defaults/toolbar-section-defaults';
 
 import {
@@ -56,11 +57,11 @@ import {
 } from './types/available-font-size-list';
 
 import {
-  SkyuxRichTextEditorMenubarSection
+  SkyTextEditorMenubarSection
 } from './types/menubar-section';
 
 import {
-  SkyuxRichTextEditorStyleState
+  SkyTextEditorStyleState
 } from './types/style-state';
 
 import {
@@ -68,7 +69,7 @@ import {
 } from './types/text-editor-merge-field';
 
 import {
-  SkyuxRichTextEditorToolbarSection
+  SkyTextEditorToolbarSection
 } from './types/toolbar-section';
 
 /**
@@ -91,6 +92,7 @@ let nextUniqueId = 0;
       multi: true
     }
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
 export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccessor, OnDestroy {
@@ -111,7 +113,7 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
   public mergeFields: SkyTextEditorMergeField[] = [];
 
   @Input()
-  public menubarSections: SkyuxRichTextEditorMenubarSection[] = menubarSectionDefaults;
+  public menubarSections: SkyTextEditorMenubarSection[] = MENUBAR_SECTION_DEFAULTS;
 
   @Input()
   public set placeholder(value: string) {
@@ -128,22 +130,22 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
   }
 
   @Input()
-  public set styleState(state: SkyuxRichTextEditorStyleState) {
+  public set styleState(state: SkyTextEditorStyleState) {
     // Do not update the state after initialization has taken place
     if (!this.initialized) {
       this._styleState = {
-        ...styleStateDefaults,
+        ...STYLE_STATE_DEFAULTS,
         ...state
       };
     }
   }
 
-  public get styleState(): SkyuxRichTextEditorStyleState {
+  public get styleState(): SkyTextEditorStyleState {
     return this._styleState;
   }
 
   @Input()
-  public toolbarSections: SkyuxRichTextEditorToolbarSection[] = toolbarSectionDefaults;
+  public toolbarSections: SkyTextEditorToolbarSection[] = TOOLBAR_SECTION_DEFAULTS;
 
   public set value(value: string) {
     // Set clear state to be an empty string
@@ -181,7 +183,7 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
 
   private _placeholder = '';
 
-  private _styleState = Object.assign({}, styleStateDefaults);
+  private _styleState = Object.assign({}, STYLE_STATE_DEFAULTS);
 
   private _value: string = '<p></p>';
 
@@ -204,9 +206,9 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
       this.updateValueAndStyle();
       this.editorFocusStream.next();
     });
-    this.editorService.clickListener(this.id).subscribe(() =>
-      this.editorFocusStream.next()
-    );
+    this.editorService.clickListener(this.id).subscribe(() => {
+      this.editorFocusStream.next();
+    });
     this.editorService.commandChangeListener(this.id).subscribe(() => {
       this.updateValueAndStyle();
     });

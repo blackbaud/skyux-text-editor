@@ -10,11 +10,11 @@ import {
 } from 'rxjs';
 
 import {
-  SkyuxRichTextEditorMenubarSection
+  SkyTextEditorMenubarSection
 } from '../types/menubar-section';
 
 import {
-  menubarSectionDefaults
+  MENUBAR_SECTION_DEFAULTS
 } from '../defaults/menubar-section-defaults';
 
 import {
@@ -52,7 +52,7 @@ export class SkyTextEditorMenubarComponent implements OnInit {
   public editorId: string;
 
   @Input()
-  public menubarSections: SkyuxRichTextEditorMenubarSection[] = menubarSectionDefaults;
+  public menubarSections: SkyTextEditorMenubarSection[] = MENUBAR_SECTION_DEFAULTS;
 
   @Input()
   public mergeFields: SkyTextEditorMergeField[] = [];
@@ -139,7 +139,7 @@ export class SkyTextEditorMenubarComponent implements OnInit {
     }
   ];
 
-  public menubarSectionEnum = SkyuxRichTextEditorMenubarSection;
+  public menubarSectionEnum = SkyTextEditorMenubarSection;
 
   public mergeFieldDropdownStream = new Subject<SkyDropdownMessage>();
 

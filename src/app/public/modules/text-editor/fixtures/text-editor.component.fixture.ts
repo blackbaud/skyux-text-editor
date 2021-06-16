@@ -7,10 +7,10 @@ import {
 } from '../types/available-font-list';
 
 import {
-  SkyuxRichTextEditorStyleState
+  SkyTextEditorStyleState
 } from '../types/style-state';
 import {
-  SkyuxRichTextEditorToolbarSection
+  SkyTextEditorToolbarSection
 } from '../types/toolbar-section';
 
 import {
@@ -18,7 +18,7 @@ import {
 } from '../types/available-font-size-list';
 
 import {
-  SkyuxRichTextEditorMenubarSection
+  SkyTextEditorMenubarSection
 } from '../types/menubar-section';
 
 import {
@@ -40,22 +40,22 @@ export class TextEditorFixtureComponent {
 
   public fontList = availableFontList;
 
-  public toolbarSections: SkyuxRichTextEditorToolbarSection[] = [
-    SkyuxRichTextEditorToolbarSection.FontFamily,
-    SkyuxRichTextEditorToolbarSection.FontSize,
-    SkyuxRichTextEditorToolbarSection.Color,
-    SkyuxRichTextEditorToolbarSection.List,
-    SkyuxRichTextEditorToolbarSection.FontStyle,
-    SkyuxRichTextEditorToolbarSection.Alignment,
-    SkyuxRichTextEditorToolbarSection.Indentation,
-    SkyuxRichTextEditorToolbarSection.UndoRedo,
-    SkyuxRichTextEditorToolbarSection.Link
+  public toolbarSections: SkyTextEditorToolbarSection[] = [
+    SkyTextEditorToolbarSection.FontFamily,
+    SkyTextEditorToolbarSection.FontSize,
+    SkyTextEditorToolbarSection.Color,
+    SkyTextEditorToolbarSection.List,
+    SkyTextEditorToolbarSection.FontStyle,
+    SkyTextEditorToolbarSection.Alignment,
+    SkyTextEditorToolbarSection.Indentation,
+    SkyTextEditorToolbarSection.UndoRedo,
+    SkyTextEditorToolbarSection.Link
   ];
 
-  public menubarSections: SkyuxRichTextEditorMenubarSection[] = [
-    SkyuxRichTextEditorMenubarSection.Edit,
-    SkyuxRichTextEditorMenubarSection.Format,
-    SkyuxRichTextEditorMenubarSection.MergeField
+  public menubarSections: SkyTextEditorMenubarSection[] = [
+    SkyTextEditorMenubarSection.Edit,
+    SkyTextEditorMenubarSection.Format,
+    SkyTextEditorMenubarSection.MergeField
   ];
 
   public autofocus = false;
@@ -75,5 +75,5 @@ export class TextEditorFixtureComponent {
     }
   ];
 
-  public styleState: SkyuxRichTextEditorStyleState = {} as SkyuxRichTextEditorStyleState;
+  public styleState: SkyTextEditorStyleState = {} as SkyTextEditorStyleState;
 }

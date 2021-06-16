@@ -1,16 +1,16 @@
 import {
-  SkyuxRichTextEditorToolbarSection
+  SkyTextEditorToolbarSection
 } from '../types/toolbar-section';
 
 /**
  * @internal
  */
-export const toolbarSectionDefaults: SkyuxRichTextEditorToolbarSection[] = [
-  SkyuxRichTextEditorToolbarSection.FontFamily,
-  SkyuxRichTextEditorToolbarSection.FontSize,
-  SkyuxRichTextEditorToolbarSection.FontStyle,
-  SkyuxRichTextEditorToolbarSection.Color,
-  SkyuxRichTextEditorToolbarSection.Alignment,
-  SkyuxRichTextEditorToolbarSection.List,
-  SkyuxRichTextEditorToolbarSection.Link
+export const TOOLBAR_SECTION_DEFAULTS: SkyTextEditorToolbarSection[] = [
+  SkyTextEditorToolbarSection.FontFamily,
+  SkyTextEditorToolbarSection.FontSize,
+  SkyTextEditorToolbarSection.FontStyle,
+  SkyTextEditorToolbarSection.Color,
+  SkyTextEditorToolbarSection.Alignment,
+  SkyTextEditorToolbarSection.List,
+  SkyTextEditorToolbarSection.Link
 ];

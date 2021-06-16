@@ -3,13 +3,13 @@ import {
 } from '../types/available-font-list';
 
 import {
-  SkyuxRichTextEditorStyleState
+  SkyTextEditorStyleState
 } from '../types/style-state';
 
 /**
  * @internal
  */
-export const styleStateDefaults: SkyuxRichTextEditorStyleState = {
+export const STYLE_STATE_DEFAULTS: SkyTextEditorStyleState = {
   backColor: 'rgba(0, 0, 0, 0)',
   fontColor: '#000',
   fontSize: 14,
