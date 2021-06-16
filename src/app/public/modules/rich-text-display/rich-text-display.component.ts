@@ -22,7 +22,11 @@ export class SkyRichTextDisplayComponent {
   public set text(value: string) {
     const cleaned = this.sanitizationService.sanitize(value);
     if (cleaned !== this._text) {
-      this.setup(value);
+      this._text = cleaned;
+
+      // Text has already been sanitized with DOMPurifier.
+      // Tell Angular to bypass its own internal sanitization.
+      this.sanitizedText = this.sanitizer.bypassSecurityTrustHtml(cleaned);
     }
   }
 
@@ -34,9 +38,5 @@ export class SkyRichTextDisplayComponent {
     private sanitizer: DomSanitizer,
     private sanitizationService: SkyTextSanitizationService
   ) { }
-
-  private setup(value: string): void {
-    this.sanitizedText = this.sanitizer.bypassSecurityTrustHtml(value);
-  }
 
 }

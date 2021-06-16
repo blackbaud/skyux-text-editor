@@ -20,5 +20,4 @@ export * from './modules/text-editor/toolbar/text-editor-toolbar.component';
 
 export * from './modules/text-editor/menubar/text-editor-menubar.component';
 
-export * from './modules/rich-text-display/rich-text-display.component';
 export * from './modules/rich-text-display/rich-text-display.module';

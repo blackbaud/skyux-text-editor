@@ -2,13 +2,14 @@ import {
   Injectable
 } from '@angular/core';
 
-// TODO: figure out how to get import to work with docs-tools library.
+// TODO: figure out how to get the following `import` to work with docs-tools library.
 // import DOMPurify from 'dompurify';
 const createDOMPurify = require('dompurify');
 const domPurify = createDOMPurify(window);
 
 domPurify.addHook('afterSanitizeAttributes', (node: Element) => {
-  // set all elements owning target to target=_blank so we only allow the target attribute with that value
+  // Set all elements owning target to target=_blank
+  // so we only allow the target attribute with that value.
   if (!!node.getAttribute('target')) {
     node.setAttribute('target', '_blank');
     node.setAttribute('rel', 'noopener noreferrer');
@@ -16,6 +17,9 @@ domPurify.addHook('afterSanitizeAttributes', (node: Element) => {
 });
 
 /**
+ * The `SkyTextSanitizationService` user the `DOMPurify` library to sanitize strings for use
+ * in the DOM. `DOMPurify` allows more customization than Angular's internal `DomSanitizer` so we
+ * can preserve `<style>` tags and allow `target` attributes for new tab links.
  * @internal
  */
 @Injectable({
@@ -23,7 +27,6 @@ domPurify.addHook('afterSanitizeAttributes', (node: Element) => {
 })
 export class SkyTextSanitizationService {
 
-  // Allowing target for new tab links
   private allowedAttributes: string[] = ['target'];
 
   /**
