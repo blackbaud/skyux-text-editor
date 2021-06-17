@@ -17,11 +17,15 @@ import {
 } from '@angular/forms';
 
 import {
+  takeUntil
+} from 'rxjs/operators';
+
+import {
   Subject
 } from 'rxjs';
 
 import {
-  MENUBAR_SECTION_DEFAULTS
+  MENUBAR_ACTION_DEFAULTS
 } from './defaults/menubar-section-defaults';
 
 import {
@@ -33,7 +37,7 @@ import {
 } from './defaults/toolbar-section-defaults';
 
 import {
-  SkyTextEditorManagementService
+  SkyTextEditorService
 } from './services/text-editor-management.service';
 
 import {
@@ -49,16 +53,20 @@ import {
 } from './services/text-selection-management.service';
 
 import {
-  availableFontList
-} from './types/available-font-list';
+  FONT_LIST_DEFAULTS
+} from './defaults/font-list-defaults';
 
 import {
-  availableFontSizeList
-} from './types/available-font-size-list';
+  FONT_SIZE_LIST_DEFAULTS
+} from './defaults/font-size-list-defaults';
 
 import {
-  SkyTextEditorMenubarSection
-} from './types/menubar-section';
+  SkyTextEditorFont
+} from './types/font-state';
+
+import {
+  SkyTextEditorMenubarAction
+} from './types/menubar-action';
 
 import {
   SkyTextEditorStyleState
@@ -69,20 +77,23 @@ import {
 } from './types/text-editor-merge-field';
 
 import {
-  SkyTextEditorToolbarSection
-} from './types/toolbar-section';
+  SkyTextEditorToolbarActions
+} from './types/toolbar-action';
 
 /**
  * Auto-incrementing integer used to generate unique ids for radio components.
  */
 let nextUniqueId = 0;
 
+/**
+ * The text editor component lets users format and manipulate text.
+ */
 @Component({
   selector: 'sky-text-editor',
   templateUrl: './text-editor.component.html',
   styleUrls: ['./text-editor.component.scss'],
   providers: [
-    SkyTextEditorManagementService,
+    SkyTextEditorService,
     SkyTextMergeFieldService,
     SkyTextSelectionManagementService,
     {
@@ -97,24 +108,46 @@ let nextUniqueId = 0;
 })
 export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccessor, OnDestroy {
 
+  /**
+   * Sets focus on the editor once it is rendered.
+   */
   @Input()
   public autofocus: boolean = false;
 
+  /**
+   * Specifies the fonts that appear in the toolbar font picker.
+   */
   @Input()
-  public fontList = availableFontList;
+  public fontList: SkyTextEditorFont[] = FONT_LIST_DEFAULTS;
 
+  /**
+   * Specifies the font sizes that appear in the toolbar font size picker.
+   */
   @Input()
-  public fontSizeList = availableFontSizeList;
+  public fontSizeList: number[] = FONT_SIZE_LIST_DEFAULTS;
 
+  /**
+   * Specifies a unique id attribute for the rich text editor.
+   * If not provided, a random ID will be generated.
+   */
   @Input()
   public id = `sky-text-editor-${++nextUniqueId}`;
 
+  /**
+   * Specifies the actions that appear in the menubar.
+   */
+  @Input()
+  public menubarActions: SkyTextEditorMenubarAction[] = MENUBAR_ACTION_DEFAULTS;
+
+  /**
+   * Specifies the merge fields that appear in the menubar merge field picker.
+   */
   @Input()
   public mergeFields: SkyTextEditorMergeField[] = [];
 
-  @Input()
-  public menubarSections: SkyTextEditorMenubarSection[] = MENUBAR_SECTION_DEFAULTS;
-
+  /**
+   * Specifies the placeholder text when the text area is empty.
+   */
   @Input()
   public set placeholder(value: string) {
     if (value !== this._placeholder) {
@@ -129,23 +162,29 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
     return this._placeholder;
   }
 
+  /**
+   * Specifies the initial text style values.
+   */
   @Input()
-  public set styleState(state: SkyTextEditorStyleState) {
+  public set initialStyleState(state: SkyTextEditorStyleState) {
     // Do not update the state after initialization has taken place
     if (!this.initialized) {
-      this._styleState = {
+      this._initialStyleState = {
         ...STYLE_STATE_DEFAULTS,
         ...state
       };
     }
   }
 
-  public get styleState(): SkyTextEditorStyleState {
-    return this._styleState;
+  public get initialStyleState(): SkyTextEditorStyleState {
+    return this._initialStyleState;
   }
 
+  /**
+   * Specifies the actions available and their order in the bottom toolbar.
+   */
   @Input()
-  public toolbarSections: SkyTextEditorToolbarSection[] = TOOLBAR_SECTION_DEFAULTS;
+  public toolbarActions: SkyTextEditorToolbarActions[] = TOOLBAR_SECTION_DEFAULTS;
 
   public set value(value: string) {
     // Set clear state to be an empty string
@@ -153,13 +192,11 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
     if (!value || (value.trim() === '<p></p>' && value.trim() === '<br>')) {
       valueString = '';
     }
-    valueString = this.sanitizationService.sanitize(valueString);
+    valueString = this.sanitizationService.sanitize(valueString).trim();
 
     if (this._value !== valueString) {
-      this._value = valueString.trim();
+      this._value = valueString;
 
-      // initial focus
-      /* istanbul ignore next */
       if (this.autofocus && !this.focusInitialized) {
         this.editorService.focusEditor(this.id);
         this.focusInitialized = true;
@@ -181,15 +218,17 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
 
   private initialized: boolean = false;
 
+  private ngUnsubscribe = new Subject<void>();
+
   private _placeholder = '';
 
-  private _styleState = Object.assign({}, STYLE_STATE_DEFAULTS);
+  private _initialStyleState = Object.assign({}, STYLE_STATE_DEFAULTS);
 
   private _value: string = '<p></p>';
 
   constructor (
-    private editorService: SkyTextEditorManagementService,
     private changeDetector: ChangeDetectorRef,
+    private editorService: SkyTextEditorService,
     private sanitizationService: SkyTextSanitizationService
   ) {}
 
@@ -198,36 +237,55 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
     this.editorService.addEditor(
       this.id,
       this.iframeRef.nativeElement,
-      this.styleState,
+      this.initialStyleState,
       this.placeholder
     );
 
-    this.editorService.selectionChangeListener(this.id).subscribe(() => {
-      this.updateValueAndStyle();
-      this.editorFocusStream.next();
-    });
-    this.editorService.clickListener(this.id).subscribe(() => {
-      this.editorFocusStream.next();
-    });
-    this.editorService.commandChangeListener(this.id).subscribe(() => {
-      this.updateValueAndStyle();
-    });
+    this.editorService.selectionChangeListener(this.id)
+      .pipe(
+        takeUntil(this.ngUnsubscribe)
+      )
+      .subscribe(() => {
+        this.updateValueAndStyle();
+        this.editorFocusStream.next();
+      });
+
+    this.editorService.clickListener(this.id)
+      .pipe(
+        takeUntil(this.ngUnsubscribe)
+      )
+      .subscribe(() => {
+        this.editorFocusStream.next();
+      });
+
+    this.editorService.commandChangeListener(this.id)
+      .pipe(
+        takeUntil(this.ngUnsubscribe)
+      )
+      .subscribe(() => {
+        this.updateValueAndStyle();
+      });
+
     this.editorService.setEditorInnerHtml(this.id, this._value);
+
     /* istanbul ignore next */
     if (this.autofocus) {
       this.editorService.focusEditor(this.id);
     }
+
     this.initialized = true;
   }
 
   public ngOnDestroy(): void {
     this.editorService.removeEditor(this.id);
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   public writeValue(obj: string): void {
     this.value = obj;
 
-    // Update html if necessary
+    // Update HTML if necessary.
     const editorValue = this.editorService.getEditorInnerHtml(this.id);
     if (this.initialized && editorValue !== this._value) {
       this.editorService.setEditorInnerHtml(this.id, this._value);
@@ -248,11 +306,15 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
 
   public updateValueAndStyle(): void {
     this.value = this.editorService.getEditorInnerHtml(this.id);
-    this._styleState = {
-      ...this._styleState,
+    this._initialStyleState = {
+      ...this._initialStyleState,
       ...this.editorService.getStyleState(this.id) as any
     };
-    this.changeDetector.detectChanges();
+
+    // Without setTimeout, correct styles aren't indicated on user's initial click.
+    setTimeout(() => {
+      this.changeDetector.detectChanges();
+    });
   }
 
   /* istanbul ignore next */

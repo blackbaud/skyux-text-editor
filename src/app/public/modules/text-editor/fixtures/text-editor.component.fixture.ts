@@ -3,23 +3,23 @@ import {
 } from '@angular/core';
 
 import {
-  availableFontList
-} from '../types/available-font-list';
+  FONT_LIST_DEFAULTS
+} from '../defaults/font-list-defaults';
 
 import {
   SkyTextEditorStyleState
 } from '../types/style-state';
 import {
-  SkyTextEditorToolbarSection
-} from '../types/toolbar-section';
+  SkyTextEditorToolbarActions
+} from '../types/toolbar-action';
 
 import {
-  availableFontSizeList
-} from '../types/available-font-size-list';
+  FONT_SIZE_LIST_DEFAULTS
+} from '../defaults/font-size-list-defaults';
 
 import {
-  SkyTextEditorMenubarSection
-} from '../types/menubar-section';
+  SkyTextEditorMenubarAction
+} from '../types/menubar-action';
 
 import {
   SkyTextEditorMergeField
@@ -36,26 +36,26 @@ export class TextEditorFixtureComponent {
   public value: string = '<p>Some text</p>';
   public placeholder: string;
 
-  public fontSizeList = availableFontSizeList;
+  public fontSizeList = FONT_SIZE_LIST_DEFAULTS;
 
-  public fontList = availableFontList;
+  public fontList = FONT_LIST_DEFAULTS;
 
-  public toolbarSections: SkyTextEditorToolbarSection[] = [
-    SkyTextEditorToolbarSection.FontFamily,
-    SkyTextEditorToolbarSection.FontSize,
-    SkyTextEditorToolbarSection.Color,
-    SkyTextEditorToolbarSection.List,
-    SkyTextEditorToolbarSection.FontStyle,
-    SkyTextEditorToolbarSection.Alignment,
-    SkyTextEditorToolbarSection.Indentation,
-    SkyTextEditorToolbarSection.UndoRedo,
-    SkyTextEditorToolbarSection.Link
+  public toolbarActions: SkyTextEditorToolbarActions[] = [
+    SkyTextEditorToolbarActions.FontFamily,
+    SkyTextEditorToolbarActions.FontSize,
+    SkyTextEditorToolbarActions.Color,
+    SkyTextEditorToolbarActions.List,
+    SkyTextEditorToolbarActions.FontStyle,
+    SkyTextEditorToolbarActions.Alignment,
+    SkyTextEditorToolbarActions.Indentation,
+    SkyTextEditorToolbarActions.UndoRedo,
+    SkyTextEditorToolbarActions.Link
   ];
 
-  public menubarSections: SkyTextEditorMenubarSection[] = [
-    SkyTextEditorMenubarSection.Edit,
-    SkyTextEditorMenubarSection.Format,
-    SkyTextEditorMenubarSection.MergeField
+  public menubarActions: SkyTextEditorMenubarAction[] = [
+    SkyTextEditorMenubarAction.Edit,
+    SkyTextEditorMenubarAction.Format,
+    SkyTextEditorMenubarAction.MergeField
   ];
 
   public autofocus = false;
@@ -75,5 +75,5 @@ export class TextEditorFixtureComponent {
     }
   ];
 
-  public styleState: SkyTextEditorStyleState = {} as SkyTextEditorStyleState;
+  public initialStyleState: SkyTextEditorStyleState = {} as SkyTextEditorStyleState;
 }

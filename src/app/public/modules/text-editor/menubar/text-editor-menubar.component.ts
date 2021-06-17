@@ -10,15 +10,15 @@ import {
 } from 'rxjs';
 
 import {
-  SkyTextEditorMenubarSection
-} from '../types/menubar-section';
+  SkyTextEditorMenubarAction
+} from '../types/menubar-action';
 
 import {
-  MENUBAR_SECTION_DEFAULTS
+  MENUBAR_ACTION_DEFAULTS
 } from '../defaults/menubar-section-defaults';
 
 import {
-  SkyTextEditorManagementService
+  SkyTextEditorService
 } from '../services/text-editor-management.service';
 
 import {
@@ -52,7 +52,7 @@ export class SkyTextEditorMenubarComponent implements OnInit {
   public editorId: string;
 
   @Input()
-  public menubarSections: SkyTextEditorMenubarSection[] = MENUBAR_SECTION_DEFAULTS;
+  public menubarActions: SkyTextEditorMenubarAction[] = MENUBAR_ACTION_DEFAULTS;
 
   @Input()
   public mergeFields: SkyTextEditorMergeField[] = [];
@@ -139,12 +139,12 @@ export class SkyTextEditorMenubarComponent implements OnInit {
     }
   ];
 
-  public menubarSectionEnum = SkyTextEditorMenubarSection;
+  public menubarSectionEnum = SkyTextEditorMenubarAction;
 
   public mergeFieldDropdownStream = new Subject<SkyDropdownMessage>();
 
   constructor(
-    private editorService: SkyTextEditorManagementService,
+    private editorService: SkyTextEditorService,
     private mergeFieldService: SkyTextMergeFieldService
   ) {}
 

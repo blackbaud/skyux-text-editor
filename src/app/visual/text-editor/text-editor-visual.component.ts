@@ -14,8 +14,8 @@ import {
 } from '@skyux/theme';
 
 import {
-  SkyTextEditorToolbarSection,
-  SkyTextEditorMenubarSection
+  SkyTextEditorToolbarActions,
+  SkyTextEditorMenubarAction
 } from '../../public/public_api';
 
 @Component({
@@ -27,10 +27,10 @@ export class RichTextEditorVisualComponent {
 
   public displayValue: SafeHtml;
 
-  public menubarSections: SkyTextEditorMenubarSection[] = [
-    SkyTextEditorMenubarSection.Edit,
-    SkyTextEditorMenubarSection.Format,
-    SkyTextEditorMenubarSection.MergeField
+  public menubarActions: SkyTextEditorMenubarAction[] = [
+    SkyTextEditorMenubarAction.Edit,
+    SkyTextEditorMenubarAction.Format,
+    SkyTextEditorMenubarAction.MergeField
   ];
 
   public mergeFields = [
@@ -50,16 +50,16 @@ export class RichTextEditorVisualComponent {
 
   public placeholder: string = 'Please enter some text';
 
-  public toolbarSections: SkyTextEditorToolbarSection[] = [
-    SkyTextEditorToolbarSection.FontFamily,
-    SkyTextEditorToolbarSection.FontSize,
-    SkyTextEditorToolbarSection.FontStyle,
-    SkyTextEditorToolbarSection.Color,
-    SkyTextEditorToolbarSection.List,
-    SkyTextEditorToolbarSection.Alignment,
-    SkyTextEditorToolbarSection.Indentation,
-    SkyTextEditorToolbarSection.UndoRedo,
-    SkyTextEditorToolbarSection.Link
+  public toolbarActions: SkyTextEditorToolbarActions[] = [
+    SkyTextEditorToolbarActions.FontFamily,
+    SkyTextEditorToolbarActions.FontSize,
+    SkyTextEditorToolbarActions.FontStyle,
+    SkyTextEditorToolbarActions.Color,
+    SkyTextEditorToolbarActions.List,
+    SkyTextEditorToolbarActions.Alignment,
+    SkyTextEditorToolbarActions.Indentation,
+    SkyTextEditorToolbarActions.UndoRedo,
+    SkyTextEditorToolbarActions.Link
   ];
 
   public set value(value: string) {

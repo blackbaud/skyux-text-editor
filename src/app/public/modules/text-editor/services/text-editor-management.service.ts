@@ -43,13 +43,13 @@ import {
  * @internal
  */
 @Injectable()
-export class SkyTextEditorManagementService {
+export class SkyTextEditorService {
 
   private editors: { [key: string]: EditorSetting } = {};
 
   constructor(
-    private windowService: SkyAppWindowRef,
-    private selectionService: SkyTextSelectionManagementService
+    private selectionService: SkyTextSelectionManagementService,
+    private windowService: SkyAppWindowRef
   ) {}
 
   /**
@@ -99,7 +99,7 @@ export class SkyTextEditorManagementService {
 
   public removeEditor(id: string): void {
     if (id in this.editors) {
-      SkyTextEditorManagementService.removeObservers(this.editors[id]);
+      SkyTextEditorService.removeObservers(this.editors[id]);
       delete this.editors[id];
     }
   }
@@ -141,7 +141,7 @@ export class SkyTextEditorManagementService {
       element.removeAttribute('size');
       element.style.fontSize = (fontSize + 'px');
     }
-    SkyTextEditorManagementService.cleanUpBlankStyleTags(doc);
+    SkyTextEditorService.cleanUpBlankStyleTags(doc);
 
     /* istanbul ignore next */
     if (!this.editorSelected(doc)) {
@@ -167,8 +167,8 @@ export class SkyTextEditorManagementService {
 
     if (this.editorSelected(documentEl)) {
       return {
-        backColor: SkyTextEditorManagementService.getColor(documentEl, 'BackColor'),
-        fontColor: SkyTextEditorManagementService.getColor(documentEl, 'ForeColor'),
+        backColor: SkyTextEditorService.getColor(documentEl, 'BackColor'),
+        fontColor: SkyTextEditorService.getColor(documentEl, 'ForeColor'),
         fontSize: parseInt(this.getFontSize(id), undefined),
         font: documentEl.queryCommandValue('fontname'),
         boldState: documentEl.queryCommandState('Bold'),
@@ -242,7 +242,7 @@ export class SkyTextEditorManagementService {
   public getSelectedAnchorTag(editorId: string): HTMLAnchorElement {
     const selectedEl = this.getCurrentSelectionParentElement(editorId);
 
-    return SkyTextEditorManagementService.getParent(selectedEl, 'a') as HTMLAnchorElement;
+    return SkyTextEditorService.getParent(selectedEl, 'a') as HTMLAnchorElement;
   }
 
   public getChildSelectedAnchorTags(editorId: string): Element[] {

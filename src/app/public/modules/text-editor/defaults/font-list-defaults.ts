@@ -1,7 +1,8 @@
-/**
- * @internal
- */
-export const availableFontList = [
+import {
+  SkyTextEditorFont
+} from '../types/font-state';
+
+export const FONT_LIST_DEFAULTS: SkyTextEditorFont[] = [
   {
     name: 'Blackbaud Sans',
     value: '"Blackbaud Sans", "Helvetica Neue", Arial, sans-serif'

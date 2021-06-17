@@ -1,16 +1,16 @@
 import {
-  SkyTextEditorToolbarSection
-} from '../types/toolbar-section';
+  SkyTextEditorToolbarActions
+} from '../types/toolbar-action';
 
 /**
  * @internal
  */
-export const TOOLBAR_SECTION_DEFAULTS: SkyTextEditorToolbarSection[] = [
-  SkyTextEditorToolbarSection.FontFamily,
-  SkyTextEditorToolbarSection.FontSize,
-  SkyTextEditorToolbarSection.FontStyle,
-  SkyTextEditorToolbarSection.Color,
-  SkyTextEditorToolbarSection.Alignment,
-  SkyTextEditorToolbarSection.List,
-  SkyTextEditorToolbarSection.Link
+export const TOOLBAR_SECTION_DEFAULTS: SkyTextEditorToolbarActions[] = [
+  SkyTextEditorToolbarActions.FontFamily,
+  SkyTextEditorToolbarActions.FontSize,
+  SkyTextEditorToolbarActions.FontStyle,
+  SkyTextEditorToolbarActions.Color,
+  SkyTextEditorToolbarActions.Alignment,
+  SkyTextEditorToolbarActions.List,
+  SkyTextEditorToolbarActions.Link
 ];

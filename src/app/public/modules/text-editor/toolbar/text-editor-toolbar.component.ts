@@ -31,12 +31,12 @@ import {
 } from '../types/style-state';
 
 import {
-  availableFontList
-} from '../types/available-font-list';
+  FONT_LIST_DEFAULTS
+} from '../defaults/font-list-defaults';
 
 import {
-  SkyTextEditorToolbarSection
-} from '../types/toolbar-section';
+  SkyTextEditorToolbarActions
+} from '../types/toolbar-action';
 
 import {
   TOOLBAR_SECTION_DEFAULTS
@@ -51,7 +51,7 @@ import {
 } from '../url-modal/text-editor-url-target';
 
 import {
-  SkyTextEditorManagementService
+  SkyTextEditorService
 } from '../services/text-editor-management.service';
 
 import {
@@ -59,8 +59,8 @@ import {
 } from '../defaults/style-state-defaults';
 
 import {
-  availableFontSizeList
-} from '../types/available-font-size-list';
+  FONT_SIZE_LIST_DEFAULTS
+} from '../defaults/font-size-list-defaults';
 
 import {
   SkyUrlModalContext
@@ -84,13 +84,13 @@ export class SkyTextEditorToolbarComponent implements OnInit {
   public editorId: string;
 
   @Input()
-  public fontList = availableFontList;
+  public fontList = FONT_LIST_DEFAULTS;
 
   @Input()
-  public fontSizeList = availableFontSizeList;
+  public fontSizeList = FONT_SIZE_LIST_DEFAULTS;
 
   @Input()
-  public toolbarSections: SkyTextEditorToolbarSection[] = TOOLBAR_SECTION_DEFAULTS;
+  public toolbarActions: SkyTextEditorToolbarActions[] = TOOLBAR_SECTION_DEFAULTS;
 
   @Input()
   public get styleState(): SkyTextEditorStyleState {
@@ -113,13 +113,13 @@ export class SkyTextEditorToolbarComponent implements OnInit {
 
   public styleStateFontName: string;
 
-  public toolbarSectionEnum = SkyTextEditorToolbarSection;
+  public toolbarSectionEnum = SkyTextEditorToolbarActions;
 
   private _styleState = STYLE_STATE_DEFAULTS;
 
   constructor(
     private changeDetector: ChangeDetectorRef,
-    private editorService: SkyTextEditorManagementService,
+    private editorService: SkyTextEditorService,
     private modalService: SkyModalService
   ) {}
 
@@ -210,9 +210,9 @@ export class SkyTextEditorToolbarComponent implements OnInit {
   }
 
   private getFontName(font: string): string {
-    for (let i = 0; i < availableFontList.length; i++) {
-      if (availableFontList[i].value === font) {
-          return availableFontList[i].name;
+    for (let i = 0; i < FONT_LIST_DEFAULTS.length; i++) {
+      if (FONT_LIST_DEFAULTS[i].value === font) {
+          return FONT_LIST_DEFAULTS[i].name;
       }
     }
   }

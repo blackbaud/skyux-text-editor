@@ -1,11 +1,8 @@
 import {
-  SkyTextEditorMenubarSection
-} from '../types/menubar-section';
+  SkyTextEditorMenubarAction
+} from '../types/menubar-action';
 
-/**
- * @internal
- */
-export const MENUBAR_SECTION_DEFAULTS: SkyTextEditorMenubarSection[] = [
-  SkyTextEditorMenubarSection.Edit,
-  SkyTextEditorMenubarSection.Format
+export const MENUBAR_ACTION_DEFAULTS: SkyTextEditorMenubarAction[] = [
+  SkyTextEditorMenubarAction.Edit,
+  SkyTextEditorMenubarAction.Format
 ];

@@ -38,20 +38,20 @@ import {
 } from './fixtures/text-editor.component.fixture';
 
 import {
-  SkyTextEditorManagementService
+  SkyTextEditorService
 } from './services/text-editor-management.service';
 
 import {
-  SkyTextEditorMenubarSection
-} from './types/menubar-section';
+  SkyTextEditorMenubarAction
+} from './types/menubar-action';
 
 import {
   SkyTextEditorStyleState
 } from './types/style-state';
 
 import {
-  SkyTextEditorToolbarSection
-} from './types/toolbar-section';
+  SkyTextEditorToolbarActions
+} from './types/toolbar-action';
 
 import {
   SkyTextEditorModule
@@ -198,7 +198,7 @@ describe('Rich text editor', () => {
       ],
       providers: [
         SkyThemeService,
-        SkyTextEditorManagementService,
+        SkyTextEditorService,
         SkyTextSelectionManagementService
       ]
     });
@@ -207,39 +207,39 @@ describe('Rich text editor', () => {
   });
 
   it('Shows correct toolbar content', () => {
-    fixture.componentInstance.menubarSections = [
-      SkyTextEditorMenubarSection.Edit,
-      SkyTextEditorMenubarSection.MergeField,
-      SkyTextEditorMenubarSection.Format
+    fixture.componentInstance.menubarActions = [
+      SkyTextEditorMenubarAction.Edit,
+      SkyTextEditorMenubarAction.MergeField,
+      SkyTextEditorMenubarAction.Format
     ];
-    fixture.componentInstance.toolbarSections = [
-      SkyTextEditorToolbarSection.Alignment,
-      SkyTextEditorToolbarSection.Color,
-      SkyTextEditorToolbarSection.FontFamily,
-      SkyTextEditorToolbarSection.FontSize,
-      SkyTextEditorToolbarSection.FontStyle,
-      SkyTextEditorToolbarSection.Indentation,
-      SkyTextEditorToolbarSection.Link,
-      SkyTextEditorToolbarSection.List,
-      SkyTextEditorToolbarSection.UndoRedo
+    fixture.componentInstance.toolbarActions = [
+      SkyTextEditorToolbarActions.Alignment,
+      SkyTextEditorToolbarActions.Color,
+      SkyTextEditorToolbarActions.FontFamily,
+      SkyTextEditorToolbarActions.FontSize,
+      SkyTextEditorToolbarActions.FontStyle,
+      SkyTextEditorToolbarActions.Indentation,
+      SkyTextEditorToolbarActions.Link,
+      SkyTextEditorToolbarActions.List,
+      SkyTextEditorToolbarActions.UndoRedo
     ];
 
     fixture.detectChanges();
     const sections = fixture.nativeElement.querySelectorAll('.toolbar-section');
     expect(sections.length).toBe(9);
     for (let i = 0; i < sections.length; i++) {
-      sections[i].classList.contains(SkyTextEditorToolbarSection[i]);
+      sections[i].classList.contains(SkyTextEditorToolbarActions[i]);
     }
 
     const menuSections = fixture.nativeElement.querySelectorAll('.menubar-section');
     expect(menuSections.length).toBe(3);
     for (let i = 0; i < menuSections.length; i++) {
-      menuSections[i].classList.contains(SkyTextEditorMenubarSection[i]);
+      menuSections[i].classList.contains(SkyTextEditorMenubarAction[i]);
     }
   });
 
   it('Should return blank documents for non-existant documents', () => {
-    const mngService = TestBed.inject(SkyTextEditorManagementService);
+    const mngService = TestBed.inject(SkyTextEditorService);
     expect(mngService.getEditorInnerHtml('fake-id')).toBe('');
   });
 
@@ -967,7 +967,7 @@ describe('Rich text editor', () => {
     const font: string = 'Times New Roman';
     const fontSize: number = 22;
 
-    fixture.componentInstance.styleState = {
+    fixture.componentInstance.initialStyleState = {
       backColor: backColor,
       fontColor: fontColor,
       font: font,
