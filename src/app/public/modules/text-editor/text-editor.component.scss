@@ -3,7 +3,7 @@
 
 .sky-text-editor {
 
-  .editor-wrapper {
+  .sky-text-editor-wrapper {
     display: flex;
     flex-wrap: wrap;
     background-color: white;
@@ -18,6 +18,10 @@
 
   .sky-text-editor-toolbar {
 
+    .sky-toolbar-section {
+      padding: 10px 10px 0 10px;
+    }
+
     .sky-toolbar-sectioned {
       // !important is needed to override specificity from modern stylsheet in theme.
       border-left: 1px solid $sky-border-color-neutral-medium !important;
@@ -25,7 +29,7 @@
     }
 
     .sky-toolbar-item {
-      margin-right: 15px;
+      margin: 0 20px 10px 0;
     }
 
     .sky-dropdown-button {
@@ -45,9 +49,23 @@
 
   .sky-text-editor {
     .sky-text-editor-toolbar {
-      .sky-toolbar-sectioned {
-        border-top: 1px solid $sky-border-color-neutral-medium !important;
+
+      .sky-toolbar {
+        padding: 10px 10px 0 10px;
       }
+
+      .sky-toolbar-section {
+        padding: 10px !important;
+      }
+
+      .sky-toolbar-sectioned {
+        border-top: 1px solid $sky-theme-modern-border-color-neutral-medium !important;
+      }
+
+      .sky-toolbar-item {
+        margin: 0 20px 0 0 !important;
+      }
+
     }
   }
 

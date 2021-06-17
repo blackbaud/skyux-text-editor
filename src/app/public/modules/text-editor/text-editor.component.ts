@@ -188,7 +188,7 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
   // tslint:disable: max-line-length
   /**
    * Specifies the actions available and their order in the bottom toolbar.
-   * @default [ SkyTextEditorToolbarActions.FontFamily, SkyTextEditorToolbarActions.FontSize, SkyTextEditorToolbarActions.FontStyle, SkyTextEditorToolbarActions.Color, SkyTextEditorToolbarActions.Alignment, SkyTextEditorToolbarActions.List, SkyTextEditorToolbarActions.Link ]
+   * @default [ SkyTextEditorToolbarActions.FontFamily, SkyTextEditorToolbarActions.FontSize, SkyTextEditorToolbarActions.FontStyle, SkyTextEditorToolbarActions.Color, SkyTextEditorToolbarActions.List, SkyTextEditorToolbarActions.Link ]
    */
   // tslint:enable: max-line-length
   @Input()
