@@ -35,12 +35,12 @@ const queryStringParamKey = '?Subject=';
 })
 export class SkyTextEditorUrlModalComponent {
 
-  public get activeTab(): number {
-    return this._activeTab;
-  }
   public set activeTab(value: number) {
     this._activeTab = value;
     this.valid = this.isValid();
+  }
+  public get activeTab(): number {
+    return this._activeTab;
   }
 
   public set emailAddress(value: string) {

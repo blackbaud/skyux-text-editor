@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Input,
@@ -27,20 +28,28 @@ import {
 } from '@skyux/popovers';
 
 import {
-  SkyTextEditorStyleState
-} from '../types/style-state';
-
-import {
   FONT_LIST_DEFAULTS
 } from '../defaults/font-list-defaults';
 
 import {
-  SkyTextEditorToolbarActions
-} from '../types/toolbar-action';
+  STYLE_STATE_DEFAULTS
+} from '../defaults/style-state-defaults';
 
 import {
-  TOOLBAR_SECTION_DEFAULTS
-} from '../defaults/toolbar-section-defaults';
+  SkyTextEditorService
+} from '../services/text-editor.service';
+
+import {
+  SkyTextEditorFont
+} from '../types/font-state';
+
+import {
+  SkyTextEditorStyleState
+} from '../types/style-state';
+
+import {
+  SkyTextEditorToolbarActions
+} from '../types/toolbar-action';
 
 import {
   SkyTextEditorUrlModalComponent
@@ -49,18 +58,6 @@ import {
 import {
   UrlTarget
 } from '../url-modal/text-editor-url-target';
-
-import {
-  SkyTextEditorService
-} from '../services/text-editor-management.service';
-
-import {
-  STYLE_STATE_DEFAULTS
-} from '../defaults/style-state-defaults';
-
-import {
-  FONT_SIZE_LIST_DEFAULTS
-} from '../defaults/font-size-list-defaults';
 
 import {
   SkyUrlModalContext
@@ -73,6 +70,7 @@ import {
   selector: 'sky-text-editor-toolbar',
   templateUrl: './text-editor-toolbar.component.html',
   styleUrls: ['./text-editor-toolbar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
 export class SkyTextEditorToolbarComponent implements OnInit {
@@ -84,13 +82,13 @@ export class SkyTextEditorToolbarComponent implements OnInit {
   public editorId: string;
 
   @Input()
-  public fontList = FONT_LIST_DEFAULTS;
+  public fontList: SkyTextEditorFont[];
 
   @Input()
-  public fontSizeList = FONT_SIZE_LIST_DEFAULTS;
+  public fontSizeList: number[];
 
   @Input()
-  public toolbarActions: SkyTextEditorToolbarActions[] = TOOLBAR_SECTION_DEFAULTS;
+  public toolbarActions: SkyTextEditorToolbarActions[];
 
   @Input()
   public get styleState(): SkyTextEditorStyleState {
@@ -113,7 +111,7 @@ export class SkyTextEditorToolbarComponent implements OnInit {
 
   public styleStateFontName: string;
 
-  public toolbarSectionEnum = SkyTextEditorToolbarActions;
+  public toolbarActionEnum = SkyTextEditorToolbarActions;
 
   private _styleState = STYLE_STATE_DEFAULTS;
 

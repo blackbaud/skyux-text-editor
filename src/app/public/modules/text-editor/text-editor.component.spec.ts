@@ -39,7 +39,7 @@ import {
 
 import {
   SkyTextEditorService
-} from './services/text-editor-management.service';
+} from './services/text-editor.service';
 
 import {
   SkyTextEditorMenubarAction
@@ -142,7 +142,7 @@ describe('Rich text editor', () => {
 
     openDropdown(dropdownElementClassName);
 
-    const optionButtons = document.querySelectorAll('.menu-dropdown-item');
+    const optionButtons = document.querySelectorAll('.sky-dropdown-item button');
     SkyAppTestUtility.fireDomEvent(optionButtons[optionIndex], 'click');
     fixture.detectChanges();
     tick();
@@ -225,16 +225,16 @@ describe('Rich text editor', () => {
     ];
 
     fixture.detectChanges();
-    const sections = fixture.nativeElement.querySelectorAll('.toolbar-section');
-    expect(sections.length).toBe(9);
-    for (let i = 0; i < sections.length; i++) {
-      sections[i].classList.contains(SkyTextEditorToolbarActions[i]);
+    const toolbarActions = fixture.nativeElement.querySelectorAll('.sky-text-editor-toolbar-action');
+    expect(toolbarActions.length).toBe(9);
+    for (let i = 0; i < toolbarActions.length; i++) {
+      toolbarActions[i].classList.contains(SkyTextEditorToolbarActions[i]);
     }
 
-    const menuSections = fixture.nativeElement.querySelectorAll('.menubar-section');
-    expect(menuSections.length).toBe(3);
-    for (let i = 0; i < menuSections.length; i++) {
-      menuSections[i].classList.contains(SkyTextEditorMenubarAction[i]);
+    const menubarActions = fixture.nativeElement.querySelectorAll('.sky-text-editor-menubar-action');
+    expect(menubarActions.length).toBe(3);
+    for (let i = 0; i < menubarActions.length; i++) {
+      menubarActions[i].classList.contains(SkyTextEditorMenubarAction[i]);
     }
   });
 
@@ -1083,7 +1083,7 @@ describe('Rich text editor', () => {
       selectContent('p');
       collapseSelection();
 
-      const optionButtons = document.querySelectorAll('.menu-dropdown-item');
+      const optionButtons = document.querySelectorAll('.sky-dropdown-item button');
       SkyAppTestUtility.fireDomEvent(optionButtons[optionIndex], 'click');
       fixture.detectChanges();
       tick();

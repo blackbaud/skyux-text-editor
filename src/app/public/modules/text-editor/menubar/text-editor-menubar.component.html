@@ -1,12 +1,12 @@
 
-  <sky-toolbar-item *ngFor="let menubarSection of menubarActions"
-    class="menubar-section"
-    [ngClass]="menubarSectionEnum[menubarSection]"
+  <sky-toolbar-item *ngFor="let action of menubarActions"
+    class="sky-text-editor-menubar-action"
+    [ngClass]="menubarActionEnum[action]"
   >
     <ng-container
-      [ngSwitch]="menubarSection"
+      [ngSwitch]="action"
     >
-      <ng-container *ngSwitchCase="menubarSectionEnum.Edit">
+      <ng-container *ngSwitchCase="menubarActionEnum.Edit">
         <sky-dropdown
           [messageStream]="editDropdownStream"
         >
@@ -18,22 +18,21 @@
           <sky-dropdown-menu>
             <sky-dropdown-item *ngFor="let editItem of editItems">
               <button *ngIf="!editItem.isDivider"
-                class="menu-dropdown-item"
                 type="button"
                 (click)="editItem.function()"
               >
-                <sky-icon *ngIf="editItem.icon"
-                  [icon]="editItem.icon"
+                {{ editItem.label }}
+                <div *ngIf="editItem.keyShortcut"
+                  [skyThemeClass]="{
+                    'sky-font-deemphasized' : 'modern',
+                    'sky-deemphasized' : 'default'
+                  }"
                 >
-                </sky-icon> {{ editItem.label }}
-                <div *ngIf="editItem.greyText"
-                  class="grey-text"
-                >
-                  {{ editItem.greyText}}
+                  {{ editItem.keyShortcut }}
                 </div>
               </button>
               <div *ngIf="editItem.isDivider"
-                class="menu-dropdown-item-divider"
+                class="sky-text-editor-dropdown-item-divider"
                 role="divider"
               >
               </div>
@@ -41,7 +40,7 @@
           </sky-dropdown-menu>
         </sky-dropdown>
       </ng-container>
-      <ng-container *ngSwitchCase="menubarSectionEnum.Format">
+      <ng-container *ngSwitchCase="menubarActionEnum.Format">
         <sky-dropdown
           [messageStream]="formatDropdownStream"
         >
@@ -51,22 +50,21 @@
           <sky-dropdown-menu>
             <sky-dropdown-item *ngFor="let formatItem of formatItems">
               <button *ngIf="!formatItem.isDivider"
-                class="menu-dropdown-item"
                 type="button"
                 (click)="formatItem.function()"
               >
-                <sky-icon *ngIf="formatItem.icon"
-                  [icon]="formatItem.icon"
+                {{ formatItem.label }}
+                <div *ngIf="formatItem.keyShortcut"
+                  [skyThemeClass]="{
+                    'sky-font-deemphasized' : 'modern',
+                    'sky-deemphasized' : 'default'
+                  }"
                 >
-                </sky-icon> {{ formatItem.label }}
-                <div *ngIf="formatItem.greyText"
-                  class="grey-text"
-                >
-                  {{ formatItem.greyText}}
+                  {{ formatItem.keyShortcut}}
                 </div>
               </button>
               <div *ngIf="formatItem.isDivider"
-                class="menu-dropdown-item-divider"
+                class="sky-text-editor-dropdown-item-divider"
                 role="divider"
               >
               </div>
@@ -74,7 +72,7 @@
           </sky-dropdown-menu>
         </sky-dropdown>
       </ng-container>
-      <ng-container *ngSwitchCase="menubarSectionEnum.MergeField">
+      <ng-container *ngSwitchCase="menubarActionEnum.MergeField">
         <sky-dropdown *ngIf="mergeFields && mergeFields.length > 0"
           aria-label="Insert merge field"
           [messageStream]="mergeFieldDropdownStream"

@@ -2,7 +2,9 @@ import {
   Component,
   Input,
   ViewEncapsulation,
-  OnInit
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import {
@@ -10,16 +12,16 @@ import {
 } from 'rxjs';
 
 import {
+  takeUntil
+} from 'rxjs/operators';
+
+import {
   SkyTextEditorMenubarAction
 } from '../types/menubar-action';
 
 import {
-  MENUBAR_ACTION_DEFAULTS
-} from '../defaults/menubar-section-defaults';
-
-import {
   SkyTextEditorService
-} from '../services/text-editor-management.service';
+} from '../services/text-editor.service';
 
 import {
   SkyTextEditorMergeField
@@ -41,9 +43,10 @@ import {
   selector: 'sky-text-editor-menubar',
   templateUrl: './text-editor-menubar.component.html',
   styleUrls: ['./text-editor-menubar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class SkyTextEditorMenubarComponent implements OnInit {
+export class SkyTextEditorMenubarComponent implements OnDestroy, OnInit {
 
   @Input()
   public editorFocusStream = new Subject();
@@ -52,7 +55,7 @@ export class SkyTextEditorMenubarComponent implements OnInit {
   public editorId: string;
 
   @Input()
-  public menubarActions: SkyTextEditorMenubarAction[] = MENUBAR_ACTION_DEFAULTS;
+  public menubarActions: SkyTextEditorMenubarAction[] = [];
 
   @Input()
   public mergeFields: SkyTextEditorMergeField[] = [];
@@ -62,36 +65,31 @@ export class SkyTextEditorMenubarComponent implements OnInit {
   public editItems = [
     {
       function: () => this.execCommand('undo'),
-      icon: 'undo',
       label: 'Undo',
-      greyText: 'Ctrl+Z'
+      keyShortcut: 'Ctrl+Z'
     },
     {
       function: () => this.execCommand('redo'),
-      icon: 'repeat',
       label: 'Redo',
-      greyText: 'Ctrl+Y'
+      keyShortcut: 'Ctrl+Y'
     },
     {
       isDivider: true
     },
     {
       function: () => this.execCommand('cut'),
-      icon: 'cut',
       label: 'Cut',
-      greyText: 'Ctrl+X'
+      keyShortcut: 'Ctrl+X'
     },
     {
       function: () => this.execCommand('copy'),
-      icon: 'copy',
       label: 'Copy',
-      greyText: 'Ctrl+C'
+      keyShortcut: 'Ctrl+C'
     },
     {
       function: () => this.execCommand('paste'),
-      icon: 'paste',
       label: 'Paste',
-      greyText: 'Ctrl+V'
+      keyShortcut: 'Ctrl+V'
     },
     {
       isDivider: true
@@ -99,7 +97,7 @@ export class SkyTextEditorMenubarComponent implements OnInit {
     {
       function: () => this.execCommand('selectAll'),
       label: 'Select all',
-      greyText: 'Ctrl+A'
+      keyShortcut: 'Ctrl+A'
     }
   ];
 
@@ -108,25 +106,21 @@ export class SkyTextEditorMenubarComponent implements OnInit {
   public formatItems = [
     {
       function: () => this.execCommand('bold'),
-      icon: 'bold',
       label: 'Bold',
-      greyText: 'Ctrl+B'
+      keyShortcut: 'Ctrl+B'
     },
     {
       function: () => this.execCommand('italic'),
-      icon: 'italic',
       label: 'Italic',
-      greyText: 'Ctrl+I'
+      keyShortcut: 'Ctrl+I'
     },
     {
       function: () => this.execCommand('underline'),
-      icon: 'underline',
       label: 'Underline',
-      greyText: 'Ctrl+U'
+      keyShortcut: 'Ctrl+U'
     },
     {
       function: () => this.execCommand('strikethrough'),
-      icon: 'strikethrough',
       label: 'Strikethrough'
     },
     {
@@ -134,14 +128,15 @@ export class SkyTextEditorMenubarComponent implements OnInit {
     },
     {
       function: () => this.clearFormat(),
-      icon: 'remove-format',
       label: 'Clear formatting'
     }
   ];
 
-  public menubarSectionEnum = SkyTextEditorMenubarAction;
+  public menubarActionEnum = SkyTextEditorMenubarAction;
 
   public mergeFieldDropdownStream = new Subject<SkyDropdownMessage>();
+
+  private ngUnsubscribe = new Subject<void>();
 
   constructor(
     private editorService: SkyTextEditorService,
@@ -149,9 +144,17 @@ export class SkyTextEditorMenubarComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.editorFocusStream.subscribe(() => {
-      this.closeDropdowns();
-    });
+    this.editorFocusStream
+      .pipe(
+        takeUntil(this.ngUnsubscribe)
+      ).subscribe(() => {
+        this.closeDropdowns();
+      });
+  }
+
+  public ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   public execCommand(command: string, value: any = ''): void {

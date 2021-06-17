@@ -38,7 +38,7 @@ import {
 
 import {
   SkyTextEditorService
-} from './services/text-editor-management.service';
+} from './services/text-editor.service';
 
 import {
   SkyTextMergeFieldService
@@ -114,14 +114,18 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
   @Input()
   public autofocus: boolean = false;
 
+  // tslint:disable: max-line-length
   /**
    * Specifies the fonts that appear in the toolbar font picker.
+   * @default [{name: 'Blackbaud Sans', value: '"Blackbaud Sans", "Helvetica Neue", Arial, sans-serif'}, {name: 'Arial', value: 'Arial'}, {name: 'Arial Black', value: '"Arial Black"'}, {name: 'Courier New', value: '"Courier New"'}, {name: 'Georgia', value: 'Georgia, serif'}, {name: 'Helvetica', value: 'Helvetica, Arial, sans-serif'}, {name: 'Tahoma', value: 'Tahoma, Geneva, sans-serif'}, {name: 'Times New Roman', value: '"Times New Roman"'}, {name: 'Trebuchet', value: '"Trebuchet MS", Helvetica, sans-serif'}, {name: 'Verdana', value: 'Verdana, Geneva, sans-serif'}]
    */
+  // tslint:enable: max-line-length
   @Input()
   public fontList: SkyTextEditorFont[] = FONT_LIST_DEFAULTS;
 
   /**
    * Specifies the font sizes that appear in the toolbar font size picker.
+   * @default [6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 20, 22, 24, 26, 28, 36, 48]
    */
   @Input()
   public fontSizeList: number[] = FONT_SIZE_LIST_DEFAULTS;
@@ -135,6 +139,7 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
 
   /**
    * Specifies the actions that appear in the menubar.
+   * @default [ SkyTextEditorMenubarAction.Edit, SkyTextEditorMenubarAction.Format ]
    */
   @Input()
   public menubarActions: SkyTextEditorMenubarAction[] = MENUBAR_ACTION_DEFAULTS;
@@ -180,9 +185,12 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
     return this._initialStyleState;
   }
 
+  // tslint:disable: max-line-length
   /**
    * Specifies the actions available and their order in the bottom toolbar.
+   * @default [ SkyTextEditorToolbarActions.FontFamily, SkyTextEditorToolbarActions.FontSize, SkyTextEditorToolbarActions.FontStyle, SkyTextEditorToolbarActions.Color, SkyTextEditorToolbarActions.Alignment, SkyTextEditorToolbarActions.List, SkyTextEditorToolbarActions.Link ]
    */
+  // tslint:enable: max-line-length
   @Input()
   public toolbarActions: SkyTextEditorToolbarActions[] = TOOLBAR_SECTION_DEFAULTS;
 

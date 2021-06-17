@@ -1,14 +1,14 @@
 
   <sky-toolbar-item *ngFor="let toolbarSection of toolbarActions"
-    class="toolbar-section"
-    [ngClass]="toolbarSectionEnum[toolbarSection]"
+    class="sky-text-editor-toolbar-action"
+    [ngClass]="toolbarActionEnum[toolbarSection]"
   >
     <ng-container
       [ngSwitch]="toolbarSection"
     >
-      <ng-container *ngSwitchCase="toolbarSectionEnum.FontFamily">
+      <ng-container *ngSwitchCase="toolbarActionEnum.FontFamily">
         <sky-dropdown
-          class="font-picker"
+          class="sky-text-editor-font-picker"
           label="Font family"
           [messageStream]="fontPickerStream"
         >
@@ -36,7 +36,7 @@
           </sky-dropdown-menu>
         </sky-dropdown>
       </ng-container>
-      <ng-container *ngSwitchCase="toolbarSectionEnum.FontSize">
+      <ng-container *ngSwitchCase="toolbarActionEnum.FontSize">
         <sky-dropdown
           class="font-size"
           label="Font size"
@@ -63,7 +63,7 @@
           </sky-dropdown-menu>
         </sky-dropdown>
       </ng-container>
-      <ng-container *ngSwitchCase="toolbarSectionEnum.FontStyle">
+      <ng-container *ngSwitchCase="toolbarActionEnum.FontStyle">
         <div
           class="sky-switch-icon-group"
         >
@@ -95,18 +95,11 @@
           </sky-checkbox>
         </div>
       </ng-container>
-      <ng-container *ngSwitchCase="toolbarSectionEnum.Color">
-        <div class="colorpicker-group">
-          <div class="colorpicker-container">
-            <sky-icon *skyThemeIf="'modern'"
-              class="colorpicker-overlay"
-              icon="highlighter-line"
-              iconType="skyux"
-            >
-            </sky-icon>
+      <ng-container *ngSwitchCase="toolbarActionEnum.Color">
+        <div class="sky-text-editor-colorpicker-group">
+          <div class="sky-text-editor-colorpicker-container">
             <sky-colorpicker
-              aria-label="Font color"
-              title="Font color"
+              label="Font color"
               [messageStream]="colorpickerStream"
               [showResetButton]="false"
               (selectedColorChanged)="onColorpickerColorChanged($event)"
@@ -122,15 +115,9 @@
               />
             </sky-colorpicker>
           </div>
-          <div class="colorpicker-container">
-            <sky-icon *skyThemeIf="'modern'"
-              class="colorpicker-overlay"
-              icon="text-color-line"
-              iconType="skyux"
-            >
-            </sky-icon>
+          <div class="sky-text-editor-colorpicker-container">
             <sky-colorpicker
-              aria-label="Background color"
+              label="Background color"
               [messageStream]="backColorpickerStream"
               [showResetButton]="false"
               (selectedColorChanged)="onColorpickerColorChanged($event, true)"
@@ -148,7 +135,7 @@
           </div>
         </div>
       </ng-container>
-      <ng-container *ngSwitchCase="toolbarSectionEnum.List">
+      <ng-container *ngSwitchCase="toolbarActionEnum.List">
         <div
           class="sky-switch-icon-group"
         >
@@ -186,7 +173,7 @@
           </button>
         </div>
       </ng-container>
-      <ng-container *ngSwitchCase="toolbarSectionEnum.Alignment">
+      <ng-container *ngSwitchCase="toolbarActionEnum.Alignment">
         <div
           class="sky-switch-icon-group"
         >
@@ -240,7 +227,7 @@
           </button>
         </div>
       </ng-container>
-      <ng-container *ngSwitchCase="toolbarSectionEnum.Indentation">
+      <ng-container *ngSwitchCase="toolbarActionEnum.Indentation">
         <div
           class="sky-switch-icon-group"
         >
@@ -268,7 +255,7 @@
           </button>
         </div>
       </ng-container>
-      <ng-container *ngSwitchCase="toolbarSectionEnum.UndoRedo">
+      <ng-container *ngSwitchCase="toolbarActionEnum.UndoRedo">
         <div
           class="sky-switch-icon-group"
         >
@@ -296,7 +283,7 @@
           </button>
         </div>
       </ng-container>
-      <ng-container *ngSwitchCase="toolbarSectionEnum.Link">
+      <ng-container *ngSwitchCase="toolbarActionEnum.Link">
         <div
           class="sky-switch-icon-group"
         >

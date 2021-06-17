@@ -1,10 +1,4 @@
-.menu-dropdown-item {
-  position: static;
-  padding: 6px 15px 6px 12px;
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-}
-
-.menu-dropdown-item-divider {
+.sky-text-editor-dropdown-item-divider {
   border: 0;
   padding: 0;
   height: 1px;
@@ -16,14 +10,8 @@
   filter: none;
 }
 
-.menubar-section {
-  flex: 0 0 auto;
-  margin: 2px 0 2px 2px;
-  padding: 0;
-}
-
-.grey-text {
-  color: #adadad;
+.sky-font-deemphasized,
+.sky-deemphasized {
   float: right;
   margin-left: 15px;
 }
@@ -31,8 +19,8 @@
 .sky-theme-modern {
 
   .sky-text-editor {
-    .sky-text-editor-toolbar {
-      .sky-toolbar-section {
+    .sky-text-editor-menubar {
+      .sky-text-editor-menubar-action {
         padding-left: 0;
         padding-right: 0;
       }

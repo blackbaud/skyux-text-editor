@@ -1,46 +1,28 @@
 @import "~@skyux/theme/scss/variables";
 @import "~@skyux/theme/scss/mixins";
 
-@function set-color($color) {
-  @if (lightness($color) > 40) {
-    @return #000;
-  }
-  @else {
-    @return #FFF;
-  }
-}
-
-.toolbar-section {
+.sky-text-editor-toolbar-action {
 
   .sky-toolbar-item {
     margin-right: 15px;
   }
 
-  .font-picker .sky-dropdown-button-content-container {
+  .sky-text-editor-font-picker .sky-dropdown-button-content-container {
     width: 140px;
     height: 20px;
     text-align: left;
   }
 
-  .colorpicker-group {
+  .sky-text-editor-colorpicker-group {
     display: flex;
 
-    .colorpicker-container {
+    .sky-text-editor-colorpicker-container {
       position: relative;
       top: 3px;
       margin: 0 5px 0 0;
 
       &:last-child {
         margin-right: 0;
-      }
-
-      .colorpicker-overlay {
-        position: absolute;
-        left: 13px;
-        top: 8px;
-        color: #ffffff;
-        z-index: 999;
-        pointer-events: none;
       }
     }
 
@@ -72,15 +54,15 @@
 
   .sky-text-editor {
     .sky-text-editor-toolbar {
-      .sky-toolbar-section {
+      .sky-text-editor-toolbar-action {
         padding-left: 0;
         padding-right: 0;
       }
     }
   }
 
-  .colorpicker-group {
-    .colorpicker-container {
+  .sky-text-editor-colorpicker-group {
+    .sky-text-editor-colorpicker-container {
       top: -2px;
 
       sky-colorpicker {
