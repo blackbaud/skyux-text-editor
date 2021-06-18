@@ -27,10 +27,6 @@ import {
 } from '@skyux/popovers';
 
 import {
-  FONT_LIST_DEFAULTS
-} from '../defaults/font-list-defaults';
-
-import {
   STYLE_STATE_DEFAULTS
 } from '../defaults/style-state-defaults';
 
@@ -205,10 +201,10 @@ export class SkyTextEditorToolbarComponent implements OnInit {
     this.fontSizeStream.next({ type: SkyDropdownMessageType.Close });
   }
 
-  private getFontName(font: string): string {
-    for (let i = 0; i < FONT_LIST_DEFAULTS.length; i++) {
-      if (FONT_LIST_DEFAULTS[i].value === font) {
-          return FONT_LIST_DEFAULTS[i].name;
+  private getFontName(fontName: string): string {
+    for (let i = 0; i < this.fontList.length; i++) {
+      if (fontName.indexOf(this.fontList[i].name) > -1) {
+          return this.fontList[i].name;
       }
     }
   }

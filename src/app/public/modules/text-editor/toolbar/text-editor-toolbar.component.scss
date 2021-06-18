@@ -7,7 +7,7 @@
     margin-right: 15px;
   }
 
-  .sky-text-editor-font-picker .sky-dropdown-button-content-container {
+  .sky-text-editor-font-picker ::ng-deep .sky-dropdown-button-content-container {
     width: 140px;
     height: 20px;
     text-align: left;
