@@ -1,12 +1,12 @@
 export enum SkyTextEditorMenubarAction {
 
   /**
-   * Displays an edit dropdown menu with actions like undo, redo, cut, copy, and paste.
+   * Displays an edit dropdown menu with actions such as undo, redo, cut, copy, and paste.
    */
   Edit = 0,
 
   /**
-   * Displays a format dropdown menu with formatting options like bold, italic, and underline.
+   * Displays a format dropdown menu with formatting options such as bold, italic, and underline.
    */
   Format,
 

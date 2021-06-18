@@ -1,47 +1,47 @@
 export enum SkyTextEditorToolbarActions {
 
   /**
-   * Includes an option to set the current font family.
+   * Displays a font picker in the toolbar.
    */
   FontFamily = 0,
 
   /**
-   * Includes an option to set the current font size.
+   * Displays a font size picker in the toolbar.
    */
   FontSize,
 
   /**
-   * Includes options to Bolden, Italicize, and Underline.
+   * Displays toolbar actions to bold, italicize, and underline text.
    */
   FontStyle,
 
   /**
-   * Includes options to set font color and background color.
+   * Displays color pickers in the toolbar to select font and background colors.
    */
   Color,
 
   /**
-   * Includes options to create bulletted and numbered lists.
+   * Displays toolbar actions to create bulleted and numbered lists.
    */
   List,
 
   /**
-   * Includes options to set a line of text as centered, left-aligned, or right-aligned.
+   * Displays toolbar actions to center, left-align, or right-align text.
    */
   Alignment,
 
   /**
-   * Includes options to indent or de-indent a line of text.
+   * Displays toolbar actions to indent or un-indent text.
    */
   Indentation,
 
   /**
-   * Includes options to Undo and Redo recent changes.
+   * Displays toolbar actions to undo or redo recent changes.
    */
   UndoRedo,
 
   /**
-   * Includes an option to create links.
+   * Displays a toolbar action to create hyperlinks.
    */
   Link
 

@@ -1,12 +1,12 @@
 export interface SkyTextEditorStyleState {
 
   /**
-   * Specifies the background color. Accepts any css color value.
+   * Specifies the background color. Accepts any CSS color value.
    */
   backColor: string;
 
   /**
-   * Specifies the font color. Accepts any css color value.
+   * Specifies the font color. Accepts any CSS color value.
    */
   fontColor: string;
 
@@ -17,27 +17,27 @@ export interface SkyTextEditorStyleState {
 
   /**
    * Specifies the font family. Available values: "Blackbaud Sans", "Helvetica Neue",
-   * Arial, sans-serif, Arial, Arial Black, Courier New, Times New Roman.
+   * Arial, sans-serif, Arial, Arial Black, Courier New, and Times New Roman.
    */
   font: string;
 
   /**
-   * Specifies if bold text is selected.
+   * Indicates whether to make text bold.
    */
   boldState: boolean;
 
   /**
-   * Specifies if italicized text is selected.
+   * Indicates whether to italicize text.
    */
   italicState: boolean;
 
   /**
-   * Specifies if underlined text is selected.
+   * Indicates whether to underline text.
    */
   underlineState: boolean;
 
   /**
-   * Specifies if link text is selected.
+   * Indicates whether to format text as a link.
    */
   linkState: boolean;
 }

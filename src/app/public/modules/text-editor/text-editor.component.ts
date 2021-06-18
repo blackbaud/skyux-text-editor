@@ -108,14 +108,14 @@ let nextUniqueId = 0;
 export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccessor, OnDestroy {
 
   /**
-   * Sets focus on the editor once it is rendered.
+   * Indicates whether to put focus on the editor after it renders.
    */
   @Input()
   public autofocus: boolean = false;
 
   // tslint:disable: max-line-length
   /**
-   * Specifies the fonts that appear in the toolbar font picker.
+   * Specifies the fonts to include in the font picker.
    * @default [{name: 'Blackbaud Sans', value: '"Blackbaud Sans", "Helvetica Neue", Arial, sans-serif'}, {name: 'Arial', value: 'Arial'}, {name: 'Arial Black', value: '"Arial Black"'}, {name: 'Courier New', value: '"Courier New"'}, {name: 'Georgia', value: 'Georgia, serif'}, {name: 'Helvetica', value: 'Helvetica, Arial, sans-serif'}, {name: 'Tahoma', value: 'Tahoma, Geneva, sans-serif'}, {name: 'Times New Roman', value: '"Times New Roman"'}, {name: 'Trebuchet', value: '"Trebuchet MS", Helvetica, sans-serif'}, {name: 'Verdana', value: 'Verdana, Geneva, sans-serif'}]
    */
   // tslint:enable: max-line-length
@@ -123,15 +123,15 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
   public fontList: SkyTextEditorFont[] = FONT_LIST_DEFAULTS;
 
   /**
-   * Specifies the font sizes that appear in the toolbar font size picker.
+   * Specifies the font sizes to include in the font size picker.
    * @default [6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 20, 22, 24, 26, 28, 36, 48]
    */
   @Input()
   public fontSizeList: number[] = FONT_SIZE_LIST_DEFAULTS;
 
   /**
-   * Specifies a unique id attribute for the rich text editor.
-   * If not provided, a random ID will be generated.
+   * Specifies a unique ID attribute for the text editor.
+   * By default, the component generates a random ID.
    */
   @Input()
   public id = `sky-text-editor-${++nextUniqueId}`;
@@ -144,13 +144,13 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
   public menubarActions: SkyTextEditorMenubarAction[] = MENUBAR_ACTION_DEFAULTS;
 
   /**
-   * Specifies the merge fields that appear in the menubar merge field picker.
+   * Specifies the merge fields to include in the merge field menu.
    */
   @Input()
   public mergeFields: SkyTextEditorMergeField[] = [];
 
   /**
-   * Specifies the placeholder text when the text area is empty.
+   * Specifies placeholder text to display when the text entry area is empty.
    */
   @Input()
   public set placeholder(value: string) {
@@ -186,7 +186,7 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
 
   // tslint:disable: max-line-length
   /**
-   * Specifies the actions available and their order in the bottom toolbar.
+   * Specifies the actions to include in the toolbar and determines their order.
    * @default [ SkyTextEditorToolbarActions.FontFamily, SkyTextEditorToolbarActions.FontSize, SkyTextEditorToolbarActions.FontStyle, SkyTextEditorToolbarActions.Color, SkyTextEditorToolbarActions.List, SkyTextEditorToolbarActions.Link ]
    */
   // tslint:enable: max-line-length
