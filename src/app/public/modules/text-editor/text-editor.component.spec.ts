@@ -1063,7 +1063,12 @@ describe('Text editor', () => {
     ]).toContain(
       style.getPropertyValue('color')
     );
-    expect(style.getPropertyValue('font-family')).toEqual(`"${font}"`);
+    expect([
+      `"${font}"`, // Normal
+      `${font}` // IE11
+    ]).toContain(
+      style.getPropertyValue('font-family')
+    );
     expect(style.getPropertyValue('font-size')).toEqual(`${fontSize}px`);
   }));
 
