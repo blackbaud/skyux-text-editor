@@ -324,6 +324,7 @@ describe('Text editor', () => {
   });
 
   afterEach(() => {
+    fixture.detectChanges();
     const modalService = TestBed.inject(SkyModalService);
     modalService.dispose();
   });
