@@ -1057,7 +1057,6 @@ describe('Text editor', () => {
 
     let style: CSSStyleDeclaration = fixture.nativeElement.querySelector('iframe').contentDocument.querySelector('body').style;
     expect(style.getPropertyValue('background-color')).toEqual('rgb(51, 51, 51)');
-    expect(style.getPropertyValue('color')).toEqual('rgb(238, 238, 238)');
     expect([
       'rgb(238, 238, 238)', // Normal
       '#eeeeee' // IE11
@@ -1165,12 +1164,9 @@ describe('Text editor', () => {
         commandsCalled.push(command);
       };
 
-      openDropdown('.sky-text-editor-menubar-action-Format');
       selectContent('p');
       collapseSelection();
-      fixture.detectChanges();
-      tick();
-      fixture.detectChanges();
+      openDropdown('.sky-text-editor-menubar-action-Format');
 
       const optionButtons = document.querySelectorAll('.sky-dropdown-item button');
       SkyAppTestUtility.fireDomEvent(optionButtons[optionIndex], 'click');
