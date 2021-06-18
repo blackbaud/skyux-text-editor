@@ -130,7 +130,7 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
   public id = `sky-text-editor-${++nextUniqueId}`;
 
   /**
-   * Specifies the actions that appear in the menubar.
+   * Specifies the menus to include in the menu bar.
    * @default [ SkyTextEditorMenu.Edit, SkyTextEditorMenu.Format ]
    */
   @Input()
