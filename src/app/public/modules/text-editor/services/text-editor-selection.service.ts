@@ -5,8 +5,10 @@ import {
 /**
  * @internal
  */
-@Injectable()
-export class SkyTextSelectionManagementService {
+@Injectable({
+  providedIn: 'root'
+})
+export class SkyTextEditorSelectionService {
 
   public getCurrentSelection(documentEl: Document): Selection {
     return documentEl.getSelection();

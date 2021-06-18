@@ -48,10 +48,6 @@ import {
 } from './services/text-sanitization.service';
 
 import {
-  SkyTextSelectionManagementService
-} from './services/text-selection-management.service';
-
-import {
   FONT_LIST_DEFAULTS
 } from './defaults/font-list-defaults';
 
@@ -92,9 +88,6 @@ let nextUniqueId = 0;
   templateUrl: './text-editor.component.html',
   styleUrls: ['./text-editor.component.scss'],
   providers: [
-    SkyTextEditorAdapterService,
-    SkyTextEditorService,
-    SkyTextSelectionManagementService,
     {
       provide: NG_VALUE_ACCESSOR,
       // tslint:disable-next-line: no-forward-ref
@@ -157,7 +150,7 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
     if (value !== this._placeholder) {
       this._placeholder = value;
       if (this.initialized) {
-        this.editorService.setPlaceholder(this.id, value);
+        this.adapterService.setPlaceholder(this.id, value);
       }
     }
   }
@@ -207,7 +200,7 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
       // Autofocus isn't testable in Firefox and IE.
       /* istanbul ignore next */
       if (this.autofocus && !this.focusInitialized) {
-        this.editorService.focusEditor(this.id);
+        this.adapterService.focusEditor(this.id);
         this.focusInitialized = true;
       }
       this.onChange();
@@ -237,13 +230,13 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
 
   constructor (
     private changeDetector: ChangeDetectorRef,
+    private adapterService: SkyTextEditorAdapterService,
     private editorService: SkyTextEditorService,
     private sanitizationService: SkyTextSanitizationService
   ) {}
 
   public ngAfterViewInit(): void {
-
-    this.editorService.addEditor(
+    this.adapterService.addEditor(
       this.id,
       this.iframeRef.nativeElement,
       this.initialStyleState,
@@ -275,11 +268,11 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
         this.updateValueAndStyle();
       });
 
-    this.editorService.setEditorInnerHtml(this.id, this._value);
+    this.adapterService.setEditorInnerHtml(this.id, this._value);
 
     /* istanbul ignore next */
     if (this.autofocus) {
-      this.editorService.focusEditor(this.id);
+      this.adapterService.focusEditor(this.id);
     }
 
     this.initialized = true;
@@ -295,9 +288,9 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
     this.value = obj;
 
     // Update HTML if necessary.
-    const editorValue = this.editorService.getEditorInnerHtml(this.id);
+    const editorValue = this.adapterService.getEditorInnerHtml(this.id);
     if (this.initialized && editorValue !== this._value) {
-      this.editorService.setEditorInnerHtml(this.id, this._value);
+      this.adapterService.setEditorInnerHtml(this.id, this._value);
     }
   }
 
@@ -314,10 +307,10 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
   }
 
   public updateValueAndStyle(): void {
-    this.value = this.editorService.getEditorInnerHtml(this.id);
+    this.value = this.adapterService.getEditorInnerHtml(this.id);
     this._initialStyleState = {
       ...this._initialStyleState,
-      ...this.editorService.getStyleState(this.id) as any
+      ...this.adapterService.getStyleState(this.id) as any
     };
 
     // Without setTimeout, correct styles aren't indicated on user's initial click.

@@ -35,8 +35,8 @@ import {
 } from '../defaults/style-state-defaults';
 
 import {
-  SkyTextEditorService
-} from '../services/text-editor.service';
+  SkyTextEditorAdapterService
+} from '../services/text-editor-adapter.service';
 
 import {
   SkyTextEditorFont
@@ -114,8 +114,8 @@ export class SkyTextEditorToolbarComponent implements OnInit {
   private _styleState = STYLE_STATE_DEFAULTS;
 
   constructor(
+    private adapterService: SkyTextEditorAdapterService,
     private changeDetector: ChangeDetectorRef,
-    private editorService: SkyTextEditorService,
     private modalService: SkyModalService
   ) {}
 
@@ -123,7 +123,7 @@ export class SkyTextEditorToolbarComponent implements OnInit {
     this.editorFocusStream.subscribe(() => {
       this.styleState = {
         ...this._styleState,
-        ...this.editorService.getStyleState(this.editorId) as any
+        ...this.adapterService.getStyleState(this.editorId) as any
       };
       this.closeDropdowns();
       this.changeDetector.detectChanges();
@@ -131,13 +131,13 @@ export class SkyTextEditorToolbarComponent implements OnInit {
   }
 
   public execCommand(command: string, value: any = ''): void {
-    this.editorService.execCommand(this.editorId, {
+    this.adapterService.execCommand(this.editorId, {
       command: command,
       value: value
     });
     this.styleState = {
       ...this.styleState,
-      ...this.editorService.getStyleState(this.editorId)
+      ...this.adapterService.getStyleState(this.editorId)
     };
   }
 
@@ -148,8 +148,8 @@ export class SkyTextEditorToolbarComponent implements OnInit {
   }
 
   public link(): void {
-    const priorSelection = this.editorService.saveSelection(this.editorId);
-    const currentLink = this.editorService.getLink(this.editorId);
+    const priorSelection = this.adapterService.saveSelection(this.editorId);
+    const currentLink = this.adapterService.getLink(this.editorId);
     const inputModal = this.modalService.open(SkyTextEditorUrlModalComponent, [{
       provide: SkyUrlModalContext,
       useValue: { urlResult: currentLink }
@@ -157,10 +157,10 @@ export class SkyTextEditorToolbarComponent implements OnInit {
     inputModal.closed.subscribe((result: SkyModalCloseArgs) => {
       if (result.reason === 'save' && priorSelection) {
         if (!currentLink) {
-          this.editorService.restoreSelection(this.editorId, priorSelection);
+          this.adapterService.restoreSelection(this.editorId, priorSelection);
         } else {
-          const anchor = this.editorService.getSelectedAnchorTag(this.editorId);
-          this.editorService.selectElement(this.editorId, anchor);
+          const anchor = this.adapterService.getSelectedAnchorTag(this.editorId);
+          this.adapterService.selectElement(this.editorId, anchor);
         }
 
         this.execCommand('unlink');
@@ -169,7 +169,7 @@ export class SkyTextEditorToolbarComponent implements OnInit {
           this.execCommand('createLink', result.data.url);
         } else {
           // New Window
-          const sText = this.editorService.getCurrentSelection(this.editorId);
+          const sText = this.adapterService.getCurrentSelection(this.editorId);
           this.execCommand('insertHTML', '<a href="' + result.data.url + '" rel="noopener noreferrer" target="_blank">' + sText + '</a>');
         }
       }
@@ -177,19 +177,19 @@ export class SkyTextEditorToolbarComponent implements OnInit {
   }
 
   public unlink(): void {
-    let currentSelectionRange = this.editorService.getCurrentSelection(this.editorId).getRangeAt(0);
+    let currentSelectionRange = this.adapterService.getCurrentSelection(this.editorId).getRangeAt(0);
     if (currentSelectionRange.toString().length <= 0) {
-      const anchorTag = this.editorService.getSelectedAnchorTag(this.editorId);
-      this.editorService.selectElement(this.editorId, anchorTag);
+      const anchorTag = this.adapterService.getSelectedAnchorTag(this.editorId);
+      this.adapterService.selectElement(this.editorId, anchorTag);
     }
     this.execCommand('unlink');
   }
 
   public changeFontSize(size: number): void {
-    this.editorService.setFontSize(this.editorId, size);
+    this.adapterService.setFontSize(this.editorId, size);
     this.styleState = {
       ...this.styleState,
-      ...this.editorService.getStyleState(this.editorId)
+      ...this.adapterService.getStyleState(this.editorId)
     };
   }
 

@@ -24,10 +24,6 @@ import {
 } from '../services/text-editor-adapter.service';
 
 import {
-  SkyTextEditorService
-} from '../services/text-editor.service';
-
-import {
   SkyTextEditorMenubarAction
 } from '../types/menubar-action';
 
@@ -137,7 +133,6 @@ export class SkyTextEditorMenubarComponent implements OnDestroy, OnInit {
   private ngUnsubscribe = new Subject<void>();
 
   constructor(
-    private editorService: SkyTextEditorService,
     private adapterService: SkyTextEditorAdapterService
   ) {}
 
@@ -156,7 +151,7 @@ export class SkyTextEditorMenubarComponent implements OnDestroy, OnInit {
   }
 
   public execCommand(command: string, value: any = ''): void {
-    this.editorService.execCommand(this.editorId, {
+    this.adapterService.execCommand(this.editorId, {
       command: command,
       value: value
     });
@@ -178,7 +173,7 @@ export class SkyTextEditorMenubarComponent implements OnDestroy, OnInit {
   }
 
   private clearFormat(): void {
-    let currentSelection = this.editorService.getCurrentSelection(this.editorId);
+    let currentSelection = this.adapterService.getCurrentSelection(this.editorId);
     if (currentSelection.rangeCount > 0 && currentSelection.getRangeAt(0).toString().length <= 0) {
       this.execCommand('selectAll');
     }

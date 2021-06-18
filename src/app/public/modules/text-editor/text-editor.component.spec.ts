@@ -44,12 +44,16 @@ import {
 } from './fixtures/text-editor.component.fixture';
 
 import {
+  SkyTextEditorAdapterService
+} from './services/text-editor-adapter.service';
+
+import {
   SkyTextEditorService
 } from './services/text-editor.service';
 
 import {
-  SkyTextSelectionManagementService
-} from './services/text-selection-management.service';
+  SkyTextEditorSelectionService
+} from './services/text-editor-selection.service';
 
 import {
   SkyTextEditorMenubarAction
@@ -312,7 +316,7 @@ describe('Text editor', () => {
       providers: [
         SkyThemeService,
         SkyTextEditorService,
-        SkyTextSelectionManagementService
+        SkyTextEditorSelectionService
       ]
     });
 
@@ -357,7 +361,7 @@ describe('Text editor', () => {
   });
 
   it('Should return blank documents for non-existant documents', () => {
-    const mngService = TestBed.inject(SkyTextEditorService);
+    const mngService = TestBed.inject(SkyTextEditorAdapterService);
     expect(mngService.getEditorInnerHtml('fake-id')).toBe('');
   });
 
