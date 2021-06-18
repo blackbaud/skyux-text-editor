@@ -7,16 +7,20 @@
 >
   <h1>Text Editor</h1>
   <form>
-    <sky-text-editor
-      name="text-editor"
-      [autofocus]="true"
-      [mergeFields]="mergeFields"
-      [menubarActions]="menubarActions"
-      [placeholder]="placeholder"
-      [toolbarActions]="toolbarActions"
-      [(ngModel)]="value"
+    <div
+      id="screenshot-text-editor"
     >
-    </sky-text-editor>
+      <sky-text-editor
+        name="text-editor"
+        [autofocus]="true"
+        [mergeFields]="mergeFields"
+        [menubarActions]="menubarActions"
+        [placeholder]="placeholder"
+        [toolbarActions]="toolbarActions"
+        [(ngModel)]="value"
+      >
+      </sky-text-editor>
+    </div>
     <h2>
       Preview html
     </h2>
