@@ -1,7 +1,7 @@
 
   <sky-toolbar-item *ngFor="let action of menubarActions"
     class="sky-text-editor-menubar-action"
-    [ngClass]="menubarActionEnum[action]"
+    [ngClass]="'sky-text-editor-menubar-action-' + menubarActionEnum[action]"
   >
     <ng-container
       [ngSwitch]="action"

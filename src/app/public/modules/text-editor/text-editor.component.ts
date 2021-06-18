@@ -205,6 +205,8 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
     if (this._value !== valueString) {
       this._value = valueString;
 
+      // Autofocus isn't testable in Firefox and IE.
+      /* istanbul ignore next */
       if (this.autofocus && !this.focusInitialized) {
         this.editorService.focusEditor(this.id);
         this.focusInitialized = true;

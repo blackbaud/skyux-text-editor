@@ -1,10 +1,10 @@
 
-  <sky-toolbar-item *ngFor="let toolbarSection of toolbarActions"
+  <sky-toolbar-item *ngFor="let action of toolbarActions"
     class="sky-text-editor-toolbar-action"
-    [ngClass]="toolbarActionEnum[toolbarSection]"
+    [ngClass]="'sky-text-editor-toolbar-action-' + toolbarActionEnum[action]"
   >
     <ng-container
-      [ngSwitch]="toolbarSection"
+      [ngSwitch]="action"
     >
       <ng-container *ngSwitchCase="toolbarActionEnum.FontFamily">
         <sky-dropdown
@@ -23,7 +23,6 @@
           <sky-dropdown-menu>
             <sky-dropdown-item *ngFor="let fontModel of fontList">
               <button
-                class="menu-dropdown-item"
                 type="button"
                 [ngStyle]="{
                   'font-family': fontModel.value
@@ -38,7 +37,7 @@
       </ng-container>
       <ng-container *ngSwitchCase="toolbarActionEnum.FontSize">
         <sky-dropdown
-          class="font-size"
+          class="sky-text-editor-font-size-picker"
           label="Font size"
           [messageStream]="fontSizeStream"
         >
@@ -53,7 +52,6 @@
           <sky-dropdown-menu>
             <sky-dropdown-item *ngFor="let size of fontSizeList">
               <button
-                class="menu-dropdown-item"
                 type="button"
                 (click)="changeFontSize(size)"
               >
@@ -65,7 +63,7 @@
       </ng-container>
       <ng-container *ngSwitchCase="toolbarActionEnum.FontStyle">
         <div
-          class="sky-switch-icon-group"
+          class="sky-switch-icon-group sky-text-editor-font-style-picker"
         >
           <sky-checkbox
             icon="bold"
@@ -79,7 +77,6 @@
             icon="italic"
             label="Italicized"
             title="Italicized"
-            [labelledBy]="editorId + 'italicized-checkbox-label'"
             [ngModel]="styleState.italicState"
             (ngModelChange)="toggleFontStyle(styleState.italicState, $event, 'italic')"
           >
@@ -88,7 +85,6 @@
             icon="underline"
             label="Underline"
             title="Underline"
-            [labelledBy]="editorId + 'underline-checkbox-label'"
             [ngModel]="styleState.underlineState"
             (ngModelChange)="toggleFontStyle(styleState.underlineState, $event, 'underline')"
           >
@@ -99,6 +95,7 @@
         <div class="sky-text-editor-colorpicker-group">
           <div class="sky-text-editor-colorpicker-container">
             <sky-colorpicker
+              class="sky-text-editor-font-color-picker"
               label="Font color"
               [messageStream]="colorpickerStream"
               [showResetButton]="false"
@@ -106,7 +103,6 @@
               #colorPicker
             >
               <input
-                class="font-color-picker"
                 outputFormat="hex"
                 type="text"
                 [allowTransparency]="false"
@@ -117,6 +113,7 @@
           </div>
           <div class="sky-text-editor-colorpicker-container">
             <sky-colorpicker
+              class="sky-text-editor-background-color-picker"
               label="Background color"
               [messageStream]="backColorpickerStream"
               [showResetButton]="false"
@@ -124,7 +121,6 @@
               #backColorPicker
             >
               <input
-                class="background-color-picker"
                 outputFormat="rgba"
                 type="text"
                 [allowTransparency]="true"

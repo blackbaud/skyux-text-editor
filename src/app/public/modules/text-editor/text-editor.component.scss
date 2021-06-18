@@ -48,6 +48,11 @@
 .sky-theme-modern {
 
   .sky-text-editor {
+
+    .sky-text-editor-wrapper {
+      border: 1px solid $sky-theme-modern-border-color-neutral-medium;
+    }
+
     .sky-text-editor-toolbar {
 
       .sky-toolbar {
@@ -59,7 +64,10 @@
       }
 
       .sky-toolbar-sectioned {
+        // !important is needed to override specificity from modern stylsheet in theme.
         border-top: 1px solid $sky-theme-modern-border-color-neutral-medium !important;
+        border-left: 1px solid $sky-theme-modern-border-color-neutral-medium !important;
+        border-right: 1px solid $sky-theme-modern-border-color-neutral-medium !important;
       }
 
       .sky-toolbar-item {
