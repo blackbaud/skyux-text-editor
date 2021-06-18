@@ -177,8 +177,8 @@ export class SkyTextEditorAdapterService {
 
     if (this.editorSelected(documentEl)) {
       return {
-        backColor: SkyTextEditorAdapterService.getColor(documentEl, 'BackColor'),
-        fontColor: SkyTextEditorAdapterService.getColor(documentEl, 'ForeColor'),
+        backColor: this.getColor(documentEl, 'BackColor'),
+        fontColor: this.getColor(documentEl, 'ForeColor'),
         fontSize: parseInt(this.getFontSize(id), undefined),
         font: documentEl.queryCommandValue('fontname'),
         boldState: documentEl.queryCommandState('Bold'),
@@ -252,7 +252,7 @@ export class SkyTextEditorAdapterService {
   public getSelectedAnchorTag(editorId: string): HTMLAnchorElement {
     const selectedEl = this.getCurrentSelectionParentElement(editorId);
 
-    return SkyTextEditorAdapterService.getParent(selectedEl, 'a') as HTMLAnchorElement;
+    return this.getParent(selectedEl, 'a') as HTMLAnchorElement;
   }
 
   public restoreSelection(id: string, range: Range): void {
@@ -280,13 +280,27 @@ export class SkyTextEditorAdapterService {
       element.removeAttribute('size');
       element.style.fontSize = (fontSize + 'px');
     }
-    SkyTextEditorAdapterService.cleanUpBlankStyleTags(doc);
+    this.cleanUpBlankStyleTags(doc);
 
     /* istanbul ignore next */
     if (!this.editorSelected(doc)) {
       this.focusEditor(id);
     }
     this.editors[id].commandChangeObservable.next();
+  }
+
+  public removeObservers(setting: EditorSetting): void {
+    /* istanbul ignore next */
+    const documentEl = setting.iframeElementRef.contentWindow ?
+       setting.iframeElementRef.contentWindow.document :
+       setting.iframeElementRef.contentDocument;
+    setting.selectionChangeObservable.complete();
+    setting.clickObservable.complete();
+    setting.commandChangeObservable.complete();
+    documentEl.removeEventListener('selectionchange', setting.selectionListener);
+    documentEl.removeEventListener('input', setting.selectionListener);
+    documentEl.removeEventListener('mousedown', setting.clickListener);
+    documentEl.body.removeEventListener('paste', setting.pasteListener);
   }
 
   private getContentWindowEl(id: string): Window {
@@ -391,20 +405,6 @@ export class SkyTextEditorAdapterService {
     };
   }
 
-  public static removeObservers(setting: EditorSetting): void {
-    /* istanbul ignore next */
-    const documentEl = setting.iframeElementRef.contentWindow ?
-       setting.iframeElementRef.contentWindow.document :
-       setting.iframeElementRef.contentDocument;
-    setting.selectionChangeObservable.complete();
-    setting.clickObservable.complete();
-    setting.commandChangeObservable.complete();
-    documentEl.removeEventListener('selectionchange', setting.selectionListener);
-    documentEl.removeEventListener('input', setting.selectionListener);
-    documentEl.removeEventListener('mousedown', setting.clickListener);
-    documentEl.body.removeEventListener('paste', setting.pasteListener);
-  }
-
   /* istanbul ignore next */
   private getPasteOverride(id: string): (e: ClipboardEvent) => void {
     return (e: ClipboardEvent): void => {
@@ -418,7 +418,7 @@ export class SkyTextEditorAdapterService {
     return this.selectionService.getCurrentSelectionParentElement(this.getDocumentEl(id));
   }
 
-  private static getColor(documentEl: Document, selector: string): string {
+  private getColor(documentEl: Document, selector: string): string {
     const commandValue = documentEl.queryCommandValue(selector);
 
     // Edge is weird and returns numbers
@@ -446,7 +446,7 @@ export class SkyTextEditorAdapterService {
     return childAnchorEls.length > 0 || (!!anchorEl && !!anchorEl.href);
   }
 
-  private static getParent(element: Element, tag: string): Element {
+  private getParent(element: Element, tag: string): Element {
     let currentNode = element;
     while (currentNode && currentNode.tagName.toUpperCase() !== 'BODY') {
       if (currentNode.tagName.toUpperCase() === tag.toUpperCase()) {
@@ -497,7 +497,7 @@ export class SkyTextEditorAdapterService {
     }
   }
 
-  private static cleanUpBlankStyleTags(doc: Document): void {
+  private cleanUpBlankStyleTags(doc: Document): void {
     const orphanElements: HTMLElement[] = Array.from(doc.querySelectorAll('font,span,*[style=""]'));
     for (let element of orphanElements) {
       if (!element.getAttribute('style')) {

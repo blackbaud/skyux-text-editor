@@ -280,6 +280,7 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
 
   public ngOnDestroy(): void {
     this.editorService.removeEditor(this.id);
+    this.adapterService.removeObservers(this.editorService.editors[this.id]);
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }

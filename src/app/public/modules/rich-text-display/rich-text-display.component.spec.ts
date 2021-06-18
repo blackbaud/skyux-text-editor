@@ -30,7 +30,7 @@ import {
 } from './rich-text-display.module';
 
 //#region helpers
-function detectChanges(fixture: ComponentFixture<any>) {
+function detectChanges(fixture: ComponentFixture<any>): void {
   fixture.detectChanges();
   tick();
   fixture.detectChanges();

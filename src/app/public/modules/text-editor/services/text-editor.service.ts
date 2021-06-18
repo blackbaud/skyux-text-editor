@@ -10,10 +10,6 @@ import {
   EditorSetting
 } from '../types/editor-setting';
 
-import {
-  SkyTextEditorAdapterService
-} from './text-editor-adapter.service';
-
 /**
  * @internal
  */
@@ -46,7 +42,6 @@ export class SkyTextEditorService {
    */
   public removeEditor(id: string): void {
     if (id in this.editors) {
-      SkyTextEditorAdapterService.removeObservers(this.editors[id]);
       delete this.editors[id];
     }
   }
