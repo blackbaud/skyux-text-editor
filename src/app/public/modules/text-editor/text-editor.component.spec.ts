@@ -76,7 +76,7 @@ describe('Text editor', () => {
   let fixture: ComponentFixture<TextEditorFixtureComponent>;
 
   //#region helpers
-  function checkboxExecCommandTest(checkboxInputElement: HTMLElement, expectedCommand: string) {
+  function checkboxExecCommandTest(checkboxInputElement: HTMLElement, expectedCommand: string): void {
     let execCommandCalled = false;
     fixture.detectChanges();
     tick();
@@ -100,7 +100,7 @@ describe('Text editor', () => {
     buttonElement: HTMLButtonElement,
     expectedCommand: string,
     expectedValue: string = ''
-  ) {
+  ): void {
     let execCommandCalled = false;
     fixture.detectChanges();
     tick();
@@ -121,7 +121,7 @@ describe('Text editor', () => {
     expect(execCommandCalled).toBeTruthy();
   }
 
-  function openDropdown(className: string) {
+  function openDropdown(className: string): void {
     fixture.detectChanges();
     tick();
     fixture.detectChanges();
@@ -162,7 +162,7 @@ describe('Text editor', () => {
     optionIndex: number,
     expectedCommand: string,
     expectedValue: string = ''
-  ) {
+  ): void {
     let execCommandCalled = false;
     const commandsCalled: string[] = [];
     fixture.detectChanges();

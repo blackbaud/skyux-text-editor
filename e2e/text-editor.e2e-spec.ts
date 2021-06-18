@@ -1,7 +1,6 @@
 import {
-  by,
-  element
-} from 'protractor';
+  SkyHostBrowserBreakpoint
+} from '@skyux-sdk/e2e/host-browser/host-browser-breakpoint';
 
 import {
   expect,
@@ -9,7 +8,13 @@ import {
   SkyVisualThemeSelector
 } from '@skyux-sdk/e2e';
 
+import {
+  by,
+  element
+} from 'protractor';
+
 describe('Text editor', () => {
+  let browserSize: SkyHostBrowserBreakpoint;
   let currentTheme: string;
   let currentThemeMode: string;
 
@@ -20,7 +25,17 @@ describe('Text editor', () => {
     return SkyVisualThemeSelector.selectTheme(theme, mode);
   }
 
+  async function setBrowserSize(size: SkyHostBrowserBreakpoint): Promise<void> {
+    browserSize = size;
+
+    return SkyHostBrowser.setWindowBreakpoint(size);
+  }
+
   function getScreenshotName(name: string): string {
+    if (browserSize) {
+      name += '-' + browserSize;
+    }
+
     if (currentTheme) {
       name += '-' + currentTheme;
     }
@@ -61,34 +76,58 @@ describe('Text editor', () => {
     });
   }
 
-  beforeEach(async () => {
-    currentTheme = undefined;
-    currentThemeMode = undefined;
-
-    await SkyHostBrowser.get('visual/text-editor');
-    await SkyHostBrowser.setWindowBreakpoint('lg');
-  });
-
-  runTests();
-
-  describe('when modern theme', () => {
-
-    beforeEach(async () => {
-      await selectTheme('modern', 'light');
+  describe('(size: lg)', () => {
+    beforeEach( async() => {
+      currentTheme = undefined;
+      currentThemeMode = undefined;
+      await SkyHostBrowser.get('visual/text-editor');
+      await setBrowserSize('lg');
     });
 
     runTests();
 
+    describe('when modern theme', () => {
+      beforeEach(async () => {
+        await selectTheme('modern', 'light');
+      });
+
+      runTests();
+    });
+
+    describe('when modern theme in dark mode', () => {
+      beforeEach(async () => {
+        await selectTheme('modern', 'dark');
+      });
+
+      runTests();
+    });
   });
 
-  describe('when modern theme in dark mode', () => {
-
-    beforeEach(async () => {
-      await selectTheme('modern', 'dark');
+  describe('(size: xs)', () => {
+    beforeEach( async() => {
+      currentTheme = undefined;
+      currentThemeMode = undefined;
+      await SkyHostBrowser.get('visual/text-editor');
+      await setBrowserSize('xs');
     });
 
     runTests();
 
+    describe('when modern theme', () => {
+      beforeEach(async () => {
+        await selectTheme('modern', 'light');
+      });
+
+      runTests();
+    });
+
+    describe('when modern theme in dark mode', () => {
+      beforeEach(async () => {
+        await selectTheme('modern', 'dark');
+      });
+
+      runTests();
+    });
   });
 
 });
