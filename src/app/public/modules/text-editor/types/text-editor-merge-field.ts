@@ -11,8 +11,8 @@ export interface SkyTextEditorMergeField {
   name: string;
 
   /**
-   * The src for a preview image to represent this field in the editor. If not provided,
-   *  By default, the `name` value appears in a blue rectangle.
+   * Specifies the `src` attribute for a preview image to represent the
+   * merge field in the text editor.
    */
   previewImageUrl?: string;
 

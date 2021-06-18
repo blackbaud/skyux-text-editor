@@ -160,7 +160,7 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
   }
 
   /**
-   * Specifies the initial text style values.
+   * Specifies the initial styles for all content, including background color, font size, and link state.
    */
   @Input()
   public set initialStyleState(state: SkyTextEditorStyleState) {
