@@ -1,12 +1,12 @@
 
-  <sky-toolbar-item *ngFor="let action of menubarActions"
-    class="sky-text-editor-menubar-action"
-    [ngClass]="'sky-text-editor-menubar-action-' + menubarActionEnum[action]"
+  <sky-toolbar-item *ngFor="let menu of menus"
+    class="sky-text-editor-menu"
+    [ngClass]="'sky-text-editor-menu-' + menuEnum[menu]"
   >
     <ng-container
-      [ngSwitch]="action"
+      [ngSwitch]="menu"
     >
-      <ng-container *ngSwitchCase="menubarActionEnum.Edit">
+      <ng-container *ngSwitchCase="menuEnum.Edit">
         <sky-dropdown
           [messageStream]="editDropdownStream"
         >
@@ -23,7 +23,7 @@
               >
                 {{ editItem.label }}
                 <div *ngIf="editItem.keyShortcut"
-                  class="sky-text-editor-menubar-action-key-shortcut"
+                  class="sky-text-editor-menu-key-shortcut"
                   [skyThemeClass]="{
                     'sky-font-deemphasized' : 'modern',
                     'sky-deemphasized' : 'default'
@@ -41,7 +41,7 @@
           </sky-dropdown-menu>
         </sky-dropdown>
       </ng-container>
-      <ng-container *ngSwitchCase="menubarActionEnum.Format">
+      <ng-container *ngSwitchCase="menuEnum.Format">
         <sky-dropdown
           [messageStream]="formatDropdownStream"
         >
@@ -56,7 +56,7 @@
               >
                 {{ formatItem.label }}
                 <div *ngIf="formatItem.keyShortcut"
-                  class="sky-text-editor-menubar-action-key-shortcut"
+                  class="sky-text-editor-menu-key-shortcut"
                   [skyThemeClass]="{
                     'sky-font-deemphasized' : 'modern',
                     'sky-deemphasized' : 'default'
@@ -74,7 +74,7 @@
           </sky-dropdown-menu>
         </sky-dropdown>
       </ng-container>
-      <ng-container *ngSwitchCase="menubarActionEnum.MergeField">
+      <ng-container *ngSwitchCase="menuEnum.MergeField">
         <sky-dropdown *ngIf="mergeFields && mergeFields.length > 0"
           aria-label="Insert merge field"
           [messageStream]="mergeFieldDropdownStream"

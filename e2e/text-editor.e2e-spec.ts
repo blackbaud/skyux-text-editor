@@ -64,7 +64,7 @@ describe('Text editor', () => {
 
     it('should match merge field screenshot', async (done) => {
       await element(by.css(
-        '.sky-text-editor-menubar-action-MergeField .sky-dropdown-button'
+        '.sky-text-editor-menu-MergeField .sky-dropdown-button'
       )).click();
       await element(by.css('.sky-dropdown-item button')).click();
       await SkyHostBrowser.moveCursorOffScreen();

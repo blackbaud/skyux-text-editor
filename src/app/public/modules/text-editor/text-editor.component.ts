@@ -25,8 +25,8 @@ import {
 } from 'rxjs';
 
 import {
-  MENUBAR_ACTION_DEFAULTS
-} from './defaults/menubar-action-defaults';
+  MENU_DEFAULTS
+} from './defaults/menu-defaults';
 
 import {
   STYLE_STATE_DEFAULTS
@@ -60,8 +60,8 @@ import {
 } from './types/font-state';
 
 import {
-  SkyTextEditorMenubarAction
-} from './types/menubar-action';
+  SkyTextEditorMenu
+} from './types/menu';
 
 import {
   SkyTextEditorStyleState
@@ -131,10 +131,10 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
 
   /**
    * Specifies the actions that appear in the menubar.
-   * @default [ SkyTextEditorMenubarAction.Edit, SkyTextEditorMenubarAction.Format ]
+   * @default [ SkyTextEditorMenu.Edit, SkyTextEditorMenu.Format ]
    */
   @Input()
-  public menubarActions: SkyTextEditorMenubarAction[] = MENUBAR_ACTION_DEFAULTS;
+  public menus: SkyTextEditorMenu[] = MENU_DEFAULTS;
 
   /**
    * Specifies the merge fields to include in the merge field menu.

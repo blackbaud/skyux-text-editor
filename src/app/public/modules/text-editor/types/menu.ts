@@ -1,4 +1,4 @@
-export enum SkyTextEditorMenubarAction {
+export enum SkyTextEditorMenu {
 
   /**
    * Displays an edit dropdown menu with actions such as undo, redo, cut, copy, and paste.

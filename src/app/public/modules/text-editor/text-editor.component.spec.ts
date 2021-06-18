@@ -56,8 +56,8 @@ import {
 } from './services/text-editor-selection.service';
 
 import {
-  SkyTextEditorMenubarAction
-} from './types/menubar-action';
+  SkyTextEditorMenu
+} from './types/menu';
 
 import {
   SkyTextEditorStyleState
@@ -329,10 +329,10 @@ describe('Text editor', () => {
   });
 
   it('Shows correct toolbar content', () => {
-    fixture.componentInstance.menubarActions = [
-      SkyTextEditorMenubarAction.Edit,
-      SkyTextEditorMenubarAction.MergeField,
-      SkyTextEditorMenubarAction.Format
+    fixture.componentInstance.menus = [
+      SkyTextEditorMenu.Edit,
+      SkyTextEditorMenu.MergeField,
+      SkyTextEditorMenu.Format
     ];
     fixture.componentInstance.toolbarActions = [
       SkyTextEditorToolbarActions.Alignment,
@@ -353,10 +353,10 @@ describe('Text editor', () => {
       toolbarActions[i].classList.contains(SkyTextEditorToolbarActions[i]);
     }
 
-    const menubarActions = fixture.nativeElement.querySelectorAll('.sky-text-editor-menubar-action');
-    expect(menubarActions.length).toBe(3);
-    for (let i = 0; i < menubarActions.length; i++) {
-      menubarActions[i].classList.contains(SkyTextEditorMenubarAction[i]);
+    const menus = fixture.nativeElement.querySelectorAll('.sky-text-editor-menu');
+    expect(menus.length).toBe(3);
+    for (let i = 0; i < menus.length; i++) {
+      menus[i].classList.contains(SkyTextEditorMenu[i]);
     }
   });
 
@@ -443,7 +443,7 @@ describe('Text editor', () => {
     tick();
     fixture.detectChanges();
 
-    openDropdown('.sky-text-editor-menubar-action-MergeField');
+    openDropdown('.sky-text-editor-menu-MergeField');
     expect(document.querySelector('.sky-dropdown-item')).toBeTruthy();
 
     const iframe: HTMLIFrameElement = fixture.nativeElement.querySelector('iframe');
@@ -457,7 +457,7 @@ describe('Text editor', () => {
   it('should respect passed in merge fields', fakeAsync(() => {
     // Setup in fixture
     fixture.detectChanges();
-    openDropdown('.sky-text-editor-menubar-action-MergeField');
+    openDropdown('.sky-text-editor-menu-MergeField');
 
     const mergeFieldOptions = document.querySelectorAll('.sky-dropdown-item');
     expect(mergeFieldOptions.length).toBe(3);
@@ -472,7 +472,7 @@ describe('Text editor', () => {
     tick();
     fixture.detectChanges();
 
-    openDropdown('.sky-text-editor-menubar-action-MergeField');
+    openDropdown('.sky-text-editor-menu-MergeField');
     const optionButtons = document.querySelectorAll('.sky-dropdown-item button');
     expect(optionButtons.length).toBe(3);
     SkyAppTestUtility.fireDomEvent(optionButtons[0], 'click');
@@ -492,7 +492,7 @@ describe('Text editor', () => {
     tick();
     fixture.detectChanges();
 
-    openDropdown('.sky-text-editor-menubar-action-MergeField');
+    openDropdown('.sky-text-editor-menu-MergeField');
     expect(document.querySelector('.sky-dropdown-item')).toBeTruthy();
 
     const mergeFieldOption = document.querySelector('.sky-dropdown-item button');
@@ -510,7 +510,7 @@ describe('Text editor', () => {
     tick();
     fixture.detectChanges();
 
-    openDropdown('.sky-text-editor-menubar-action-MergeField');
+    openDropdown('.sky-text-editor-menu-MergeField');
     expect(document.querySelector('.sky-dropdown-item')).toBeTruthy();
 
     const mergeFieldOption = document.querySelectorAll('.sky-dropdown-item button')[2];
@@ -1077,77 +1077,77 @@ describe('Text editor', () => {
       fixture.detectChanges();
       const expectedCommand = 'undo';
       const optionNumber = 0;
-      dropdownButtonExecCommandTest('.sky-text-editor-menubar-action-Edit', optionNumber, expectedCommand);
+      dropdownButtonExecCommandTest('.sky-text-editor-menu-Edit', optionNumber, expectedCommand);
     }));
 
     it('should execute redo', fakeAsync(() => {
       fixture.detectChanges();
       const expectedCommand = 'redo';
       const optionNumber = 1;
-      dropdownButtonExecCommandTest('.sky-text-editor-menubar-action-Edit', optionNumber, expectedCommand);
+      dropdownButtonExecCommandTest('.sky-text-editor-menu-Edit', optionNumber, expectedCommand);
     }));
 
     it('should execute cut', fakeAsync(() => {
       fixture.detectChanges();
       const expectedCommand = 'cut';
       const optionNumber = 2;
-      dropdownButtonExecCommandTest('.sky-text-editor-menubar-action-Edit', optionNumber, expectedCommand);
+      dropdownButtonExecCommandTest('.sky-text-editor-menu-Edit', optionNumber, expectedCommand);
     }));
 
     it('should execute copy', fakeAsync(() => {
       fixture.detectChanges();
       const expectedCommand = 'copy';
       const optionNumber = 3;
-      dropdownButtonExecCommandTest('.sky-text-editor-menubar-action-Edit', optionNumber, expectedCommand);
+      dropdownButtonExecCommandTest('.sky-text-editor-menu-Edit', optionNumber, expectedCommand);
     }));
 
     it('should execute paste', fakeAsync(() => {
       fixture.detectChanges();
       const expectedCommand = 'paste';
       const optionNumber = 4;
-      dropdownButtonExecCommandTest('.sky-text-editor-menubar-action-Edit', optionNumber, expectedCommand);
+      dropdownButtonExecCommandTest('.sky-text-editor-menu-Edit', optionNumber, expectedCommand);
     }));
 
     it('should execute select all', fakeAsync(() => {
       fixture.detectChanges();
       const expectedCommand = 'selectAll';
       const optionNumber = 5;
-      dropdownButtonExecCommandTest('.sky-text-editor-menubar-action-Edit', optionNumber, expectedCommand);
+      dropdownButtonExecCommandTest('.sky-text-editor-menu-Edit', optionNumber, expectedCommand);
     }));
 
     it('should execute bold', fakeAsync(() => {
       fixture.detectChanges();
       const expectedCommand = 'bold';
       const optionNumber = 0;
-      dropdownButtonExecCommandTest('.sky-text-editor-menubar-action-Format', optionNumber, expectedCommand);
+      dropdownButtonExecCommandTest('.sky-text-editor-menu-Format', optionNumber, expectedCommand);
     }));
 
     it('should execute italic', fakeAsync(() => {
       fixture.detectChanges();
       const expectedCommand = 'italic';
       const optionNumber = 1;
-      dropdownButtonExecCommandTest('.sky-text-editor-menubar-action-Format', optionNumber, expectedCommand);
+      dropdownButtonExecCommandTest('.sky-text-editor-menu-Format', optionNumber, expectedCommand);
     }));
 
     it('should execute underline', fakeAsync(() => {
       fixture.detectChanges();
       const expectedCommand = 'underline';
       const optionNumber = 2;
-      dropdownButtonExecCommandTest('.sky-text-editor-menubar-action-Format', optionNumber, expectedCommand);
+      dropdownButtonExecCommandTest('.sky-text-editor-menu-Format', optionNumber, expectedCommand);
     }));
 
     it('should execute strikethrough', fakeAsync(() => {
       fixture.detectChanges();
       const expectedCommand = 'strikethrough';
       const optionNumber = 3;
-      dropdownButtonExecCommandTest('.sky-text-editor-menubar-action-Format', optionNumber, expectedCommand);
+      dropdownButtonExecCommandTest('.sky-text-editor-menu-Format', optionNumber, expectedCommand);
     }));
 
     it('should execute clear formatting', fakeAsync(() => {
       fixture.detectChanges();
       const expectedCommand = 'removeFormat';
       const optionNumber = 4;
-      dropdownButtonExecCommandTest('.sky-text-editor-menubar-action-Format', optionNumber, expectedCommand);
+      dropdownButtonExecCommandTest('.sky-text-editor-menu-Format', optionNumber, expectedCommand);
     }));
 
     it('should execute select all and clear formatting when nothing is highlighted', fakeAsync(() => {
@@ -1171,7 +1171,7 @@ describe('Text editor', () => {
 
       selectContent('p');
       collapseSelection();
-      openDropdown('.sky-text-editor-menubar-action-Format');
+      openDropdown('.sky-text-editor-menu-Format');
 
       const optionButtons = document.querySelectorAll('.sky-dropdown-item button');
       SkyAppTestUtility.fireDomEvent(optionButtons[optionIndex], 'click');

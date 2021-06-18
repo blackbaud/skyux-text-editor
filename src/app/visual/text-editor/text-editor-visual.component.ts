@@ -15,7 +15,7 @@ import {
 
 import {
   SkyTextEditorToolbarActions,
-  SkyTextEditorMenubarAction
+  SkyTextEditorMenu
 } from '../../public/public_api';
 
 @Component({
@@ -27,10 +27,10 @@ export class RichTextEditorVisualComponent {
 
   public displayValue: SafeHtml;
 
-  public menubarActions: SkyTextEditorMenubarAction[] = [
-    SkyTextEditorMenubarAction.Edit,
-    SkyTextEditorMenubarAction.Format,
-    SkyTextEditorMenubarAction.MergeField
+  public menus: SkyTextEditorMenu[] = [
+    SkyTextEditorMenu.Edit,
+    SkyTextEditorMenu.Format,
+    SkyTextEditorMenu.MergeField
   ];
 
   public mergeFields = [

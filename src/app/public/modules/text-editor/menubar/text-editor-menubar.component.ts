@@ -30,8 +30,8 @@ import {
 } from '../services/text-editor-adapter.service';
 
 import {
-  SkyTextEditorMenubarAction
-} from '../types/menubar-action';
+  SkyTextEditorMenu
+} from '../types/menu';
 
 import {
   SkyTextEditorMergeField
@@ -55,7 +55,7 @@ export class SkyTextEditorMenubarComponent implements OnDestroy, OnInit {
   public editorId: string;
 
   @Input()
-  public menubarActions: SkyTextEditorMenubarAction[] = [];
+  public menus: SkyTextEditorMenu[] = [];
 
   @Input()
   public mergeFields: SkyTextEditorMergeField[] = [];
@@ -78,7 +78,7 @@ export class SkyTextEditorMenubarComponent implements OnDestroy, OnInit {
     keyShortcut?: string
   }[];
 
-  public menubarActionEnum = SkyTextEditorMenubarAction;
+  public menuEnum = SkyTextEditorMenu;
 
   public mergeFieldDropdownStream = new Subject<SkyDropdownMessage>();
 

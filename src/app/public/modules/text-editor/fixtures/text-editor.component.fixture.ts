@@ -18,8 +18,8 @@ import {
 } from '../defaults/font-size-list-defaults';
 
 import {
-  SkyTextEditorMenubarAction
-} from '../types/menubar-action';
+  SkyTextEditorMenu
+} from '../types/menu';
 
 import {
   SkyTextEditorMergeField
@@ -52,10 +52,10 @@ export class TextEditorFixtureComponent {
     SkyTextEditorToolbarActions.Link
   ];
 
-  public menubarActions: SkyTextEditorMenubarAction[] = [
-    SkyTextEditorMenubarAction.Edit,
-    SkyTextEditorMenubarAction.Format,
-    SkyTextEditorMenubarAction.MergeField
+  public menus: SkyTextEditorMenu[] = [
+    SkyTextEditorMenu.Edit,
+    SkyTextEditorMenu.Format,
+    SkyTextEditorMenu.MergeField
   ];
 
   public autofocus = false;
