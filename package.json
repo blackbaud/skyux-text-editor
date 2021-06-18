@@ -1,6 +1,6 @@
 {
   "name": "@skyux/text-editor",
-  "version": "0.0.0",
+  "version": "4.0.0-beta.0",
   "description": "HTML editor for SKY UX applications",
   "scripts": {
     "build": "skyux build-public-library",
