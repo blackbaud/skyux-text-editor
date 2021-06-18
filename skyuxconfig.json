@@ -3,6 +3,18 @@
   "name": "skyux-text-editor",
   "mode": "easy",
   "compileMode": "aot",
+  "host": {
+    "url": "https://host.nxt.blackbaud.com",
+    "frameOptions": {
+      "none": true
+    }
+  },
+  "omnibar": {},
+  "params": {
+    "svcid": {
+      "value": "skyux"
+    }
+  },
   "plugins": [
     "@skyux-sdk/builder-plugin-skyux"
   ],
@@ -21,7 +33,7 @@
           "browserSet": false
         },
         "unit": {
-          "browserSet": "speedy"
+          "browserSet": false
         }
       }
     }
@@ -36,17 +48,6 @@
         "modern"
       ],
       "theme": "default"
-    }
-  },
-  "host": {
-    "frameOptions": {
-      "none": true
-    }
-  },
-  "omnibar": {},
-  "params": {
-    "svcid": {
-      "value": "skyux"
     }
   }
 }
