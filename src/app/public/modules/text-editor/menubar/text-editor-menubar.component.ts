@@ -7,6 +7,10 @@ import {
 } from '@angular/core';
 
 import {
+  SkyLibResourcesService
+} from '@skyux/i18n';
+
+import {
   SkyDropdownMessage,
   SkyDropdownMessageType
 } from '@skyux/popovers';
@@ -133,7 +137,8 @@ export class SkyTextEditorMenubarComponent implements OnDestroy, OnInit {
   private ngUnsubscribe = new Subject<void>();
 
   constructor(
-    private adapterService: SkyTextEditorAdapterService
+    private adapterService: SkyTextEditorAdapterService,
+    private resources: SkyLibResourcesService
   ) {}
 
   public ngOnInit(): void {

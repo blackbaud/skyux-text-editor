@@ -1031,7 +1031,12 @@ describe('Text editor', () => {
 
     let style: CSSStyleDeclaration = fixture.nativeElement.querySelector('iframe').contentDocument.querySelector('body').style;
     expect(style.getPropertyValue('background-color')).toEqual('rgba(0, 0, 0, 0)');
-    expect(style.getPropertyValue('color')).toEqual('rgb(0, 0, 0)');
+    expect([
+      'rgb(0, 0, 0)', // Normal
+      '#000' // IE11
+    ]).toContain(
+      style.getPropertyValue('color')
+    );
     expect(style.getPropertyValue('font-family')).toEqual(STYLE_STATE_DEFAULTS.font);
     expect(style.getPropertyValue('font-size')).toEqual(`${STYLE_STATE_DEFAULTS.fontSize}px`);
   }));
@@ -1053,6 +1058,12 @@ describe('Text editor', () => {
     let style: CSSStyleDeclaration = fixture.nativeElement.querySelector('iframe').contentDocument.querySelector('body').style;
     expect(style.getPropertyValue('background-color')).toEqual('rgb(51, 51, 51)');
     expect(style.getPropertyValue('color')).toEqual('rgb(238, 238, 238)');
+    expect([
+      'rgb(238, 238, 238)', // Normal
+      '#eeeeee' // IE11
+    ]).toContain(
+      style.getPropertyValue('color')
+    );
     expect(style.getPropertyValue('font-family')).toEqual(`"${font}"`);
     expect(style.getPropertyValue('font-size')).toEqual(`${fontSize}px`);
   }));
@@ -1157,6 +1168,9 @@ describe('Text editor', () => {
       openDropdown('.sky-text-editor-menubar-action-Format');
       selectContent('p');
       collapseSelection();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
 
       const optionButtons = document.querySelectorAll('.sky-dropdown-item button');
       SkyAppTestUtility.fireDomEvent(optionButtons[optionIndex], 'click');
