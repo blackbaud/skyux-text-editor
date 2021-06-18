@@ -26,23 +26,22 @@ import {
 
 import {
   MENUBAR_ACTION_DEFAULTS
-} from './defaults/menubar-section-defaults';
+} from './defaults/menubar-action-defaults';
 
 import {
   STYLE_STATE_DEFAULTS
 } from './defaults/style-state-defaults';
 
 import {
-  TOOLBAR_SECTION_DEFAULTS
-} from './defaults/toolbar-section-defaults';
+  TOOLBAR_ACTION_DEFAULTS
+} from './defaults/toolbar-action-defaults';
+import {
+  SkyTextEditorAdapterService
+} from './services/text-editor-adapter.service';
 
 import {
   SkyTextEditorService
 } from './services/text-editor.service';
-
-import {
-  SkyTextMergeFieldService
-} from './services/text-merge-field.service';
 
 import {
   SkyTextSanitizationService
@@ -93,8 +92,8 @@ let nextUniqueId = 0;
   templateUrl: './text-editor.component.html',
   styleUrls: ['./text-editor.component.scss'],
   providers: [
+    SkyTextEditorAdapterService,
     SkyTextEditorService,
-    SkyTextMergeFieldService,
     SkyTextSelectionManagementService,
     {
       provide: NG_VALUE_ACCESSOR,
@@ -192,7 +191,7 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
    */
   // tslint:enable: max-line-length
   @Input()
-  public toolbarActions: SkyTextEditorToolbarActions[] = TOOLBAR_SECTION_DEFAULTS;
+  public toolbarActions: SkyTextEditorToolbarActions[] = TOOLBAR_ACTION_DEFAULTS;
 
   public set value(value: string) {
     // Set clear state to be an empty string

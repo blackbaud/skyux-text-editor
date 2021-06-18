@@ -3,8 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
-  OnInit,
-  ViewEncapsulation
+  OnInit
 } from '@angular/core';
 
 import {
@@ -70,8 +69,7 @@ import {
   selector: 'sky-text-editor-toolbar',
   templateUrl: './text-editor-toolbar.component.html',
   styleUrls: ['./text-editor-toolbar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyTextEditorToolbarComponent implements OnInit {
 

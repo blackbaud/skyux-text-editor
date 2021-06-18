@@ -5,7 +5,7 @@ import {
 /**
  * @internal
  */
-export const TOOLBAR_SECTION_DEFAULTS: SkyTextEditorToolbarActions[] = [
+export const TOOLBAR_ACTION_DEFAULTS: SkyTextEditorToolbarActions[] = [
   SkyTextEditorToolbarActions.FontFamily,
   SkyTextEditorToolbarActions.FontSize,
   SkyTextEditorToolbarActions.FontStyle,

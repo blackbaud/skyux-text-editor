@@ -1,11 +1,15 @@
 import {
   Component,
   Input,
-  ViewEncapsulation,
   OnInit,
   OnDestroy,
   ChangeDetectionStrategy
 } from '@angular/core';
+
+import {
+  SkyDropdownMessage,
+  SkyDropdownMessageType
+} from '@skyux/popovers';
 
 import {
   Subject
@@ -16,25 +20,20 @@ import {
 } from 'rxjs/operators';
 
 import {
-  SkyTextEditorMenubarAction
-} from '../types/menubar-action';
+  SkyTextEditorAdapterService
+} from '../services/text-editor-adapter.service';
 
 import {
   SkyTextEditorService
 } from '../services/text-editor.service';
 
 import {
+  SkyTextEditorMenubarAction
+} from '../types/menubar-action';
+
+import {
   SkyTextEditorMergeField
 } from '../types/text-editor-merge-field';
-
-import {
-  SkyTextMergeFieldService
-} from '../services/text-merge-field.service';
-
-import {
-  SkyDropdownMessage,
-  SkyDropdownMessageType
-} from '@skyux/popovers';
 
 /**
  * @internal
@@ -43,8 +42,7 @@ import {
   selector: 'sky-text-editor-menubar',
   templateUrl: './text-editor-menubar.component.html',
   styleUrls: ['./text-editor-menubar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyTextEditorMenubarComponent implements OnDestroy, OnInit {
 
@@ -140,7 +138,7 @@ export class SkyTextEditorMenubarComponent implements OnDestroy, OnInit {
 
   constructor(
     private editorService: SkyTextEditorService,
-    private mergeFieldService: SkyTextMergeFieldService
+    private adapterService: SkyTextEditorAdapterService
   ) {}
 
   public ngOnInit(): void {
@@ -169,7 +167,7 @@ export class SkyTextEditorMenubarComponent implements OnDestroy, OnInit {
       'insertHTML',
       '<img style="display: inline; cursor: grab;" data-fieldid="' + field.id +
         '" data-fielddisplay="' + field.name +
-        '" src="' + (field.previewImageUrl || this.mergeFieldService.makeImageFromText(field.name)) + '">'
+        '" src="' + (field.previewImageUrl || this.adapterService.getMergeFieldDataURI(field.name)) + '">'
     );
   }
 

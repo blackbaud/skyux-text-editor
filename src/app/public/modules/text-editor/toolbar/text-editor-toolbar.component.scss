@@ -50,23 +50,15 @@
 
 }
 
-.sky-theme-modern {
-
-  .sky-text-editor {
-    .sky-text-editor-toolbar {
-      .sky-text-editor-toolbar-action {
-        padding-left: 0;
-        padding-right: 0;
-      }
-    }
-  }
+@include sky-theme-modern {
 
   .sky-text-editor-colorpicker-group {
     .sky-text-editor-colorpicker-container {
       top: -2px;
+      margin: 0;
 
-      sky-colorpicker {
-        button {
+      &:last-child ::ng-deep sky-colorpicker {
+        .sky-colorpicker-button {
           margin-right: 0;
         }
       }
@@ -82,6 +74,14 @@
     .sky-btn:first-of-type,
     .sky-btn:last-of-type  {
       border-radius: 6px;
+    }
+  }
+
+  .sky-text-editor-toolbar-action {
+    .sky-switch-icon-group {
+      .sky-btn:last-of-type {
+        border: none;
+      }
     }
   }
 

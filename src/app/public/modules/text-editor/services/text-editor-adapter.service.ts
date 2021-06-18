@@ -10,13 +10,17 @@ import {
  * @internal
  */
 @Injectable()
-export class SkyTextMergeFieldService {
+export class SkyTextEditorAdapterService {
 
   constructor(
     private windowService: SkyAppWindowRef
   ) { }
 
-  public makeImageFromText(text: string): string {
+  /**
+   * Returns a data URI using the provided text string.
+   * Used to display a merge field inside a string of text.
+   */
+  public getMergeFieldDataURI(text: string): string {
     const documentEl = this.windowService.nativeWindow.document;
     let textToUse = text;
     if (text.length > 18) {

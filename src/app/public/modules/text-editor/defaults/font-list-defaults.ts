@@ -2,6 +2,9 @@ import {
   SkyTextEditorFont
 } from '../types/font-state';
 
+/**
+ * @internal
+ */
 export const FONT_LIST_DEFAULTS: SkyTextEditorFont[] = [
   {
     name: 'Blackbaud Sans',
