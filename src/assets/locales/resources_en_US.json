@@ -1,1 +1,22 @@
-{}
+{
+  "skyux_text_editor_format_menu_action_bold": {
+    "_description": "Text for the 'Bold' action in the format menu",
+    "message": "Bold"
+  },
+  "skyux_text_editor_format_menu_action_italic": {
+    "_description": "Text for the 'Italic' action in the format menu",
+    "message": "Italic"
+  },
+  "skyux_text_editor_format_menu_action_underline": {
+    "_description": "Text for the 'Underline' action in the format menu",
+    "message": "Underline"
+  },
+  "skyux_text_editor_format_menu_action_strikethrough": {
+    "_description": "Text for the 'Strikethrough' action in the format menu",
+    "message": "Strikethrough"
+  },
+  "skyux_text_editor_format_menu_action_clear_formatting": {
+    "_description": "Text for the 'Clear formatting' action in the format menu",
+    "message": "Clear formatting"
+  }
+}
