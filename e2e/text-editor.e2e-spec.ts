@@ -48,7 +48,8 @@ describe('Text editor', () => {
   }
 
   function runTests(): void {
-    it('should match screenshot', (done) => {
+    it('should match screenshot', async (done) => {
+      await SkyHostBrowser.moveCursorOffScreen();
       expect('#screenshot-text-editor').toMatchBaselineScreenshot(done, {
         screenshotName: getScreenshotName('text-editor')
       });
@@ -68,11 +69,9 @@ describe('Text editor', () => {
       )).click();
       await element(by.css('.sky-dropdown-item button')).click();
       await SkyHostBrowser.moveCursorOffScreen();
-      setTimeout(() => {
-        expect('#screenshot-text-editor').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('text-editor-merge-field')
-        });
-      }, 1000);
+      expect('#screenshot-text-editor iframe').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('text-editor-merge-field')
+      });
     });
   }
 
