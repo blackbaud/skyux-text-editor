@@ -18,6 +18,11 @@
   "plugins": [
     "@skyux-sdk/builder-plugin-skyux"
   ],
+  "librarySettings": {
+    "whitelistedNonPeerDependencies": [
+      "dompurify"
+    ]
+  },
   "testSettings": {
     "e2e": {
       "browserSet": "speedy"
