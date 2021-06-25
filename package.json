@@ -1,6 +1,6 @@
 {
   "name": "@skyux/text-editor",
-  "version": "5.0.0-beta.0",
+  "version": "5.0.0-beta.1",
   "description": "HTML editor for SKY UX applications",
   "scripts": {
     "build": "skyux build-public-library",
@@ -19,23 +19,24 @@
   },
   "homepage": "https://github.com/blackbaud/skyux-text-editor#readme",
   "peerDependencies": {
-    "@angular/common": ">=9.1.13",
-    "@angular/core": ">=9.1.13",
-    "@angular/forms": ">=9.1.13",
-    "@angular/router": ">=9.1.13",
-    "@skyux/colorpicker": "^4.2.2",
-    "@skyux/core": "^4.3.3",
-    "@skyux/i18n": "^4.0.3",
-    "@skyux/indicators": "^4.7.1",
-    "@skyux/list-builder": "^4.0.1",
-    "@skyux/list-builder-common": "^4.0.1",
-    "@skyux/list-builder-view-checklist": "^4.0.1",
-    "@skyux/modals": "^4.5.1",
-    "@skyux/tabs": "^4.3.0",
-    "@skyux/validation": "^4.0.1",
-    "dompurify": "^2.2.9"
+    "@angular/common": "^9.1.13 || ^12",
+    "@angular/core": "^9.1.13 || ^12",
+    "@angular/forms": "^9.1.13 || ^12",
+    "@angular/router": "^9.1.13 || ^12",
+    "@skyux/colorpicker": "^4.2.2 || ^5.0.0-beta.0",
+    "@skyux/core": "^4.3.3 || ^5.0.0-beta.0",
+    "@skyux/i18n": "^4.0.3 || ^5.0.0-beta.0",
+    "@skyux/indicators": "^4.7.1 || ^5.0.0-beta.0",
+    "@skyux/list-builder": "^4.0.1 || ^5.0.0-beta.0",
+    "@skyux/list-builder-common": "^4.0.1 || ^5.0.0-beta.0",
+    "@skyux/list-builder-view-checklist": "^4.0.1 || ^5.0.0-beta.0",
+    "@skyux/modals": "^4.5.1 || ^5.0.0-beta.0",
+    "@skyux/tabs": "^4.3.0 || ^5.0.0-beta.0",
+    "@skyux/validation": "^4.0.1 || ^5.0.0-beta.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "dompurify": "2.2.9"
+  },
   "devDependencies": {
     "@angular/animations": "9.1.13",
     "@angular/common": "9.1.13",
@@ -83,7 +84,6 @@
     "@skyux/validation": "4.0.1",
     "@types/dompurify": "2.2.2",
     "codelyzer": "5.2.2",
-    "dompurify": "2.2.9",
     "karma-edge-launcher": "0.4.2",
     "karma-firefox-launcher": "1.3.0",
     "karma-ie-launcher": "1.0.0",
