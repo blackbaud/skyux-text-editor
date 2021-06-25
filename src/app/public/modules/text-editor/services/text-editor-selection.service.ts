@@ -9,6 +9,15 @@ import {
   providedIn: 'root'
 })
 export class SkyTextEditorSelectionService {
+  public isElementSelected(documentEl: Document, element: Element) {
+    const selectedNode = this.getCurrentSelection(documentEl).anchorNode;
+    /* istanbul ignore next */
+    return selectedNode &&
+      (
+        element.contains(selectedNode) ||
+        (selectedNode.parentNode && element.contains(selectedNode.parentNode))
+      );
+  }
 
   public getCurrentSelection(documentEl: Document): Selection {
     return documentEl.getSelection();
@@ -32,7 +41,7 @@ export class SkyTextEditorSelectionService {
     return selectedEl;
   }
 
-  public saveSelection(documentEl: Document, windowEl: Window): Range {
+  public getCurrentSelectionRange(documentEl: Document, windowEl: Window): Range {
     /* istanbul ignore else */
     if (windowEl.getSelection) {
       const sel = windowEl.getSelection();
