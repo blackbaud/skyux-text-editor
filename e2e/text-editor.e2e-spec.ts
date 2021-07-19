@@ -56,7 +56,7 @@ describe('Text editor', () => {
     });
 
     it('should match link modal screenshot', async (done) => {
-      await element.all(by.css('.sky-text-editor-toolbar-action-Link button')).first().click();
+      await element.all(by.css('.sky-text-editor-toolbar-action-link button')).first().click();
       await SkyHostBrowser.moveCursorOffScreen();
       expect('body').toMatchBaselineScreenshot(done, {
         screenshotName: getScreenshotName('text-editor-link-modal')
@@ -65,7 +65,7 @@ describe('Text editor', () => {
 
     it('should match merge field screenshot', async (done) => {
       await element(by.css(
-        '.sky-text-editor-menu-MergeField .sky-dropdown-button'
+        '.sky-text-editor-menu-merge-field .sky-dropdown-button'
       )).click();
       await element(by.css('.sky-dropdown-item button')).click();
       await SkyHostBrowser.moveCursorOffScreen();
