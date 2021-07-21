@@ -9,8 +9,8 @@ import {
   providedIn: 'root'
 })
 export class SkyTextEditorSelectionService {
-  public isElementSelected(documentEl: Document, element: Element) {
-    const selectedNode = this.getCurrentSelection(documentEl).anchorNode;
+  public isElementSelected(documentEl: Document, element: HTMLElement) {
+    const selectedNode = this.getCurrentSelection(documentEl).anchorNode as HTMLElement;
     /* istanbul ignore next */
     return selectedNode &&
       (
