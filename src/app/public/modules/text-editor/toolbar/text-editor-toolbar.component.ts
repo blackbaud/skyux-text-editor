@@ -141,6 +141,9 @@ export class SkyTextEditorToolbarComponent implements OnInit {
     if (currentState !== newState) {
       this.execCommand(command);
     }
+
+    // Force sky-checkbox to show changes on user's initial click.
+    this.changeDetector.detectChanges();
   }
 
   public link(): void {
