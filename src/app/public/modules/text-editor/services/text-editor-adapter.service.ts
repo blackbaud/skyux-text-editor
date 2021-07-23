@@ -106,7 +106,6 @@ export class SkyTextEditorAdapterService {
   public execCommand(id: string, editorCommand: EditorCommand): void {
     if (id in this.editors) {
       const documentEl = this.getDocumentEl(id);
-      this.focusEditor(id);
 
       if (this.editorSelected(id)) {
         const commandIsSupportedAndEnabled = documentEl.execCommand(editorCommand.command, false, editorCommand.value);
