@@ -55,14 +55,11 @@ export class SkyTextEditorSelectionService {
   }
 
   public restoreSelection(documentEl: Document, selectedRange: Range, windowEl: Window): void {
+    /* istanbul ignore else */
     if (selectedRange) {
+      const sel = windowEl.getSelection() || documentEl.getSelection();
       /* istanbul ignore else */
-      if (windowEl.getSelection) {
-        const sel = windowEl.getSelection();
-        sel.removeAllRanges();
-        sel.addRange(selectedRange);
-      } else if (documentEl.getSelection) {
-        const sel = documentEl.getSelection();
+      if (!this.areRangesEqual(selectedRange, sel.getRangeAt(0))) {
         sel.removeAllRanges();
         sel.addRange(selectedRange);
       }
@@ -86,6 +83,11 @@ export class SkyTextEditorSelectionService {
         sel.addRange(range);
       }
     }
+  }
+
+  private areRangesEqual(range1: Range, range2: Range): boolean {
+    return (range1.compareBoundaryPoints(Range.START_TO_START, range2) === 0
+          && range1.compareBoundaryPoints(Range.END_TO_END, range2) === 0);
   }
 
 }
