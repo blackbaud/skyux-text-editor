@@ -65,16 +65,21 @@ import {
 describe('Text editor', () => {
 
   let fixture: ComponentFixture<TextEditorFixtureComponent>;
+  let iframeDocumentEl: any;
 
   //#region helpers
+  function getIframeDocument(): any {
+    return fixture.nativeElement.querySelector('iframe').contentDocument;
+  }
+
   function checkboxExecCommandTest(checkboxInputElement: HTMLElement, expectedCommand: string): void {
     let execCommandCalled = false;
     fixture.detectChanges();
     tick();
     fixture.detectChanges();
 
-    const innerDocument = fixture.nativeElement.querySelector('iframe').contentDocument;
-    innerDocument.execCommand = (command: string, _: boolean, value: string) => {
+    iframeDocumentEl.body.focus();
+    iframeDocumentEl.execCommand = (command: string, _: boolean, value: string) => {
       execCommandCalled = true;
       expect(command).toBe(expectedCommand);
     };
@@ -97,8 +102,8 @@ describe('Text editor', () => {
     tick();
     fixture.detectChanges();
 
-    const innerDocument = fixture.nativeElement.querySelector('iframe').contentDocument;
-    innerDocument.execCommand = (command: string, _: boolean, value: string) => {
+    iframeDocumentEl.body.focus();
+    iframeDocumentEl.execCommand = (command: string, _: boolean, value: string) => {
       execCommandCalled = true;
       expect(command).toBe(expectedCommand);
       expect(value).toBe(expectedValue);
@@ -160,8 +165,8 @@ describe('Text editor', () => {
     tick();
     fixture.detectChanges();
 
-    const innerDocument = fixture.nativeElement.querySelector('iframe').contentDocument;
-    innerDocument.execCommand = (command: string, _: boolean, value: string) => {
+    iframeDocumentEl.body.focus();
+    iframeDocumentEl.execCommand = (command: string, _: boolean, value: string) => {
       execCommandCalled = true;
       expect(value).toBe(expectedValue);
       commandsCalled.push(command);
@@ -313,6 +318,7 @@ describe('Text editor', () => {
     });
 
     fixture = TestBed.createComponent(TextEditorFixtureComponent);
+    iframeDocumentEl = getIframeDocument();
   });
 
   afterEach(() => {
@@ -468,6 +474,7 @@ describe('Text editor', () => {
     openDropdown('.sky-text-editor-menu-merge-field');
     const optionButtons = document.querySelectorAll('.sky-dropdown-item button');
     expect(optionButtons.length).toBe(3);
+    iframeDocumentEl.body.focus();
     SkyAppTestUtility.fireDomEvent(optionButtons[0], 'click');
     fixture.detectChanges();
     tick();
@@ -488,6 +495,7 @@ describe('Text editor', () => {
     openDropdown('.sky-text-editor-menu-merge-field');
     expect(document.querySelector('.sky-dropdown-item')).toBeTruthy();
 
+    iframeDocumentEl.body.focus();
     const mergeFieldOption = document.querySelector('.sky-dropdown-item button');
     SkyAppTestUtility.fireDomEvent(mergeFieldOption, 'click');
     fixture.detectChanges();
@@ -506,6 +514,7 @@ describe('Text editor', () => {
     openDropdown('.sky-text-editor-menu-merge-field');
     expect(document.querySelector('.sky-dropdown-item')).toBeTruthy();
 
+    iframeDocumentEl.body.focus();
     const mergeFieldOption = document.querySelectorAll('.sky-dropdown-item button')[2];
     SkyAppTestUtility.fireDomEvent(mergeFieldOption, 'click');
     fixture.detectChanges();
@@ -558,8 +567,8 @@ describe('Text editor', () => {
     tick();
     fixture.detectChanges();
 
-    const innerDocument = fixture.nativeElement.querySelector('iframe').contentDocument;
-    innerDocument.execCommand = (command: string, _: boolean, value: string) => {
+    iframeDocumentEl.body.focus();
+    iframeDocumentEl.execCommand = (command: string, _: boolean, value: string) => {
       execCommandCalled = true;
       expect(command).toBe(expectedCommand);
       expect(value).toBe(expectedValue);
@@ -583,8 +592,8 @@ describe('Text editor', () => {
     tick();
     fixture.detectChanges();
 
-    const innerDocument = fixture.nativeElement.querySelector('iframe').contentDocument;
-    innerDocument.execCommand = (command: string, _: boolean, value: any) => {
+    iframeDocumentEl.body.focus();
+    iframeDocumentEl.execCommand = (command: string, _: boolean, value: any) => {
       execCommandCalled = true;
       expect(command).toBe(expectedCommand);
       expect(value).toBe(expectedValue);
@@ -636,8 +645,8 @@ describe('Text editor', () => {
     tick();
     fixture.detectChanges();
 
-    const innerDocument = fixture.nativeElement.querySelector('iframe').contentDocument;
-    innerDocument.execCommand = (command: string, _: boolean, value: string) => {
+    iframeDocumentEl.body.focus();
+    iframeDocumentEl.execCommand = (command: string, _: boolean, value: string) => {
       execCommandCalled = true;
       expect(command).toBe(expectedCommand);
       expect(value).toBe(expectedValue);
@@ -664,8 +673,8 @@ describe('Text editor', () => {
     tick();
     fixture.detectChanges();
 
-    const innerDocument = fixture.nativeElement.querySelector('iframe').contentDocument;
-    innerDocument.execCommand = (command: string, _: boolean, value: string) => {
+    iframeDocumentEl.body.focus();
+    iframeDocumentEl.execCommand = (command: string, _: boolean, value: string) => {
       execCommandCalled = true;
       expect(command).toBe(expectedCommand);
       expect(value).toBe(expectedValue);
@@ -1022,7 +1031,7 @@ describe('Text editor', () => {
   it('should set the style of the iframe body to the default style if a style state is not provided', fakeAsync(() => {
     fixture.detectChanges();
 
-    let style: CSSStyleDeclaration = fixture.nativeElement.querySelector('iframe').contentDocument.querySelector('body').style;
+    let style: CSSStyleDeclaration = iframeDocumentEl.querySelector('body').style;
     expect(style.getPropertyValue('background-color')).toEqual('rgba(0, 0, 0, 0)');
     expect([
       'rgb(0, 0, 0)', // Normal
@@ -1048,7 +1057,7 @@ describe('Text editor', () => {
     } as SkyTextEditorStyleState;
     fixture.detectChanges();
 
-    let style: CSSStyleDeclaration = fixture.nativeElement.querySelector('iframe').contentDocument.querySelector('body').style;
+    let style: CSSStyleDeclaration = iframeDocumentEl.querySelector('body').style;
     expect(style.getPropertyValue('background-color')).toEqual('rgb(51, 51, 51)');
     expect([
       'rgb(238, 238, 238)', // Normal
@@ -1156,8 +1165,7 @@ describe('Text editor', () => {
       tick();
       fixture.detectChanges();
 
-      const innerDocument = fixture.nativeElement.querySelector('iframe').contentDocument;
-      innerDocument.execCommand = (command: string, _: boolean, __: string) => {
+      iframeDocumentEl.execCommand = (command: string, _: boolean, __: string) => {
         execCommandCalled = true;
         commandsCalled.push(command);
       };
