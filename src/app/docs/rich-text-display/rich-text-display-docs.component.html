@@ -10,7 +10,7 @@
         This component is in beta. We do not plan to make any breaking changes before the official release, but such changes are possible.
       </sky-alert>
       <p>
-        The rich text display component provides a safe way to display html strings with formatting on a web page.
+        The rich text display sanitizes HTML strings before displaying them. It searches HTML for any malicious code, such as `script` tags, and removes it as necessary. This allows you to safely display HTML strings from various sources.
       </p>
     </sky-docs-demo-page-summary>
 
