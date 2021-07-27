@@ -50,19 +50,6 @@ export class SkyTextEditorSelectionService {
     } else if (documentEl.getSelection() && documentEl.getSelection().getRangeAt) {
       return documentEl.getSelection().getRangeAt(0);
     }
-    return undefined;
-  }
-
-  public restoreSelection(documentEl: Document, selectedRange: Range, windowEl: Window): void {
-    /* istanbul ignore else */
-    if (selectedRange) {
-      const sel = windowEl.getSelection() || documentEl.getSelection();
-      /* istanbul ignore else */
-      if (!this.areRangesEqual(selectedRange, sel.getRangeAt(0))) {
-        sel.removeAllRanges();
-        sel.addRange(selectedRange);
-      }
-    }
   }
 
   public selectElement(documentEl: Document, windowEl: Window, element: HTMLElement): void {
@@ -82,11 +69,6 @@ export class SkyTextEditorSelectionService {
         sel.addRange(range);
       }
     }
-  }
-
-  private areRangesEqual(range1: Range, range2: Range): boolean {
-    return (range1.compareBoundaryPoints(Range.START_TO_START, range2) === 0
-          && range1.compareBoundaryPoints(Range.END_TO_END, range2) === 0);
   }
 
 }

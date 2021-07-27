@@ -181,6 +181,7 @@ export class SkyTextEditorAdapterService {
       };
     }
 
+    /* istanbul ignore next */
     return {};
   }
 
@@ -196,9 +197,7 @@ export class SkyTextEditorAdapterService {
     const documentEl = this.getIframeDocumentEl(id);
     const editorContent = documentEl.body;
     if (editorContent.innerHTML !== value) {
-      const previousSelection = this.selectionService.getCurrentSelectionRange(documentEl, this.getContentWindowEl(id));
       editorContent.innerHTML = value;
-      this.selectionService.restoreSelection(documentEl, previousSelection, this.getContentWindowEl(id));
     }
   }
 
@@ -235,8 +234,6 @@ export class SkyTextEditorAdapterService {
         // Cursor may not be active, restore it
         this.editors[id].iframeElementRef.focus();
         iframeDocumentEl.body.focus();
-        const existingSelection = this.selectionService.getCurrentSelectionRange(iframeDocumentEl, windowEl);
-        this.selectionService.restoreSelection(iframeDocumentEl, existingSelection, windowEl);
       }
     }
   }
@@ -258,10 +255,6 @@ export class SkyTextEditorAdapterService {
     const selectedEl = this.getCurrentSelectionParentElement(editorId);
 
     return this.getParent(selectedEl, 'a') as HTMLAnchorElement;
-  }
-
-  public restoreSelection(id: string, range: Range): void {
-    this.selectionService.restoreSelection(this.getIframeDocumentEl(id), range, this.getContentWindowEl(id));
   }
 
   public saveSelection(id: string): Range {
@@ -467,26 +460,26 @@ export class SkyTextEditorAdapterService {
     const windowEl = this.getContentWindowEl(id);
     const sel = windowEl.getSelection();
     if (sel.getRangeAt && sel.rangeCount) {
-        let range = sel.getRangeAt(0);
-        range.deleteContents();
+      let range = sel.getRangeAt(0);
+      range.deleteContents();
 
-        const el = documentEl.createElement('div');
-        el.innerHTML = html;
-        let frag = documentEl.createDocumentFragment(), node, lastNode;
-        while (el.firstChild) {
-          node = el.firstChild;
-          lastNode = frag.appendChild(node);
-        }
-        range.insertNode(frag);
+      const el = documentEl.createElement('div');
+      el.innerHTML = html;
+      let frag = documentEl.createDocumentFragment(), node, lastNode;
+      while (el.firstChild) {
+        node = el.firstChild;
+        lastNode = frag.appendChild(node);
+      }
+      range.insertNode(frag);
 
-        // Preserve the selection
-        if (lastNode) {
-            range = range.cloneRange();
-            range.setStartAfter(lastNode);
-            range.collapse(true);
-            sel.removeAllRanges();
-            sel.addRange(range);
-        }
+      // Preserve the selection
+      if (lastNode) {
+        range = range.cloneRange();
+        range.setStartAfter(lastNode);
+        range.collapse(true);
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
     }
   }
 

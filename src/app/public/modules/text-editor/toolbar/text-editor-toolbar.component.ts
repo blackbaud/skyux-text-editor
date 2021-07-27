@@ -153,9 +153,7 @@ export class SkyTextEditorToolbarComponent implements OnInit {
     }]);
     inputModal.closed.subscribe((result: SkyModalCloseArgs) => {
       if (result.reason === 'save' && priorSelection) {
-        if (!currentLink) {
-          this.adapterService.restoreSelection(this.editorId, priorSelection);
-        } else {
+        if (currentLink) {
           const anchor = this.adapterService.getSelectedAnchorTag(this.editorId);
           this.adapterService.selectElement(this.editorId, anchor);
         }
