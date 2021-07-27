@@ -285,6 +285,7 @@ export class SkyTextEditorAdapterService {
   }
 
   public removeObservers(setting: EditorSetting): void {
+    /* istanbul ignore next */
     const documentEl = setting.iframeElementRef.contentWindow ?
        setting.iframeElementRef.contentWindow.document :
        setting.iframeElementRef.contentDocument;
@@ -368,6 +369,7 @@ export class SkyTextEditorAdapterService {
   }
 
   private createObservers(id: string, element: HTMLIFrameElement): EditorSetting {
+    /* istanbul ignore next */
     const documentEl = element.contentWindow ?
       element.contentWindow.document :
       element.contentDocument;
