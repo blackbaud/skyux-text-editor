@@ -72,7 +72,7 @@ export class SkyTextEditorAdapterService {
     if (!(id in this.editors)) {
       this.editors[id] = this.createObservers(id, iframeElement);
 
-      const documentEl = this.getDocumentEl(id);
+      const documentEl = this.getIframeDocumentEl(id);
 
       const styleEl = documentEl.createElement('style');
       styleEl.innerHTML = `.editor:empty:before {
@@ -105,7 +105,7 @@ export class SkyTextEditorAdapterService {
    */
   public execCommand(id: string, editorCommand: EditorCommand): void {
     if (id in this.editors) {
-      const documentEl = this.getDocumentEl(id);
+      const documentEl = this.getIframeDocumentEl(id);
 
       if (this.editorSelected(id)) {
         const commandIsSupportedAndEnabled = documentEl.execCommand(editorCommand.command, false, editorCommand.value);
@@ -119,7 +119,6 @@ export class SkyTextEditorAdapterService {
           this.insertHtmlInIE11(id, editorCommand.value);
         }
 
-        /* istanbul ignore next */
         this.focusEditor(id);
         this.editors[id].commandChangeObservable.next();
       }
@@ -127,7 +126,7 @@ export class SkyTextEditorAdapterService {
   }
 
   public getCurrentSelection(id: string): Selection {
-    return this.selectionService.getCurrentSelection(this.getDocumentEl(id));
+    return this.selectionService.getCurrentSelection(this.getIframeDocumentEl(id));
   }
 
   /**
@@ -167,7 +166,7 @@ export class SkyTextEditorAdapterService {
   }
 
   public getStyleState(id: string): Partial<SkyTextEditorStyleState> {
-    const documentEl = this.getDocumentEl(id);
+    const documentEl = this.getIframeDocumentEl(id);
 
     if (this.editorSelected(id)) {
       return {
@@ -182,12 +181,11 @@ export class SkyTextEditorAdapterService {
       };
     }
 
-    /* istanbul ignore next */
     return {};
   }
 
   public getEditorInnerHtml(id: string): string {
-    const documentEl = this.getDocumentEl(id);
+    const documentEl = this.getIframeDocumentEl(id);
     if (documentEl) {
       return this.replaceHtmlCodes(documentEl.body.innerHTML);
     }
@@ -195,7 +193,7 @@ export class SkyTextEditorAdapterService {
   }
 
   public setEditorInnerHtml(id: string, value: string): void {
-    const documentEl = this.getDocumentEl(id);
+    const documentEl = this.getIframeDocumentEl(id);
     const editorContent = documentEl.body;
     if (editorContent.innerHTML !== value) {
       const previousSelection = this.selectionService.getCurrentSelectionRange(documentEl, this.getContentWindowEl(id));
@@ -207,7 +205,7 @@ export class SkyTextEditorAdapterService {
   public focusEditor(id: string): void {
     if (id in this.editors) {
       const windowEl = this.getContentWindowEl(id);
-      const iframeDocumentEl = this.getDocumentEl(id);
+      const iframeDocumentEl = this.getIframeDocumentEl(id);
       const currentSelection = this.selectionService.getCurrentSelectionRange(iframeDocumentEl, windowEl);
       const cursorIsNotActiveAndHasReset = currentSelection && (currentSelection.startOffset === 0 && currentSelection.endOffset === 0);
 
@@ -263,24 +261,24 @@ export class SkyTextEditorAdapterService {
   }
 
   public restoreSelection(id: string, range: Range): void {
-    this.selectionService.restoreSelection(this.getDocumentEl(id), range, this.getContentWindowEl(id));
+    this.selectionService.restoreSelection(this.getIframeDocumentEl(id), range, this.getContentWindowEl(id));
   }
 
   public saveSelection(id: string): Range {
-    return this.selectionService.getCurrentSelectionRange(this.getDocumentEl(id), this.getContentWindowEl(id));
+    return this.selectionService.getCurrentSelectionRange(this.getIframeDocumentEl(id), this.getContentWindowEl(id));
   }
 
   public selectElement(id: string, element: HTMLElement): void {
-    this.selectionService.selectElement(this.getDocumentEl(id), this.getContentWindowEl(id), element);
+    this.selectionService.selectElement(this.getIframeDocumentEl(id), this.getContentWindowEl(id), element);
   }
 
   public setPlaceholder(id: string, placeholder?: string): void {
-    const documentEl = this.getDocumentEl(id);
+    const documentEl = this.getIframeDocumentEl(id);
     documentEl.body.setAttribute('data-placeholder', placeholder || '');
   }
 
   public setFontSize(id: string, fontSize: number): void {
-    const doc = this.getDocumentEl(id);
+    const doc = this.getIframeDocumentEl(id);
     this.execCommand(id, {command: 'fontSize', value: 1});
     const fontElements: HTMLElement[] = Array.from(doc.querySelectorAll('font[size="1"]'));
     for (let element of fontElements) {
@@ -294,7 +292,6 @@ export class SkyTextEditorAdapterService {
   }
 
   public removeObservers(setting: EditorSetting): void {
-    /* istanbul ignore next */
     const documentEl = setting.iframeElementRef.contentWindow ?
        setting.iframeElementRef.contentWindow.document :
        setting.iframeElementRef.contentDocument;
@@ -341,7 +338,7 @@ export class SkyTextEditorAdapterService {
     });
   }
 
-  private getDocumentEl(id: string): Document {
+  private getIframeDocumentEl(id: string): Document {
     /* istanbul ignore next */
     if (!(id in this.editors)) {
       return undefined;
@@ -357,7 +354,6 @@ export class SkyTextEditorAdapterService {
   }
 
   private getFontSize(id: string): string {
-    /* istanbul ignore next */
     let fontSize = STYLE_STATE_DEFAULTS.fontSize.toString();
     const selection = this.getCurrentSelection(id);
     if (
@@ -379,7 +375,6 @@ export class SkyTextEditorAdapterService {
   }
 
   private createObservers(id: string, element: HTMLIFrameElement): EditorSetting {
-    /* istanbul ignore next */
     const documentEl = element.contentWindow ?
       element.contentWindow.document :
       element.contentDocument;
@@ -419,7 +414,7 @@ export class SkyTextEditorAdapterService {
   }
 
   private getCurrentSelectionParentElement(id: string): Element {
-    return this.selectionService.getCurrentSelectionParentElement(this.getDocumentEl(id));
+    return this.selectionService.getCurrentSelectionParentElement(this.getIframeDocumentEl(id));
   }
 
   private getColor(documentEl: Document, selector: string): string {
@@ -462,13 +457,13 @@ export class SkyTextEditorAdapterService {
   }
 
   private editorSelected(id: string): boolean {
-    const documentEl = this.getDocumentEl(id);
+    const documentEl = this.getIframeDocumentEl(id);
     return this.selectionService.isElementSelected(documentEl, documentEl.body);
   }
 
   /* istanbul ignore next */
   private insertHtmlInIE11(id: string, html: string): void {
-    const documentEl = this.getDocumentEl(id);
+    const documentEl = this.getIframeDocumentEl(id);
     const windowEl = this.getContentWindowEl(id);
     const sel = windowEl.getSelection();
     if (sel.getRangeAt && sel.rangeCount) {

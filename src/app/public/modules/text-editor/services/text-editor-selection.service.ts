@@ -11,7 +11,6 @@ import {
 export class SkyTextEditorSelectionService {
   public isElementSelected(documentEl: Document, element: HTMLElement) {
     const selectedNode = this.getCurrentSelection(documentEl).anchorNode as HTMLElement;
-    /* istanbul ignore next */
     return selectedNode &&
       (
         element.contains(selectedNode) ||
