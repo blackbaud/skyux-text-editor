@@ -78,7 +78,7 @@
     "@skyux/router": "4.2.2",
     "@skyux/select-field": "4.0.2",
     "@skyux/tabs": "4.6.8",
-    "@skyux/theme": "4.19.0",
+    "@skyux/theme": "4.20.0",
     "@skyux/validation": "4.0.1",
     "@types/dompurify": "2.2.3",
     "codelyzer": "5.2.2",
