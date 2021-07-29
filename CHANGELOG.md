@@ -1,3 +1,13 @@
+# 5.0.0-beta.3 (2021-07-29)
+
+- Added bug fixes and features from the `master` branch. [#19](https://github.com/blackbaud/skyux-text-editor/pull/19)
+
+# 4.0.0-beta.1 (2021-07-29)
+
+- Updated the toolbar to follow accessibility best practices. [#15](https://github.com/blackbaud/skyux-text-editor/pull/15)
+- Updated the toolbar icons for modern theme. [#16](https://github.com/blackbaud/skyux-text-editor/pull/16)
+- Fixed the text editor component to retain selection and cursor position when modifying the formatting. [#10](https://github.com/blackbaud/skyux-text-editor/pull/10)
+
 # 5.0.0-beta.2 (2021-07-15)
 
 - Added support for `5.0.0-beta.*` versions of SKY UX component libraries. [#12](https://github.com/blackbaud/skyux-text-editor/pull/12)
