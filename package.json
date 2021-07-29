@@ -80,7 +80,7 @@
     "@skyux/router": "4.2.2",
     "@skyux/select-field": "4.0.2",
     "@skyux/tabs": "4.6.8",
-    "@skyux/text-editor": "4.0.0-beta.0",
+    "@skyux/text-editor": "4.0.0-beta.1",
     "@skyux/theme": "4.20.1",
     "@skyux/validation": "4.0.1",
     "@types/dompurify": "2.2.3",
