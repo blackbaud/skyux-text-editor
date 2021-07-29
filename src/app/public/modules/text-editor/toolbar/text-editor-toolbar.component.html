@@ -1,19 +1,18 @@
 
   <sky-toolbar-item *ngFor="let action of toolbarActions"
     class="sky-text-editor-toolbar-action"
-    [ngClass]="'sky-text-editor-toolbar-action-' + toolbarActionEnum[action]"
+    [ngClass]="'sky-text-editor-toolbar-action-' + action"
   >
     <ng-container
       [ngSwitch]="action"
     >
-      <ng-container *ngSwitchCase="toolbarActionEnum.FontFamily">
+      <ng-container *ngSwitchCase="'font-family'">
         <sky-dropdown
           class="sky-text-editor-font-picker"
-          label="Font family"
+          [label]="'Font: ' + styleStateFontName"
           [messageStream]="fontPickerStream"
         >
           <sky-dropdown-button
-            role="menuitem"
             [ngStyle]="{
               'font-family': styleState.font
             }"
@@ -35,14 +34,13 @@
           </sky-dropdown-menu>
         </sky-dropdown>
       </ng-container>
-      <ng-container *ngSwitchCase="toolbarActionEnum.FontSize">
+      <ng-container *ngSwitchCase="'font-size'">
         <sky-dropdown
           class="sky-text-editor-font-size-picker"
-          label="Font size"
+          [label]="'Font size: ' + styleState.fontSize + 'px'"
           [messageStream]="fontSizeStream"
         >
           <sky-dropdown-button
-            role="menuitem"
             [ngStyle]="{
               'font-family': styleState.fontSize
             }"
@@ -61,7 +59,7 @@
           </sky-dropdown-menu>
         </sky-dropdown>
       </ng-container>
-      <ng-container *ngSwitchCase="toolbarActionEnum.FontStyle">
+      <ng-container *ngSwitchCase="'font-style'">
         <div
           class="sky-switch-icon-group sky-text-editor-font-style-picker"
         >
@@ -91,7 +89,7 @@
           </sky-checkbox>
         </div>
       </ng-container>
-      <ng-container *ngSwitchCase="toolbarActionEnum.Color">
+      <ng-container *ngSwitchCase="'color'">
         <div class="sky-text-editor-colorpicker-group">
           <div class="sky-text-editor-colorpicker-container">
             <sky-colorpicker
@@ -131,7 +129,7 @@
           </div>
         </div>
       </ng-container>
-      <ng-container *ngSwitchCase="toolbarActionEnum.List">
+      <ng-container *ngSwitchCase="'list'">
         <div
           class="sky-switch-icon-group"
         >
@@ -169,7 +167,7 @@
           </button>
         </div>
       </ng-container>
-      <ng-container *ngSwitchCase="toolbarActionEnum.Alignment">
+      <ng-container *ngSwitchCase="'alignment'">
         <div
           class="sky-switch-icon-group"
         >
@@ -223,7 +221,7 @@
           </button>
         </div>
       </ng-container>
-      <ng-container *ngSwitchCase="toolbarActionEnum.Indentation">
+      <ng-container *ngSwitchCase="'indentation'">
         <div
           class="sky-switch-icon-group"
         >
@@ -233,8 +231,13 @@
             title="Outdent"
             (click)="execCommand('outdent')"
           >
-            <sky-icon
+            <sky-icon *skyThemeIf="'default'"
               icon="outdent"
+            >
+            </sky-icon>
+            <sky-icon *skyThemeIf="'modern'"
+              icon="outdent-line"
+              iconType="skyux"
             >
             </sky-icon>
           </button>
@@ -244,14 +247,19 @@
             title="Indent"
             (click)="execCommand('indent')"
           >
-            <sky-icon
+            <sky-icon *skyThemeIf="'default'"
               icon="indent"
+            >
+            </sky-icon>
+            <sky-icon *skyThemeIf="'modern'"
+              icon="indent-line"
+              iconType="skyux"
             >
             </sky-icon>
           </button>
         </div>
       </ng-container>
-      <ng-container *ngSwitchCase="toolbarActionEnum.UndoRedo">
+      <ng-container *ngSwitchCase="'undo-redo'">
         <div
           class="sky-switch-icon-group"
         >
@@ -261,8 +269,13 @@
             title="Undo"
             (click)="execCommand('undo')"
           >
-            <sky-icon
+            <sky-icon *skyThemeIf="'default'"
               icon="undo"
+            >
+            </sky-icon>
+            <sky-icon *skyThemeIf="'modern'"
+              icon="undo-line"
+              iconType="skyux"
             >
             </sky-icon>
           </button>
@@ -272,14 +285,19 @@
             title="Redo"
             (click)="execCommand('redo')"
           >
-            <sky-icon
+            <sky-icon *skyThemeIf="'default'"
               icon="repeat"
+            >
+            </sky-icon>
+            <sky-icon *skyThemeIf="'modern'"
+              icon="redo-line"
+              iconType="skyux"
             >
             </sky-icon>
           </button>
         </div>
       </ng-container>
-      <ng-container *ngSwitchCase="toolbarActionEnum.Link">
+      <ng-container *ngSwitchCase="'link'">
         <div
           class="sky-switch-icon-group"
         >
