@@ -100,6 +100,11 @@ export class SkyTextEditorAdapterService {
     }
   }
 
+   public toggleEditorAbility(id: string, disabled: boolean) {
+    const documentEl = this.getDocumentEl(id);
+    documentEl.body.setAttribute('contenteditable', (!disabled).toString());
+  }
+
   /**
    * Executes a command on the text editor with the corresponding id.
    */
