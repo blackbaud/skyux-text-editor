@@ -1,7 +1,14 @@
 import {
   Component,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnInit
 } from '@angular/core';
+
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup
+} from '@angular/forms';
 
 import {
   DomSanitizer,
@@ -23,7 +30,7 @@ import {
   templateUrl: './text-editor-visual.component.html',
   styleUrls: ['./text-editor-visual.component.scss']
 })
-export class RichTextEditorVisualComponent {
+export class RichTextEditorVisualComponent implements OnInit {
 
   public displayValue: SafeHtml;
 
@@ -76,16 +83,33 @@ export class RichTextEditorVisualComponent {
 
   private _value = '<font style=\"font-size: 16px\" color=\"#a25353\"><b><i><u>Super styled text</u></i></b></font>';
 
+  public myForm: FormGroup;
+
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
+    private formBuilder: FormBuilder,
     private sanitizer: DomSanitizer,
     private themeSvc: SkyThemeService
   ) {
     this.displayValue = this.sanitizer.bypassSecurityTrustHtml(this.value);
   }
 
+  public ngOnInit(): void {
+    this.myForm = this.formBuilder.group({
+      textEditor: new FormControl('')
+    });
+  }
+
   public themeSettingsChange(themeSettings: SkyThemeSettings): void {
     this.themeSvc.setTheme(themeSettings);
+  }
+
+  public onToggleAbleTextEditor(): void {
+    if (this.myForm.controls['textEditor'].disabled) {
+      this.myForm.controls['textEditor'].enable();
+    } else {
+      this.myForm.controls['textEditor'].disable();
+    }
   }
 
 }
