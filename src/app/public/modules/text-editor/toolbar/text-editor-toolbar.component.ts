@@ -57,6 +57,7 @@ import {
 import {
   SkyUrlModalContext
 } from '../url-modal/text-editor-url-modal-context';
+import { SkyFormsUtility } from '../../shared/forms-utility';
 
 /**
  * @internal
@@ -94,6 +95,23 @@ export class SkyTextEditorToolbarComponent implements OnInit {
       this.styleStateFontName = this.getFontName(value.font);
     }
   }
+
+  @Input()
+  public set disabled(value: boolean) {
+    const coercedValue = SkyFormsUtility.coerceBooleanProperty(value);
+    if (coercedValue !== this.disabled) {
+      this._disabled = coercedValue;
+    }
+  }
+
+  /**
+   * Indicates whether the text editor toolbar is disabled.
+   */
+   public get disabled() {
+    return this._disabled;
+  }
+
+  private _disabled: boolean = false;
 
   public backColorpickerStream = new Subject<SkyColorpickerMessage>();
 

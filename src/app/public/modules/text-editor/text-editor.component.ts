@@ -21,7 +21,6 @@ import {
 } from 'rxjs/operators';
 
 import {
-  BehaviorSubject,
   Subject
 } from 'rxjs';
 
@@ -234,7 +233,6 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
       this.changeDetector.markForCheck();
 
       this.adapterService.toggleEditorAbility(this.id, this._disabled);
-      this._disabledChange.next(this._disabled);
 
       if (this._disabled) {
         this.skyTextEditor.style.pointerEvents = 'none';
@@ -260,8 +258,6 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
   }
 
   private _disabled: boolean = false;
-
-  private _disabledChange = new BehaviorSubject<boolean>(this._disabled);
 
   public editorFocusStream = new Subject();
 
