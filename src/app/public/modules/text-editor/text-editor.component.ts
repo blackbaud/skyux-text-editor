@@ -21,8 +21,13 @@ import {
 } from 'rxjs/operators';
 
 import {
+  BehaviorSubject,
   Subject
 } from 'rxjs';
+
+import {
+  SkyCoreAdapterService
+} from '@skyux/core';
 
 import {
   MENU_DEFAULTS
@@ -35,6 +40,7 @@ import {
 import {
   TOOLBAR_ACTION_DEFAULTS
 } from './defaults/toolbar-action-defaults';
+
 import {
   SkyTextEditorAdapterService
 } from './services/text-editor-adapter.service';
@@ -74,6 +80,10 @@ import {
 import {
   SkyTextEditorToolbarActionType
 } from './types/toolbar-action-type';
+
+import {
+  SkyFormsUtility
+} from '../shared/forms-utility';
 
 /**
  * Auto-incrementing integer used to generate unique ids for radio components.
@@ -211,6 +221,48 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
     return this._value;
   }
 
+  /**
+   * Indicates whether to disable the text editor.
+   * @default false
+   */
+  @Input()
+  public set disabled(value: boolean) {
+    const coercedValue = SkyFormsUtility.coerceBooleanProperty(value);
+    if (coercedValue !== this.disabled) {
+      this._disabled = coercedValue;
+
+      this.changeDetector.markForCheck();
+
+      this.adapterService.toggleEditorAbility(this.id, this._disabled);
+      this._disabledChange.next(this._disabled);
+
+      if (this._disabled) {
+        this.skyTextEditor.style.pointerEvents = 'none';
+        this.skyTextEditor.setAttribute('aria-disabled', 'true');
+        this.focusableChildren.forEach(aFocusableChild => {
+          aFocusableChild.tabIndex = -1;
+        });
+      } else {
+        this.skyTextEditor.style.pointerEvents = 'auto';
+        this.skyTextEditor.setAttribute('aria-disabled', 'false');
+        this.focusableChildren.forEach(aFocusableChild => {
+          aFocusableChild.tabIndex = 0;
+        });
+      }
+    }
+  }
+
+  /**
+   * Indicates whether the text editor is disabled.
+   */
+  public get disabled() {
+    return this._disabled;
+  }
+
+  private _disabled: boolean = false;
+
+  private _disabledChange = new BehaviorSubject<boolean>(this._disabled);
+
   public editorFocusStream = new Subject();
 
   @ViewChild('iframe')
@@ -228,8 +280,13 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
 
   private _value: string = '<p></p>';
 
+  private skyTextEditor: HTMLElement;
+
+  private focusableChildren: HTMLElement[];
+
   constructor (
     private changeDetector: ChangeDetectorRef,
+    private coreAdapterService: SkyCoreAdapterService,
     private adapterService: SkyTextEditorAdapterService,
     private editorService: SkyTextEditorService,
     private sanitizationService: SkyTextSanitizationService
@@ -275,6 +332,11 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
       this.adapterService.focusEditor(this.id);
     }
 
+    this.skyTextEditor = document.querySelector('div.sky-text-editor') as HTMLElement;
+    this.focusableChildren = this.coreAdapterService.getFocusableChildren(this.skyTextEditor, {
+      ignoreVisibility: true
+    });
+
     this.initialized = true;
   }
 
@@ -301,6 +363,13 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
 
   public registerOnTouched(fn: any): void {
     this.onTouch = fn;
+  }
+
+  /**
+   * Implemented as part of ControlValueAccessor.
+   */
+  public setDisabledState(isDisabled: boolean) {
+    this.disabled = isDisabled;
   }
 
   public onChange(): void {
