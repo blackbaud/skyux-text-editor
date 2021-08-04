@@ -3,6 +3,10 @@
 
 .sky-text-editor {
 
+  &.isDisabled {
+    opacity: 25%;
+  }
+
   .sky-text-editor-wrapper {
     display: flex;
     flex-wrap: wrap;
