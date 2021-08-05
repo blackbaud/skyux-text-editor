@@ -1,6 +1,5 @@
 <div
   class="sky-text-editor"
-  [ngClass]="disabled ? 'isDisabled' : ''"
 >
   <sky-toolbar
     class="sky-text-editor-toolbar"
@@ -15,6 +14,7 @@
         [editorId]="id"
         [menus]="menus"
         [mergeFields]="mergeFields"
+        [disabled]="disabled"
       >
       </sky-text-editor-menubar>
     </sky-toolbar-section>
@@ -30,15 +30,22 @@
         [fontSizeList]="fontSizeList"
         [toolbarActions]="toolbarActions"
         [styleState]="initialStyleState"
+        [disabled]="disabled"
       >
       </sky-text-editor-toolbar>
     </sky-toolbar-section>
   </sky-toolbar>
-  <iframe
-    #iframe
-    class="sky-text-editor-wrapper"
-    src="about:blank"
-    title="Text Editor"
+  <div
+    [ngClass]="{
+      'isDisabled': disabled
+    }"
   >
-  </iframe>
+    <iframe
+      #iframe
+      class="sky-text-editor-wrapper"
+      src="about:blank"
+      title="Text Editor"
+    >
+    </iframe>
+  </div>
 </div>
