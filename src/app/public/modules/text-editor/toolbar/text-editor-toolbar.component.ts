@@ -57,7 +57,10 @@ import {
 import {
   SkyUrlModalContext
 } from '../url-modal/text-editor-url-modal-context';
-import { SkyFormsUtility } from '../../shared/forms-utility';
+
+import {
+  SkyFormsUtility
+} from '../../shared/forms-utility';
 
 /**
  * @internal
@@ -101,6 +104,7 @@ export class SkyTextEditorToolbarComponent implements OnInit {
     const coercedValue = SkyFormsUtility.coerceBooleanProperty(value);
     if (coercedValue !== this.disabled) {
       this._disabled = coercedValue;
+      this.changeDetector.markForCheck();
     }
   }
 

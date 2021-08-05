@@ -10,6 +10,7 @@
         <sky-dropdown
           label="Edit menu"
           [messageStream]="editDropdownStream"
+          [disabled]="disabled"
         >
           <sky-dropdown-button>
             Edit
@@ -44,6 +45,7 @@
         <sky-dropdown
           label="Format menu"
           [messageStream]="formatDropdownStream"
+          [disabled]="disabled"
         >
           <sky-dropdown-button>
             Format
@@ -78,6 +80,7 @@
         <sky-dropdown *ngIf="mergeFields && mergeFields.length > 0"
           label="Insert merge field"
           [messageStream]="mergeFieldDropdownStream"
+          [disabled]="disabled"
         >
           <sky-dropdown-button>
             Insert merge field

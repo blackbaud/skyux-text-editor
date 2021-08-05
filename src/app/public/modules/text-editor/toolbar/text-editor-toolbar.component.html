@@ -11,6 +11,7 @@
           class="sky-text-editor-font-picker"
           [label]="'Font: ' + styleStateFontName"
           [messageStream]="fontPickerStream"
+          [disabled]="disabled"
         >
           <sky-dropdown-button
             [ngStyle]="{
@@ -39,6 +40,7 @@
           class="sky-text-editor-font-size-picker"
           [label]="'Font size: ' + styleState.fontSize + 'px'"
           [messageStream]="fontSizeStream"
+          [disabled]="disabled"
         >
           <sky-dropdown-button
             [ngStyle]="{
@@ -69,6 +71,7 @@
             title="Bold"
             [ngModel]="styleState.boldState"
             (ngModelChange)="toggleFontStyle(styleState.boldState, $event, 'bold')"
+            [disabled]="disabled"
           >
           </sky-checkbox>
           <sky-checkbox
@@ -77,6 +80,7 @@
             title="Italicized"
             [ngModel]="styleState.italicState"
             (ngModelChange)="toggleFontStyle(styleState.italicState, $event, 'italic')"
+            [disabled]="disabled"
           >
           </sky-checkbox>
           <sky-checkbox
@@ -85,6 +89,7 @@
             title="Underline"
             [ngModel]="styleState.underlineState"
             (ngModelChange)="toggleFontStyle(styleState.underlineState, $event, 'underline')"
+            [disabled]="disabled"
           >
           </sky-checkbox>
         </div>
@@ -138,6 +143,7 @@
             class="sky-btn sky-btn-default sky-btn-icon"
             title="Bulleted list"
             (click)="execCommand('insertUnorderedList')"
+            [disabled]="disabled"
           >
             <sky-icon *skyThemeIf="'default'"
               icon="list-ul"
@@ -154,6 +160,7 @@
             class="sky-btn sky-btn-default sky-btn-icon"
             title="Numbered list"
             (click)="execCommand('insertOrderedList')"
+            [disabled]="disabled"
           >
             <sky-icon *skyThemeIf="'default'"
               icon="list-ol"
@@ -176,6 +183,7 @@
             class="sky-btn sky-btn-default sky-btn-icon"
             title="Align left"
             (click)="execCommand('justifyLeft')"
+            [disabled]="disabled"
           >
             <sky-icon *skyThemeIf="'default'"
               icon="align-left"
@@ -192,6 +200,7 @@
             class="sky-btn sky-btn-default sky-btn-icon"
             title="Align center"
             (click)="execCommand('justifyCenter')"
+            [disabled]="disabled"
           >
             <sky-icon *skyThemeIf="'default'"
               icon="align-center"
@@ -208,6 +217,7 @@
             class="sky-btn sky-btn-default sky-btn-icon"
             title="Align right"
             (click)="execCommand('justifyRight')"
+            [disabled]="disabled"
           >
             <sky-icon *skyThemeIf="'default'"
               icon="align-right"
@@ -230,6 +240,7 @@
             class="sky-btn sky-btn-default sky-btn-icon"
             title="Outdent"
             (click)="execCommand('outdent')"
+            [disabled]="disabled"
           >
             <sky-icon *skyThemeIf="'default'"
               icon="outdent"
@@ -246,6 +257,7 @@
             class="sky-btn sky-btn-default sky-btn-icon"
             title="Indent"
             (click)="execCommand('indent')"
+            [disabled]="disabled"
           >
             <sky-icon *skyThemeIf="'default'"
               icon="indent"
@@ -268,6 +280,7 @@
             class="sky-btn sky-btn-default sky-btn-icon"
             title="Undo"
             (click)="execCommand('undo')"
+            [disabled]="disabled"
           >
             <sky-icon *skyThemeIf="'default'"
               icon="undo"
@@ -284,6 +297,7 @@
             class="sky-btn sky-btn-default sky-btn-icon"
             title="Redo"
             (click)="execCommand('redo')"
+            [disabled]="disabled"
           >
             <sky-icon *skyThemeIf="'default'"
               icon="repeat"
@@ -309,6 +323,7 @@
               'icon-btn-active': styleState.linkState
             }"
             (click)="link()"
+            [disabled]="disabled"
           >
             <sky-icon *skyThemeIf="'default'"
               icon="link"
@@ -324,7 +339,7 @@
             aria-label="Unlink"
             class="sky-btn sky-btn-default sky-btn-icon"
             title="Unlink"
-            [disabled]="!styleState.linkState"
+            [disabled]="!styleState.linkState || disabled"
             (click)="unlink()"
           >
             <sky-icon *skyThemeIf="'default'"

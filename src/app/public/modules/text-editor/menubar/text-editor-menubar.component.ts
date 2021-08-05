@@ -1,9 +1,10 @@
 import {
+  ChangeDetectorRef,
+  ChangeDetectionStrategy,
   Component,
   Input,
   OnInit,
-  OnDestroy,
-  ChangeDetectionStrategy
+  OnDestroy
 } from '@angular/core';
 
 import {
@@ -37,6 +38,10 @@ import {
   SkyTextEditorMergeField
 } from '../types/text-editor-merge-field';
 
+import {
+  SkyFormsUtility
+} from '../../shared/forms-utility';
+
 /**
  * @internal
  */
@@ -59,6 +64,24 @@ export class SkyTextEditorMenubarComponent implements OnDestroy, OnInit {
 
   @Input()
   public mergeFields: SkyTextEditorMergeField[] = [];
+
+  @Input()
+  public set disabled(value: boolean) {
+    const coercedValue = SkyFormsUtility.coerceBooleanProperty(value);
+    if (coercedValue !== this.disabled) {
+      this._disabled = coercedValue;
+      this.changeDetector.markForCheck();
+    }
+  }
+
+  /**
+   * Indicates whether the text editor toolbar is disabled.
+   */
+   public get disabled() {
+    return this._disabled;
+  }
+
+  private _disabled: boolean = false;
 
   public editDropdownStream = new Subject<SkyDropdownMessage>();
 
@@ -84,6 +107,7 @@ export class SkyTextEditorMenubarComponent implements OnDestroy, OnInit {
 
   constructor(
     private adapterService: SkyTextEditorAdapterService,
+    private changeDetector: ChangeDetectorRef,
     private resources: SkyLibResourcesService
   ) {}
 
