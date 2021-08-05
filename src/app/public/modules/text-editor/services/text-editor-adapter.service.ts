@@ -101,7 +101,7 @@ export class SkyTextEditorAdapterService {
   }
 
    public toggleEditorAbility(id: string, disabled: boolean) {
-    const documentEl = this.getDocumentEl(id);
+    const documentEl = this.getIframeDocumentEl(id);
     documentEl.body.setAttribute('contenteditable', (!disabled).toString());
   }
 
