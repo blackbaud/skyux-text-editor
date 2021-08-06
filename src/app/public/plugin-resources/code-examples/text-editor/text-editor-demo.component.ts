@@ -1,5 +1,6 @@
 import {
-  Component
+  Component,
+  OnInit
 } from '@angular/core';
 
 import {
@@ -12,7 +13,7 @@ import {
   selector: 'app-text-editor-demo',
   templateUrl: './text-editor-demo.component.html'
 })
-export class TextEditorDemoComponent {
+export class TextEditorDemoComponent implements OnInit {
 
   public myForm: FormGroup;
 
