@@ -343,6 +343,10 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
   }
 
   public writeValue(obj: string): void {
+    if (this.disabled) {
+      return;
+    }
+
     this.value = obj;
 
     // Update HTML if necessary.
