@@ -95,7 +95,11 @@ export class SkyTextEditorToolbarComponent implements OnInit {
   public set styleState(value: SkyTextEditorStyleState) {
     this._styleState = value;
     if (value.font !== this.styleStateFontName) {
-      this.styleStateFontName = this.getFontName(value.font);
+      if (value.font === "\"Blackbaud Sans\", \"Helvetica Neue\", Arial, sans-serif") {
+        this.styleStateFontName = this.getFontName("Blackbaud Sans");
+      } else {
+        this.styleStateFontName = this.getFontName(value.font);
+      }
     }
   }
 
@@ -224,8 +228,8 @@ export class SkyTextEditorToolbarComponent implements OnInit {
 
   private getFontName(fontName: string): string {
     for (let i = 0; i < this.fontList.length; i++) {
-      if (fontName.indexOf(this.fontList[i].name) > -1) {
-          return this.fontList[i].name;
+      if (fontName.replace(/['"]+/g, '') === this.fontList[i].name) {
+        return this.fontList[i].name;
       }
     }
   }
