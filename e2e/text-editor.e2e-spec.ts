@@ -47,6 +47,13 @@ describe('Text editor', () => {
     return name;
   }
 
+  async function validateTextEditorDisabled(done: DoneFn): Promise<void> {
+    element(by.css('.sky-btn-default')).click();
+    expect('#screenshot-text-editor').toMatchBaselineScreenshot(done, {
+      screenshotName: getScreenshotName('text-editor-disabled')
+    });
+  }
+
   function runTests(): void {
     it('should match screenshot', async (done) => {
       await SkyHostBrowser.moveCursorOffScreen();
@@ -72,6 +79,10 @@ describe('Text editor', () => {
       expect('#screenshot-text-editor iframe').toMatchBaselineScreenshot(done, {
         screenshotName: getScreenshotName('text-editor-merge-field')
       });
+    });
+
+    it('should match previous disabled screenshot', (done) => {
+      validateTextEditorDisabled(done);
     });
   }
 
