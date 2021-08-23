@@ -1095,11 +1095,17 @@ describe('Text editor', () => {
       expect(style.getPropertyValue('font-size')).toEqual(`${fontSize}px`);
     }));
 
+    it('should pass accessibility', async () => {
+      fixture.detectChanges();
+      await fixture.whenStable();
+      await expectAsync(fixture.nativeElement).toBeAccessible();
+    });
+
     it('should enable and disable AfterViewInit using a template-driven form', async () => {
       await fixture.whenStable();
       fixture.detectChanges();
 
-      let outermostDiv = fixture.debugElement.query(By.css('div > sky-text-editor > div > div > iframe')).nativeElement;
+      let outermostDiv = fixture.debugElement.query(By.css('div > sky-text-editor > div > iframe')).nativeElement;
 
       expect(outermostDiv).not.toHaveCssClass('sky-text-editor-wrapper-disabled');
 
@@ -1118,12 +1124,6 @@ describe('Text editor', () => {
       fixture.detectChanges();
 
       expect(outermostDiv).not.toHaveCssClass('sky-text-editor-wrapper-disabled');
-    });
-
-    it('should pass accessibility', async () => {
-      fixture.detectChanges();
-      await fixture.whenStable();
-      await expectAsync(fixture.nativeElement).toBeAccessible();
     });
 
     describe('Menubar commands', () => {
@@ -1253,7 +1253,7 @@ describe('Text editor', () => {
       await fixture.whenStable();
       fixture.detectChanges();
 
-      let outermostDiv = fixture.debugElement.query(By.css('form > sky-text-editor > div > div > iframe')).nativeElement;
+      let outermostDiv = fixture.debugElement.query(By.css('form > sky-text-editor > div > iframe')).nativeElement;
 
       expect(outermostDiv).not.toHaveCssClass('sky-text-editor-wrapper-disabled');
 
