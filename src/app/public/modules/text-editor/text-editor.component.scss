@@ -3,10 +3,6 @@
 
 .sky-text-editor {
 
-  & div.isDisabled {
-    opacity: 25%;
-  }
-
   .sky-text-editor-wrapper {
     display: flex;
     flex-wrap: wrap;
@@ -18,6 +14,9 @@
     border: 1px solid #C0C0C0;
     overflow-y: auto;
     outline: none;
+    &.sky-text-editor-wrapper-disabled {
+      background-color: #EDEDEE;
+    }
   }
 
   .sky-text-editor-toolbar {
