@@ -109,6 +109,7 @@
                 outputFormat="hex"
                 type="text"
                 [allowTransparency]="false"
+                [disabled]="disabled"
                 [ngModel]="styleState.fontColor"
                 [skyColorpickerInput]="colorPicker"
               />
@@ -127,6 +128,7 @@
                 outputFormat="rgba"
                 type="text"
                 [allowTransparency]="true"
+                [disabled]="disabled"
                 [ngModel]="styleState.backColor"
                 [skyColorpickerInput]="backColorPicker"
               />
