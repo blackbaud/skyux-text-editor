@@ -1,15 +1,34 @@
-<form>
+<form
+  [formGroup]="textEditorForm"
+>
   <sky-text-editor
+    formControlName="textEditorControl"
     name="text-editor"
     [autofocus]="autofocus"
     [fontList]="fontList"
     [fontSizeList]="fontSizeList"
+    [initialStyleState]="initialStyleState"
     [menus]="menus"
     [mergeFields]="mergeFields"
     [placeholder]="placeholder"
-    [initialStyleState]="initialStyleState"
     [toolbarActions]="toolbarActions"
     [(ngModel)]="value"
   >
   </sky-text-editor>
 </form>
+<div>
+  <sky-text-editor
+    name="text-editor"
+    [autofocus]="autofocus"
+    [disabled]="disabled"
+    [fontList]="fontList"
+    [fontSizeList]="fontSizeList"
+    [initialStyleState]="initialStyleState"
+    [menus]="menus"
+    [mergeFields]="mergeFields"
+    [placeholder]="placeholder"
+    [toolbarActions]="toolbarActions"
+    [(ngModel)]="value"
+  >
+  </sky-text-editor>
+</div>

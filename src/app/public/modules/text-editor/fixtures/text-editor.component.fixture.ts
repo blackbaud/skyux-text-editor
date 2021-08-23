@@ -3,6 +3,11 @@ import {
 } from '@angular/core';
 
 import {
+  FormControl,
+  FormGroup
+} from '@angular/forms';
+
+import {
   FONT_LIST_DEFAULTS
 } from '../defaults/font-list-defaults';
 
@@ -77,4 +82,11 @@ export class TextEditorFixtureComponent {
   ];
 
   public initialStyleState: SkyTextEditorStyleState = {} as SkyTextEditorStyleState;
+
+  public textEditorControl = new FormControl('');
+  public textEditorForm = new FormGroup({
+    'textEditorControl': this.textEditorControl
+  });
+
+  public disabled: boolean = false;
 }
