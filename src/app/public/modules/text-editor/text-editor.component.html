@@ -35,16 +35,15 @@
       </sky-text-editor-toolbar>
     </sky-toolbar-section>
   </sky-toolbar>
-  <div
-    [ngClass]="{
-      'isDisabled': disabled
-    }"
-  >
+  <div>
     <iframe
-      #iframe
       class="sky-text-editor-wrapper"
       src="about:blank"
       title="Text Editor"
+      [ngClass]="{
+        'sky-text-editor-wrapper-disabled': disabled
+      }"
+      #iframe
     >
     </iframe>
   </div>
