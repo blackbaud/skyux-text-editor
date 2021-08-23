@@ -95,8 +95,8 @@ export class SkyTextEditorToolbarComponent implements OnInit {
   public set styleState(value: SkyTextEditorStyleState) {
     this._styleState = value;
     if (value.font !== this.styleStateFontName) {
-      if (value.font === "\"Blackbaud Sans\", \"Helvetica Neue\", Arial, sans-serif") {
-        this.styleStateFontName = this.getFontName("Blackbaud Sans");
+      if (value.font === '\"Blackbaud Sans\", \"Helvetica Neue\", Arial, sans-serif') {
+        this.styleStateFontName = this.getFontName('Blackbaud Sans');
       } else {
         this.styleStateFontName = this.getFontName(value.font);
       }
