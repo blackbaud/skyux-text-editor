@@ -3,6 +3,11 @@ import {
 } from '@angular/core';
 
 import {
+  FormControl,
+  FormGroup
+} from '@angular/forms';
+
+import {
   FONT_LIST_DEFAULTS
 } from '../defaults/font-list-defaults';
 
@@ -30,10 +35,10 @@ import {
  * @internal
  */
 @Component({
-  selector: 'text-editor-test',
-  templateUrl: './text-editor.component.fixture.html'
+  selector: 'text-editor-reactive-test',
+  templateUrl: './text-editor-reactive.component.fixture.html'
 })
-export class TextEditorFixtureComponent {
+export class TextEditorReactiveFixtureComponent {
   public value: string = '<p>Some text</p>';
   public placeholder: string;
 
@@ -78,5 +83,8 @@ export class TextEditorFixtureComponent {
 
   public initialStyleState: SkyTextEditorStyleState = {} as SkyTextEditorStyleState;
 
-  public disabled: boolean = false;
+  public textEditorControl = new FormControl('');
+  public textEditorForm = new FormGroup({
+    'textEditorControl': this.textEditorControl
+  });
 }

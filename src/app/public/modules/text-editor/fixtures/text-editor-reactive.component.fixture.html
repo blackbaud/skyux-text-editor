@@ -1,8 +1,10 @@
-<div>
+<form
+  [formGroup]="textEditorForm"
+>
   <sky-text-editor
+    formControlName="textEditorControl"
     name="text-editor"
     [autofocus]="autofocus"
-    [disabled]="disabled"
     [fontList]="fontList"
     [fontSizeList]="fontSizeList"
     [initialStyleState]="initialStyleState"
@@ -13,4 +15,4 @@
     [(ngModel)]="value"
   >
   </sky-text-editor>
-</div>
+</form>
