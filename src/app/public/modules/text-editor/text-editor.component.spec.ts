@@ -10,8 +10,13 @@ import {
 } from '@angular/core/testing';
 
 import {
-  FormsModule
+  FormsModule,
+  ReactiveFormsModule
 } from '@angular/forms';
+
+import {
+  By
+} from '@angular/platform-browser';
 
 import {
   RouterTestingModule
@@ -69,6 +74,7 @@ describe('Text editor', () => {
 
   let fixture: ComponentFixture<TextEditorFixtureComponent>;
   let iframeDocumentEl: any;
+  let testComponent: TextEditorFixtureComponent;
 
   //#region helpers
   function getIframeDocument(): any {
@@ -305,6 +311,7 @@ describe('Text editor', () => {
       imports: [
         CommonModule,
         FormsModule,
+        ReactiveFormsModule,
         RouterTestingModule,
         SkyDropdownModule,
         SkyTextEditorModule
@@ -322,6 +329,7 @@ describe('Text editor', () => {
 
     fixture = TestBed.createComponent(TextEditorFixtureComponent);
     iframeDocumentEl = getIframeDocument();
+    testComponent = <TextEditorFixtureComponent> fixture.componentInstance;
   });
 
   afterEach(() => {
@@ -1080,6 +1088,54 @@ describe('Text editor', () => {
     );
     expect(style.getPropertyValue('font-size')).toEqual(`${fontSize}px`);
   }));
+
+  it('should enable and disable AfterViewInit using a template-driven form', async () => {
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    let outermostDiv = fixture.debugElement.query(By.css('div > sky-text-editor > div > div > iframe')).nativeElement;
+
+    expect(outermostDiv).not.toHaveCssClass('sky-text-editor-wrapper-disabled');
+
+    testComponent.disabled = true;
+
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    expect(outermostDiv).toHaveCssClass('sky-text-editor-wrapper-disabled');
+
+    testComponent.disabled = false;
+
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    expect(outermostDiv).not.toHaveCssClass('sky-text-editor-wrapper-disabled');
+  });
+
+  it('should enable and disable AfterViewInit using a reactive form', async () => {
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    let outermostDiv = fixture.debugElement.query(By.css('form > sky-text-editor > div > div > iframe')).nativeElement;
+
+    expect(outermostDiv).not.toHaveCssClass('sky-text-editor-wrapper-disabled');
+
+    testComponent.textEditorForm.controls['textEditorControl'].disable();
+
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    expect(outermostDiv).toHaveCssClass('sky-text-editor-wrapper-disabled');
+
+    testComponent.textEditorForm.controls['textEditorControl'].enable();
+
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    expect(outermostDiv).not.toHaveCssClass('sky-text-editor-wrapper-disabled');
+  });
 
   describe('Menubar commands', () => {
     it('should execute undo', fakeAsync(() => {
