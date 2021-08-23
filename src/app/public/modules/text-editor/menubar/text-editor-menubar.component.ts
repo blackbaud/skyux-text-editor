@@ -3,8 +3,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
-  OnDestroy
+  OnDestroy,
+  OnInit
 } from '@angular/core';
 
 import {
