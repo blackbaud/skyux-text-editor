@@ -65,7 +65,7 @@ describe('Text editor', () => {
     it('should match link modal screenshot', async (done) => {
       await element.all(by.css('.sky-text-editor-toolbar-action-link button')).first().click();
       await SkyHostBrowser.moveCursorOffScreen();
-      expect('body').toMatchBaselineScreenshot(done, {
+      expect('.sky-modal').toMatchBaselineScreenshot(done, {
         screenshotName: getScreenshotName('text-editor-link-modal')
       });
     });
