@@ -421,7 +421,7 @@ describe('Text editor', () => {
       fixture.componentInstance.fontList = [
         {
           name: 'Blackbaud Sans',
-          value: '"Blackbaud Sans", "Helvetica Neue", Arial, sans-serif'
+          value: '"Blackbaud Sans", Arial, sans-serif'
         },
         {
           name: 'Arial',

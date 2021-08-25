@@ -77,7 +77,7 @@ export class SkyTextEditorAdapterService {
       const styleEl = documentEl.createElement('style');
       styleEl.innerHTML = `.editor:empty:before {
         content: attr(data-placeholder);
-        font-family: "Blackbaud Sans", "Helvetica Neue", Arial, sans-serif;
+        font-family: "Blackbaud Sans", Arial, sans-serif;
         color: #686c73;
         font-weight: 400;
         font-size: 15px;
