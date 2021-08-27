@@ -100,7 +100,23 @@ export class SkyTextEditorAdapterService {
     }
   }
 
-   public toggleEditorAbility(id: string, disabled: boolean) {
+   public toggleEditorAbility(id: string, disabled: boolean, focusableChildren: HTMLElement[]): void {
+    let skyTextEditor = document.querySelector('div.sky-text-editor') as HTMLElement;
+
+    if (disabled) {
+      skyTextEditor.style.pointerEvents = 'none';
+      skyTextEditor.setAttribute('aria-disabled', 'true');
+      focusableChildren.forEach(aFocusableChild => {
+        aFocusableChild.tabIndex = -1;
+      });
+    } else {
+      skyTextEditor.style.pointerEvents = 'auto';
+      skyTextEditor.setAttribute('aria-disabled', 'false');
+      focusableChildren.forEach(aFocusableChild => {
+        aFocusableChild.tabIndex = 0;
+      });
+    }
+
     const documentEl = this.getIframeDocumentEl(id);
     documentEl.body.setAttribute('contenteditable', (!disabled).toString());
   }
@@ -138,7 +154,7 @@ export class SkyTextEditorAdapterService {
    * Returns a data URI using the provided text string.
    * Used to display a merge field inside a string of text.
    */
-   public getMergeFieldDataURI(text: string): string {
+  public getMergeFieldDataURI(text: string): string {
     const documentEl = this.windowService.nativeWindow.document;
     let textToUse = text;
     if (text.length > 18) {

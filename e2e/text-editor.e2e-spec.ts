@@ -48,7 +48,7 @@ describe('Text editor', () => {
   }
 
   async function validateTextEditorDisabled(done: DoneFn): Promise<void> {
-    element(by.css('.sky-btn-default')).click();
+    await element(by.css('.sky-btn-default')).click();
     expect('#screenshot-text-editor').toMatchBaselineScreenshot(done, {
       screenshotName: getScreenshotName('text-editor-disabled')
     });

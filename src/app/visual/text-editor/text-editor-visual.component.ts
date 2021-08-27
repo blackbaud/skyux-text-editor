@@ -1,7 +1,8 @@
 import {
   Component,
   ChangeDetectorRef,
-  OnInit
+  OnInit,
+  AfterViewInit
 } from '@angular/core';
 
 import {
@@ -30,7 +31,7 @@ import {
   templateUrl: './text-editor-visual.component.html',
   styleUrls: ['./text-editor-visual.component.scss']
 })
-export class RichTextEditorVisualComponent implements OnInit {
+export class RichTextEditorVisualComponent implements OnInit, AfterViewInit {
 
   public displayValue: SafeHtml;
 
@@ -54,6 +55,8 @@ export class RichTextEditorVisualComponent implements OnInit {
       name: 'A field that is really too long for its own good'
     }
   ];
+
+  public myForm: FormGroup;
 
   public placeholder: string = 'Please enter some text';
 
@@ -83,8 +86,6 @@ export class RichTextEditorVisualComponent implements OnInit {
 
   private _value = '<font style=\"font-size: 16px\" color=\"#a25353\"><b><i><u>Super styled text</u></i></b></font>';
 
-  public myForm: FormGroup;
-
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private formBuilder: FormBuilder,
@@ -98,6 +99,10 @@ export class RichTextEditorVisualComponent implements OnInit {
     this.myForm = this.formBuilder.group({
       textEditor: new FormControl('')
     });
+  }
+
+  public ngAfterViewInit(): void {
+    this.myForm.controls['textEditor'].setValue(this.value);
   }
 
   public themeSettingsChange(themeSettings: SkyThemeSettings): void {

@@ -39,33 +39,15 @@ import {
   templateUrl: './text-editor-reactive.component.fixture.html'
 })
 export class TextEditorReactiveFixtureComponent {
-  public value: string = '<p>Some text</p>';
-  public placeholder: string;
-
-  public fontSizeList = FONT_SIZE_LIST_DEFAULTS;
-
+  public autofocus = false;
   public fontList = FONT_LIST_DEFAULTS;
-
-  public toolbarActions: SkyTextEditorToolbarActionType[] = [
-    'font-family',
-    'font-size',
-    'color',
-    'list',
-    'font-style',
-    'alignment',
-    'indentation',
-    'undo-redo',
-    'link'
-  ];
-
+  public fontSizeList = FONT_SIZE_LIST_DEFAULTS;
+  public initialStyleState: SkyTextEditorStyleState = {} as SkyTextEditorStyleState;
   public menus: SkyTextEditorMenuType[] = [
     'edit',
     'format',
     'merge-field'
   ];
-
-  public autofocus = false;
-
   public mergeFields: SkyTextEditorMergeField[] = [
     {
       id: '0',
@@ -80,11 +62,20 @@ export class TextEditorReactiveFixtureComponent {
       name: 'A field that is really too long for its own good'
     }
   ];
-
-  public initialStyleState: SkyTextEditorStyleState = {} as SkyTextEditorStyleState;
-
+  public placeholder: string;
   public textEditorControl = new FormControl('');
   public textEditorForm = new FormGroup({
     'textEditorControl': this.textEditorControl
   });
+  public toolbarActions: SkyTextEditorToolbarActionType[] = [
+    'font-family',
+    'font-size',
+    'color',
+    'list',
+    'font-style',
+    'alignment',
+    'indentation',
+    'undo-redo',
+    'link'
+  ];
 }

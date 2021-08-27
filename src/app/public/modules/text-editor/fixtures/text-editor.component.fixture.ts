@@ -34,33 +34,16 @@ import {
   templateUrl: './text-editor.component.fixture.html'
 })
 export class TextEditorFixtureComponent {
-  public value: string = '<p>Some text</p>';
-  public placeholder: string;
-
-  public fontSizeList = FONT_SIZE_LIST_DEFAULTS;
-
+  public autofocus = false;
+  public disabled: boolean = false;
   public fontList = FONT_LIST_DEFAULTS;
-
-  public toolbarActions: SkyTextEditorToolbarActionType[] = [
-    'font-family',
-    'font-size',
-    'color',
-    'list',
-    'font-style',
-    'alignment',
-    'indentation',
-    'undo-redo',
-    'link'
-  ];
-
+  public fontSizeList = FONT_SIZE_LIST_DEFAULTS;
+  public initialStyleState: SkyTextEditorStyleState = {} as SkyTextEditorStyleState;
   public menus: SkyTextEditorMenuType[] = [
     'edit',
     'format',
     'merge-field'
   ];
-
-  public autofocus = false;
-
   public mergeFields: SkyTextEditorMergeField[] = [
     {
       id: '0',
@@ -75,8 +58,17 @@ export class TextEditorFixtureComponent {
       name: 'A field that is really too long for its own good'
     }
   ];
-
-  public initialStyleState: SkyTextEditorStyleState = {} as SkyTextEditorStyleState;
-
-  public disabled: boolean = false;
+  public placeholder: string;
+  public toolbarActions: SkyTextEditorToolbarActionType[] = [
+    'font-family',
+    'font-size',
+    'color',
+    'list',
+    'font-style',
+    'alignment',
+    'indentation',
+    'undo-redo',
+    'link'
+  ];
+  public value: string = '<p>Some text</p>';
 }

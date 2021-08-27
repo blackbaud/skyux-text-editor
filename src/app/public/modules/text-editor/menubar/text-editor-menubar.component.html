@@ -9,8 +9,8 @@
       <ng-container *ngSwitchCase="'edit'">
         <sky-dropdown
           label="Edit menu"
-          [messageStream]="editDropdownStream"
           [disabled]="disabled"
+          [messageStream]="editDropdownStream"
         >
           <sky-dropdown-button>
             {{ 'skyux_text_editor_menubar_dropdown_button_edit_label' | skyLibResources }}
@@ -44,8 +44,8 @@
       <ng-container *ngSwitchCase="'format'">
         <sky-dropdown
           label="Format menu"
-          [messageStream]="formatDropdownStream"
           [disabled]="disabled"
+          [messageStream]="formatDropdownStream"
         >
           <sky-dropdown-button>
             {{ 'skyux_text_editor_menubar_dropdown_button_format_label' | skyLibResources }}
@@ -79,8 +79,8 @@
       <ng-container *ngSwitchCase="'merge-field'">
         <sky-dropdown *ngIf="mergeFields && mergeFields.length > 0"
           label="Insert merge field"
-          [messageStream]="mergeFieldDropdownStream"
           [disabled]="disabled"
+          [messageStream]="mergeFieldDropdownStream"
         >
           <sky-dropdown-button>
             {{ 'skyux_text_editor_menubar_dropdown_button_insert_label' | skyLibResources }}

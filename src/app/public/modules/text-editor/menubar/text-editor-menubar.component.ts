@@ -74,7 +74,7 @@ export class SkyTextEditorMenubarComponent implements OnDestroy, OnInit {
     }
   }
 
-   public get disabled() {
+   public get disabled(): boolean {
     return this._disabled;
   }
 

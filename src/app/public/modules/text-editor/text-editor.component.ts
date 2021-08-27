@@ -115,6 +115,44 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
   @Input()
   public autofocus: boolean = false;
 
+  /**
+   * Indicates whether to disable the text editor.
+   * @default false
+   */
+  @Input()
+  public set disabled(value: boolean) {
+    const coercedValue = SkyFormsUtility.coerceBooleanProperty(value);
+    if (coercedValue !== this.disabled) {
+      this._disabled = coercedValue;
+      this.changeDetector.markForCheck();
+
+      this.adapterService.toggleEditorAbility(this.id, this._disabled, this.focusableChildren);
+
+      // if (this._disabled) {
+      //   this.skyTextEditor.style.pointerEvents = 'none';
+      //   this.skyTextEditor.setAttribute('aria-disabled', 'true');
+      //   this.focusableChildren.forEach(aFocusableChild => {
+      //     aFocusableChild.tabIndex = -1;
+      //   });
+      // } else {
+      //   this.skyTextEditor.style.pointerEvents = 'auto';
+      //   this.skyTextEditor.setAttribute('aria-disabled', 'false');
+      //   this.focusableChildren.forEach(aFocusableChild => {
+      //     aFocusableChild.tabIndex = 0;
+      //   });
+      // }
+    }
+  }
+
+  /**
+   * Indicates whether the text editor is disabled.
+   */
+  public get disabled() {
+    return this._disabled;
+  }
+
+  public editorFocusStream = new Subject();
+
   // tslint:disable: max-line-length
   /**
    * Specifies the fonts to include in the font picker.
@@ -137,6 +175,24 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
    */
   @Input()
   public id = `sky-text-editor-${++nextUniqueId}`;
+
+  /**
+   * Specifies the initial styles for all content, including background color, font size, and link state.
+   */
+   @Input()
+   public set initialStyleState(state: SkyTextEditorStyleState) {
+     // Do not update the state after initialization has taken place
+     if (!this.initialized) {
+       this._initialStyleState = {
+         ...STYLE_STATE_DEFAULTS,
+         ...state
+       };
+     }
+   }
+
+   public get initialStyleState(): SkyTextEditorStyleState {
+     return this._initialStyleState;
+   }
 
   /**
    * Specifies the menus to include in the menu bar.
@@ -166,24 +222,6 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
 
   public get placeholder(): string {
     return this._placeholder;
-  }
-
-  /**
-   * Specifies the initial styles for all content, including background color, font size, and link state.
-   */
-  @Input()
-  public set initialStyleState(state: SkyTextEditorStyleState) {
-    // Do not update the state after initialization has taken place
-    if (!this.initialized) {
-      this._initialStyleState = {
-        ...STYLE_STATE_DEFAULTS,
-        ...state
-      };
-    }
-  }
-
-  public get initialStyleState(): SkyTextEditorStyleState {
-    return this._initialStyleState;
   }
 
   // tslint:disable: max-line-length
@@ -220,64 +258,26 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
     return this._value;
   }
 
-  /**
-   * Indicates whether to disable the text editor.
-   * @default false
-   */
-  @Input()
-  public set disabled(value: boolean) {
-    const coercedValue = SkyFormsUtility.coerceBooleanProperty(value);
-    if (coercedValue !== this.disabled) {
-      this._disabled = coercedValue;
-      this.changeDetector.markForCheck();
-
-      this.adapterService.toggleEditorAbility(this.id, this._disabled);
-
-      if (this._disabled) {
-        this.skyTextEditor.style.pointerEvents = 'none';
-        this.skyTextEditor.setAttribute('aria-disabled', 'true');
-        this.focusableChildren.forEach(aFocusableChild => {
-          aFocusableChild.tabIndex = -1;
-        });
-      } else {
-        this.skyTextEditor.style.pointerEvents = 'auto';
-        this.skyTextEditor.setAttribute('aria-disabled', 'false');
-        this.focusableChildren.forEach(aFocusableChild => {
-          aFocusableChild.tabIndex = 0;
-        });
-      }
-    }
-  }
-
-  /**
-   * Indicates whether the text editor is disabled.
-   */
-  public get disabled() {
-    return this._disabled;
-  }
-
   private _disabled: boolean = false;
 
-  public editorFocusStream = new Subject();
+  private focusableChildren: HTMLElement[];
+
+  private focusInitialized: boolean = false;
 
   @ViewChild('iframe')
   private iframeRef: ElementRef;
 
-  private focusInitialized: boolean = false;
-
   private initialized: boolean = false;
+
+  private _initialStyleState = Object.assign({}, STYLE_STATE_DEFAULTS);
 
   private ngUnsubscribe = new Subject<void>();
 
   private _placeholder = '';
 
-  private _initialStyleState = Object.assign({}, STYLE_STATE_DEFAULTS);
-
-  private _value: string = '<p></p>';
-
   private skyTextEditor: HTMLElement;
 
-  private focusableChildren: HTMLElement[];
+  private _value: string = '<p></p>';
 
   constructor (
     private changeDetector: ChangeDetectorRef,
@@ -363,7 +363,7 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
   /**
    * Implemented as part of ControlValueAccessor.
    */
-  public setDisabledState(isDisabled: boolean) {
+  public setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
 

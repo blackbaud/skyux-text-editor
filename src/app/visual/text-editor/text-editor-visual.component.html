@@ -21,14 +21,13 @@
       id="screenshot-text-editor"
     >
       <sky-text-editor
+        formControlName="textEditor"
         name="text-editor"
         [autofocus]="true"
-        [mergeFields]="mergeFields"
         [menus]="menus"
+        [mergeFields]="mergeFields"
         [placeholder]="placeholder"
         [toolbarActions]="toolbarActions"
-        [(ngModel)]="value"
-        formControlName="textEditor"
       >
       </sky-text-editor>
     </div>

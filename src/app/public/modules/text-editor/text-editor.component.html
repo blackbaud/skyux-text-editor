@@ -10,11 +10,11 @@
       role="toolbar"
     >
       <sky-text-editor-menubar
+        [disabled]="disabled"
         [editorFocusStream]="editorFocusStream"
         [editorId]="id"
         [menus]="menus"
         [mergeFields]="mergeFields"
-        [disabled]="disabled"
       >
       </sky-text-editor-menubar>
     </sky-toolbar-section>
@@ -24,13 +24,13 @@
       role="toolbar"
     >
       <sky-text-editor-toolbar
+        [disabled]="disabled"
         [editorFocusStream]="editorFocusStream"
         [editorId]="id"
         [fontList]="fontList"
         [fontSizeList]="fontSizeList"
         [toolbarActions]="toolbarActions"
         [styleState]="initialStyleState"
-        [disabled]="disabled"
       >
       </sky-text-editor-toolbar>
     </sky-toolbar-section>
