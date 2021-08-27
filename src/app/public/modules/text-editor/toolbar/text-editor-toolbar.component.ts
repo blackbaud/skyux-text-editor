@@ -112,10 +112,7 @@ export class SkyTextEditorToolbarComponent implements OnInit {
     }
   }
 
-  /**
-   * Indicates whether the text editor toolbar is disabled.
-   */
-   public get disabled() {
+  public get disabled() {
     return this._disabled;
   }
 

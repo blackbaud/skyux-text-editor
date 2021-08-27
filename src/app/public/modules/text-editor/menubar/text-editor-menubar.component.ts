@@ -74,9 +74,6 @@ export class SkyTextEditorMenubarComponent implements OnDestroy, OnInit {
     }
   }
 
-  /**
-   * Indicates whether the text editor toolbar is disabled.
-   */
    public get disabled() {
     return this._disabled;
   }
