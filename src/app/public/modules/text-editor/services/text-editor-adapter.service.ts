@@ -100,7 +100,7 @@ export class SkyTextEditorAdapterService {
     }
   }
 
-   public toggleEditorAbility(id: string, disabled: boolean, focusableChildren: HTMLElement[]): void {
+  public toggleEditorAbility(id: string, disabled: boolean, focusableChildren: HTMLElement[]): void {
     let skyTextEditor = document.querySelector('div.sky-text-editor') as HTMLElement;
 
     if (disabled) {

@@ -125,22 +125,7 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
     if (coercedValue !== this.disabled) {
       this._disabled = coercedValue;
       this.changeDetector.markForCheck();
-
       this.adapterService.toggleEditorAbility(this.id, this._disabled, this.focusableChildren);
-
-      // if (this._disabled) {
-      //   this.skyTextEditor.style.pointerEvents = 'none';
-      //   this.skyTextEditor.setAttribute('aria-disabled', 'true');
-      //   this.focusableChildren.forEach(aFocusableChild => {
-      //     aFocusableChild.tabIndex = -1;
-      //   });
-      // } else {
-      //   this.skyTextEditor.style.pointerEvents = 'auto';
-      //   this.skyTextEditor.setAttribute('aria-disabled', 'false');
-      //   this.focusableChildren.forEach(aFocusableChild => {
-      //     aFocusableChild.tabIndex = 0;
-      //   });
-      // }
     }
   }
 
