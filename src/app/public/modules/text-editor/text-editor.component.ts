@@ -129,9 +129,6 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
     }
   }
 
-  /**
-   * Indicates whether the text editor is disabled.
-   */
   public get disabled() {
     return this._disabled;
   }
