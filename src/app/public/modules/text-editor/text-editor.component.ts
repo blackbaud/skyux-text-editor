@@ -124,7 +124,11 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
     const coercedValue = SkyFormsUtility.coerceBooleanProperty(value);
     if (coercedValue !== this.disabled) {
       this._disabled = coercedValue;
-      this.adapterService.toggleEditorAbility(this.id, this._disabled, this.focusableChildren);
+      if (this._disabled) {
+        this.adapterService.disableEditor(this.id, this.focusableChildren, this.iframeRef.nativeElement);
+      } else {
+        this.adapterService.enableEditor(this.id, this.focusableChildren, this.iframeRef.nativeElement);
+      }
       this.changeDetector.markForCheck();
     }
   }

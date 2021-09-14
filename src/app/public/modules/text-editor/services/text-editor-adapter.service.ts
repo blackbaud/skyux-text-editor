@@ -100,25 +100,12 @@ export class SkyTextEditorAdapterService {
     }
   }
 
-  public toggleEditorAbility(id: string, disabled: boolean, focusableChildren: HTMLElement[]): void {
-    let skyTextEditor = document.querySelector('div.sky-text-editor') as HTMLElement;
+  public disableEditor(id: string, focusableChildren: HTMLElement[], textEditorNativeElement: any): void {
+    this.toggleEditorAbility(id, focusableChildren, textEditorNativeElement, true);
+  }
 
-    if (disabled) {
-      skyTextEditor.style.pointerEvents = 'none';
-      skyTextEditor.setAttribute('aria-disabled', 'true');
-      focusableChildren.forEach(aFocusableChild => {
-        aFocusableChild.tabIndex = -1;
-      });
-    } else {
-      skyTextEditor.style.pointerEvents = 'auto';
-      skyTextEditor.setAttribute('aria-disabled', 'false');
-      focusableChildren.forEach(aFocusableChild => {
-        aFocusableChild.tabIndex = 0;
-      });
-    }
-
-    const documentEl = this.getIframeDocumentEl(id);
-    documentEl.body.setAttribute('contenteditable', (!disabled).toString());
+  public enableEditor(id: string, focusableChildren: HTMLElement[], textEditorNativeElement: any): void {
+    this.toggleEditorAbility(id, focusableChildren, textEditorNativeElement, false);
   }
 
   /**
@@ -536,6 +523,15 @@ export class SkyTextEditorAdapterService {
       .replace(/&lt;/g, '<')
       .replace(/&gt;/g, '>')
       .replace(/&amp;/g, '&');
+  }
+
+  private toggleEditorAbility(id: string, focusableChildren: HTMLElement[], textEditorNativeElement: any, disabled: boolean): void {
+    textEditorNativeElement.style.pointerEvents = disabled ? 'none' : 'auto';
+    textEditorNativeElement.setAttribute('aria-disabled', disabled.toString);
+    focusableChildren.forEach(aFocusableChild => {
+      aFocusableChild.tabIndex = disabled ? -1 : 0;
+    });
+    this.getIframeDocumentEl(id).body.setAttribute('contenteditable', (!disabled).toString());
   }
 
 }
