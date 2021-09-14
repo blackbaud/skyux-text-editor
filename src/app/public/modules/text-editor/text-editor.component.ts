@@ -240,8 +240,6 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
     return this._value;
   }
 
-  private _disabled: boolean = false;
-
   private focusableChildren: HTMLElement[];
 
   private focusInitialized: boolean = false;
@@ -251,13 +249,15 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
 
   private initialized: boolean = false;
 
-  private _initialStyleState = Object.assign({}, STYLE_STATE_DEFAULTS);
-
   private ngUnsubscribe = new Subject<void>();
 
-  private _placeholder = '';
-
   private skyTextEditor: HTMLElement;
+
+  private _disabled: boolean = false;
+
+  private _initialStyleState = Object.assign({}, STYLE_STATE_DEFAULTS);
+
+  private _placeholder = '';
 
   private _value: string = '<p></p>';
 
