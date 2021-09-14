@@ -251,8 +251,6 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
 
   private ngUnsubscribe = new Subject<void>();
 
-  private skyTextEditor: HTMLElement;
-
   private _disabled: boolean = false;
 
   private _initialStyleState = Object.assign({}, STYLE_STATE_DEFAULTS);
@@ -309,8 +307,7 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
       this.adapterService.focusEditor(this.id);
     }
 
-    this.skyTextEditor = document.querySelector('div.sky-text-editor') as HTMLElement;
-    this.focusableChildren = this.coreAdapterService.getFocusableChildren(this.skyTextEditor, {
+    this.focusableChildren = this.coreAdapterService.getFocusableChildren(this.iframeRef.nativeElement, {
       ignoreVisibility: true
     });
 
