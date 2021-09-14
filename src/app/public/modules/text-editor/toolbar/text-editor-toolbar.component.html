@@ -144,8 +144,8 @@
             aria-label="Bulleted list"
             class="sky-btn sky-btn-default sky-btn-icon"
             title="Bulleted list"
-            (click)="execCommand('insertUnorderedList')"
             [disabled]="disabled"
+            (click)="execCommand('insertUnorderedList')"
           >
             <sky-icon *skyThemeIf="'default'"
               icon="list-ul"
@@ -161,8 +161,8 @@
             aria-label="Numbered list"
             class="sky-btn sky-btn-default sky-btn-icon"
             title="Numbered list"
-            (click)="execCommand('insertOrderedList')"
             [disabled]="disabled"
+            (click)="execCommand('insertOrderedList')"
           >
             <sky-icon *skyThemeIf="'default'"
               icon="list-ol"
@@ -184,8 +184,8 @@
             aria-label="Align left"
             class="sky-btn sky-btn-default sky-btn-icon"
             title="Align left"
-            (click)="execCommand('justifyLeft')"
             [disabled]="disabled"
+            (click)="execCommand('justifyLeft')"
           >
             <sky-icon *skyThemeIf="'default'"
               icon="align-left"
@@ -201,8 +201,8 @@
             aria-label="Align center"
             class="sky-btn sky-btn-default sky-btn-icon"
             title="Align center"
-            (click)="execCommand('justifyCenter')"
             [disabled]="disabled"
+            (click)="execCommand('justifyCenter')"
           >
             <sky-icon *skyThemeIf="'default'"
               icon="align-center"
@@ -218,8 +218,8 @@
             aria-label="Align right"
             class="sky-btn sky-btn-default sky-btn-icon"
             title="Align right"
-            (click)="execCommand('justifyRight')"
             [disabled]="disabled"
+            (click)="execCommand('justifyRight')"
           >
             <sky-icon *skyThemeIf="'default'"
               icon="align-right"
@@ -241,8 +241,8 @@
             aria-label="Outdent"
             class="sky-btn sky-btn-default sky-btn-icon"
             title="Outdent"
-            (click)="execCommand('outdent')"
             [disabled]="disabled"
+            (click)="execCommand('outdent')"
           >
             <sky-icon *skyThemeIf="'default'"
               icon="outdent"
@@ -258,8 +258,8 @@
             aria-label="Indent"
             class="sky-btn sky-btn-default sky-btn-icon"
             title="Indent"
-            (click)="execCommand('indent')"
             [disabled]="disabled"
+            (click)="execCommand('indent')"
           >
             <sky-icon *skyThemeIf="'default'"
               icon="indent"
@@ -281,8 +281,8 @@
             aria-label="Undo"
             class="sky-btn sky-btn-default sky-btn-icon"
             title="Undo"
-            (click)="execCommand('undo')"
             [disabled]="disabled"
+            (click)="execCommand('undo')"
           >
             <sky-icon *skyThemeIf="'default'"
               icon="undo"
@@ -298,8 +298,8 @@
             aria-label="Redo"
             class="sky-btn sky-btn-default sky-btn-icon"
             title="Redo"
-            (click)="execCommand('redo')"
             [disabled]="disabled"
+            (click)="execCommand('redo')"
           >
             <sky-icon *skyThemeIf="'default'"
               icon="repeat"
@@ -321,11 +321,11 @@
             aria-label="Link"
             class="sky-btn sky-btn-default sky-btn-icon"
             title="Link"
+            [disabled]="disabled"
             [ngClass]="{
               'icon-btn-active': styleState.linkState
             }"
             (click)="link()"
-            [disabled]="disabled"
           >
             <sky-icon *skyThemeIf="'default'"
               icon="link"
