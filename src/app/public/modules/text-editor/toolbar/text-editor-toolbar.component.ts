@@ -112,7 +112,7 @@ export class SkyTextEditorToolbarComponent implements OnInit {
     }
   }
 
-  public get disabled() {
+  public get disabled(): boolean {
     return this._disabled;
   }
 
