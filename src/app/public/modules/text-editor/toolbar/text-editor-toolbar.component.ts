@@ -116,8 +116,6 @@ export class SkyTextEditorToolbarComponent implements OnInit {
     return this._disabled;
   }
 
-  private _disabled: boolean = false;
-
   public backColorpickerStream = new Subject<SkyColorpickerMessage>();
 
   public colorpickerStream = new Subject<SkyColorpickerMessage>();
@@ -127,6 +125,8 @@ export class SkyTextEditorToolbarComponent implements OnInit {
   public fontSizeStream = new Subject<SkyDropdownMessage>();
 
   public styleStateFontName: string;
+
+  private _disabled: boolean = false;
 
   private _styleState = STYLE_STATE_DEFAULTS;
 
