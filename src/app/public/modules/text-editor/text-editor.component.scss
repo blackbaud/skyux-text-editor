@@ -54,6 +54,9 @@
 
     .sky-text-editor-wrapper {
       border: 1px solid $sky-theme-modern-border-color-neutral-medium;
+      &.sky-text-editor-wrapper-disabled {
+        background-color: #ececed;
+      }
     }
 
     .sky-text-editor-toolbar {
