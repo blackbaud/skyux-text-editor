@@ -101,11 +101,11 @@ export class SkyTextEditorAdapterService {
   }
 
   public disableEditor(id: string, focusableChildren: HTMLElement[], textEditorNativeElement: any): void {
-    this.toggleEditorAbility(id, focusableChildren, textEditorNativeElement, true);
+    this.setEditorDisabled(id, focusableChildren, textEditorNativeElement, true);
   }
 
   public enableEditor(id: string, focusableChildren: HTMLElement[], textEditorNativeElement: any): void {
-    this.toggleEditorAbility(id, focusableChildren, textEditorNativeElement, false);
+    this.setEditorDisabled(id, focusableChildren, textEditorNativeElement, false);
   }
 
   /**
@@ -525,7 +525,7 @@ export class SkyTextEditorAdapterService {
       .replace(/&amp;/g, '&');
   }
 
-  private toggleEditorAbility(id: string, focusableChildren: HTMLElement[], textEditorNativeElement: any, disabled: boolean): void {
+  private setEditorDisabled(id: string, focusableChildren: HTMLElement[], textEditorNativeElement: any, disabled: boolean): void {
     textEditorNativeElement.style.pointerEvents = disabled ? 'none' : 'auto';
     textEditorNativeElement.setAttribute('aria-disabled', disabled ? 'true' : 'false');
     focusableChildren.forEach(aFocusableChild => {
