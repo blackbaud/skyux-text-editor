@@ -527,11 +527,11 @@ export class SkyTextEditorAdapterService {
 
   private toggleEditorAbility(id: string, focusableChildren: HTMLElement[], textEditorNativeElement: any, disabled: boolean): void {
     textEditorNativeElement.style.pointerEvents = disabled ? 'none' : 'auto';
-    textEditorNativeElement.setAttribute('aria-disabled', disabled.toString);
+    textEditorNativeElement.setAttribute('aria-disabled', disabled ? 'true' : 'false');
     focusableChildren.forEach(aFocusableChild => {
       aFocusableChild.tabIndex = disabled ? -1 : 0;
     });
-    this.getIframeDocumentEl(id).body.setAttribute('contenteditable', (!disabled).toString());
+    this.getIframeDocumentEl(id).body.setAttribute('contenteditable', disabled ? 'false' : 'true');
   }
 
 }
