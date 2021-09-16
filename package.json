@@ -35,7 +35,7 @@
     "@skyux/validation": "^5.0.0-beta.0"
   },
   "dependencies": {
-    "dompurify": "2.3.0"
+    "dompurify": "2.3.2"
   },
   "devDependencies": {
     "@angular/animations": "9.1.13",
@@ -73,13 +73,13 @@
     "@skyux/list-builder-common": "4.0.1",
     "@skyux/list-builder-view-checklist": "4.0.1",
     "@skyux/lists": "4.9.2",
-    "@skyux/lookup": "4.17.4",
+    "@skyux/lookup": "4.17.5",
     "@skyux/modals": "4.6.0",
     "@skyux/omnibar-interop": "4.0.1",
     "@skyux/popovers": "4.7.0",
     "@skyux/router": "4.2.2",
     "@skyux/select-field": "4.0.2",
-    "@skyux/tabs": "4.6.8",
+    "@skyux/tabs": "4.6.9",
     "@skyux/text-editor": "4.0.0-beta.2",
     "@skyux/theme": "4.21.1",
     "@skyux/validation": "4.0.1",
