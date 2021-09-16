@@ -14,6 +14,7 @@
       </p>
     </sky-docs-demo-page-summary>
 
+<<<<<<< HEAD
     <!-- <sky-docs-demo>
       Demo here.
     </sky-docs-demo> -->
@@ -38,12 +39,55 @@
 
     <!-- <sky-docs-code-examples
       [packageDependencies]="{}"
+=======
+    <sky-docs-demo>
+      <sky-text-editor
+        [(ngModel)]="richText"
+      >
+      </sky-text-editor>
+    </sky-docs-demo>
+
+    <h2>
+      HTML sanitization
+    </h2>
+    <p  class="sky-docs-text-block">
+      Don't blindly trust the HTML that users provide in the text editor. They can insert malicious content into HTML strings before you save it to your service, so we recommend using an HTML sanitizer to clean up the HTML and protect against XSS attacks.
+    </p>
+    <ul  class="sky-docs-text-block">
+      <li>
+        We recommend the <a href="https://github.com/mganss/HtmlSanitizer">HtmlSanitizer package</a> for C# projects.
+      </li>
+      <li>
+        We recommend the <a href="https://owasp.org/www-project-java-html-sanitizer/">Owasp HTML Sanitizer package</a> for Java projects.
+      </li>
+    </ul>
+    <p  class="sky-docs-text-block">
+      Make sure that you allow the attributes and schemes that you need. For example, email links often violate the default rules of HTML sanitizers.
+    </p>
+
+    <sky-docs-code-examples
+      [packageDependencies]="{
+        '@blackbaud/auth-client': '*',
+        '@skyux/colorpicker': '*',
+        '@skyux/inline-form': '*',
+        '@skyux/list-builder': '*',
+        '@skyux/list-builder-common': '*',
+        '@skyux/list-builder-view-checklist': '*',
+        '@skyux/lists': '*',
+        '@skyux/lookup': '*',
+        '@skyux/popovers': '*',
+        '@skyux/tabs': '*',
+        '@skyux/text-editor': '*',
+        '@skyux/validation': '*',
+        'dompurify': '*'
+      }"
+>>>>>>> 51d8afb216142b5c649c8b764ad1f113c9dc8c4b
     >
       <sky-docs-code-example
-        sourceCodePath="src/app/public/plugin-resources/code-examples/text-editor/basic/"
+        sourceCodePath="src/app/public/plugin-resources/code-examples/text-editor/"
       >
       </sky-docs-code-example>
-    </sky-docs-code-examples> -->
+    </sky-docs-code-examples>
 
     <sky-docs-design-guidelines>
 

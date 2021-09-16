@@ -47,6 +47,13 @@ describe('Text editor', () => {
     return name;
   }
 
+  async function validateTextEditorDisabled(done: DoneFn): Promise<void> {
+    await element(by.css('#sky-btn-toggle-text-editor-ability')).click();
+    expect('#screenshot-text-editor').toMatchBaselineScreenshot(done, {
+      screenshotName: getScreenshotName('text-editor-disabled')
+    });
+  }
+
   function runTests(): void {
     it('should match screenshot', async (done) => {
       await SkyHostBrowser.moveCursorOffScreen();
@@ -58,7 +65,7 @@ describe('Text editor', () => {
     it('should match link modal screenshot', async (done) => {
       await element.all(by.css('.sky-text-editor-toolbar-action-link button')).first().click();
       await SkyHostBrowser.moveCursorOffScreen();
-      expect('body').toMatchBaselineScreenshot(done, {
+      expect('.sky-modal').toMatchBaselineScreenshot(done, {
         screenshotName: getScreenshotName('text-editor-link-modal')
       });
     });
@@ -72,6 +79,10 @@ describe('Text editor', () => {
       expect('#screenshot-text-editor iframe').toMatchBaselineScreenshot(done, {
         screenshotName: getScreenshotName('text-editor-merge-field')
       });
+    });
+
+    it('should match previous disabled screenshot', (done) => {
+      validateTextEditorDisabled(done);
     });
   }
 

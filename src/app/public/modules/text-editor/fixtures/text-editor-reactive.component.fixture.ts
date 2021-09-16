@@ -3,6 +3,11 @@ import {
 } from '@angular/core';
 
 import {
+  FormControl,
+  FormGroup
+} from '@angular/forms';
+
+import {
   FONT_LIST_DEFAULTS
 } from '../defaults/font-list-defaults';
 
@@ -30,31 +35,14 @@ import {
  * @internal
  */
 @Component({
-  selector: 'text-editor-test',
-  templateUrl: './text-editor.component.fixture.html'
+  selector: 'text-editor-reactive-test',
+  templateUrl: './text-editor-reactive.component.fixture.html'
 })
-export class TextEditorFixtureComponent {
+export class TextEditorReactiveFixtureComponent {
   public autofocus = false;
-  public disabled: boolean = false;
   public fontList = FONT_LIST_DEFAULTS;
-<<<<<<< HEAD
-
-  public toolbarActions: SkyTextEditorToolbarActionType[] = [
-    'font-family',
-    'font-size',
-    'color',
-    'list',
-    'font-style',
-    'alignment',
-    'indentation',
-    'undo-redo',
-    'link'
-  ];
-
-=======
   public fontSizeList = FONT_SIZE_LIST_DEFAULTS;
   public initialStyleState: SkyTextEditorStyleState = {} as SkyTextEditorStyleState;
->>>>>>> 51d8afb216142b5c649c8b764ad1f113c9dc8c4b
   public menus: SkyTextEditorMenuType[] = [
     'edit',
     'format',
@@ -75,6 +63,10 @@ export class TextEditorFixtureComponent {
     }
   ];
   public placeholder: string;
+  public textEditorControl = new FormControl('');
+  public textEditorForm = new FormGroup({
+    'textEditorControl': this.textEditorControl
+  });
   public toolbarActions: SkyTextEditorToolbarActionType[] = [
     'font-family',
     'font-size',
@@ -86,5 +78,4 @@ export class TextEditorFixtureComponent {
     'undo-redo',
     'link'
   ];
-  public value: string = '<p>Some text</p>';
 }
