@@ -1,14 +1,29 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "extends": "./node_modules/@skyux-sdk/builder/tsconfig",
+  "compileOnSave": false,
   "compilerOptions": {
-    "module": "commonjs",
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2017",
+    "module": "es2020",
+    "lib": [
+      "es2018",
+      "dom"
+    ],
     "paths": {
-      "@skyux/i18n": [
-        "./src/app/public"
+      "text-editor": [
+        "dist/text-editor/text-editor",
+        "dist/text-editor"
       ]
     }
   },
-  "exclude": [
-    "node_modules"
-  ]
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false
+  }
 }
