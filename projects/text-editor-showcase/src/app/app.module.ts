@@ -9,6 +9,8 @@ import {
   NoopAnimationsModule
 } from '@angular/platform-browser/animations';
 
+import { SkyThemeService } from '@skyux/theme';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -19,7 +21,7 @@ import {
     AppRoutingModule,
     VisualModule
   ],
-  providers: [],
+  providers: [SkyThemeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -105,10 +105,6 @@ export class RichTextEditorVisualComponent implements OnInit, AfterViewInit {
     this.myForm.controls['textEditor'].setValue(this.value);
   }
 
-  public themeSettingsChange(themeSettings: SkyThemeSettings): void {
-    this.themeSvc.setTheme(themeSettings);
-  }
-
   public onToggleAbleTextEditor(): void {
     if (this.myForm.controls['textEditor'].disabled) {
       this.myForm.controls['textEditor'].enable();
