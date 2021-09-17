@@ -37,24 +37,8 @@ export class TextEditorFixtureComponent {
   public autofocus = false;
   public disabled: boolean = false;
   public fontList = FONT_LIST_DEFAULTS;
-<<<<<<< HEAD
-
-  public toolbarActions: SkyTextEditorToolbarActionType[] = [
-    'font-family',
-    'font-size',
-    'color',
-    'list',
-    'font-style',
-    'alignment',
-    'indentation',
-    'undo-redo',
-    'link'
-  ];
-
-=======
   public fontSizeList = FONT_SIZE_LIST_DEFAULTS;
   public initialStyleState: SkyTextEditorStyleState = {} as SkyTextEditorStyleState;
->>>>>>> 51d8afb216142b5c649c8b764ad1f113c9dc8c4b
   public menus: SkyTextEditorMenuType[] = [
     'edit',
     'format',

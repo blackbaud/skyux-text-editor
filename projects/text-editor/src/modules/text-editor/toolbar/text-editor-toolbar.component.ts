@@ -126,11 +126,8 @@ export class SkyTextEditorToolbarComponent implements OnInit {
 
   public styleStateFontName: string;
 
-<<<<<<< HEAD
-=======
   private _disabled: boolean = false;
 
->>>>>>> 51d8afb216142b5c649c8b764ad1f113c9dc8c4b
   private _styleState = STYLE_STATE_DEFAULTS;
 
   constructor(

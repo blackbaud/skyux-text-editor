@@ -7,12 +7,8 @@ import {
   forwardRef,
   Input,
   OnDestroy,
-<<<<<<< HEAD
-  ChangeDetectionStrategy
-=======
   ViewChild,
   ViewEncapsulation
->>>>>>> 51d8afb216142b5c649c8b764ad1f113c9dc8c4b
 } from '@angular/core';
 
 import {
@@ -83,13 +79,10 @@ import {
 import {
   SkyTextEditorToolbarActionType
 } from './types/toolbar-action-type';
-<<<<<<< HEAD
-=======
 
 import {
   SkyFormsUtility
 } from '../shared/forms-utility';
->>>>>>> 51d8afb216142b5c649c8b764ad1f113c9dc8c4b
 
 /**
  * Auto-incrementing integer used to generate unique ids for radio components.
@@ -271,11 +264,8 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
   private _value: string = '<p></p>';
 
   constructor (
-<<<<<<< HEAD
-=======
     private changeDetector: ChangeDetectorRef,
     private coreAdapterService: SkyCoreAdapterService,
->>>>>>> 51d8afb216142b5c649c8b764ad1f113c9dc8c4b
     private adapterService: SkyTextEditorAdapterService,
     private editorService: SkyTextEditorService,
     private sanitizationService: SkyTextSanitizationService

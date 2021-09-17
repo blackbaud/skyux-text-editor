@@ -38,10 +38,6 @@ import {
 } from '@skyux/indicators';
 
 import {
-  SkyToolbarModule
-} from '@skyux/layout';
-
-import {
   SkyDropdownModule
 } from '@skyux/popovers';
 
@@ -89,8 +85,7 @@ import {
     SkyDropdownModule,
     SkyModalModule,
     SkyTabsModule,
-    SkyThemeModule,
-    SkyToolbarModule
+    SkyThemeModule
   ],
   exports: [
     SkyTextEditorComponent,
