@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { SkyModalModule } from '@skyux/modals';
 import { SkyTabsModule } from '@skyux/tabs';
+import {
+  SkyE2eThemeSelectorModule
+} from '@skyux/e2e-client';
 
 import { SkyRichTextDisplayModule, SkyTextEditorModule } from 'projects/text-editor/src/public-api';
 import { VisualComponent } from './visual.component';
@@ -17,6 +20,7 @@ import { RichTextDisplayVisualComponent } from './rich-text-display/rich-text-di
   ],
   imports: [
     CommonModule,
+    SkyE2eThemeSelectorModule,
     SkyRichTextDisplayModule,
     SkyTextEditorModule,
     SkyModalModule,
