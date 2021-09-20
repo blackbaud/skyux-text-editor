@@ -21,7 +21,8 @@
         "dist/text-editor/text-editor",
         "dist/text-editor"
       ]
-    }
+    },
+    "esModuleInterop": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false
