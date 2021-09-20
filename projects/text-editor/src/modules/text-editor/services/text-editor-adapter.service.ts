@@ -69,6 +69,7 @@ export class SkyTextEditorAdapterService {
     styleState: SkyTextEditorStyleState,
     placeholder?: string
   ): void {
+    /* istanbul ignore else */
     if (!(id in this.editors)) {
       this.editors[id] = this.createObservers(id, iframeElement);
 
@@ -112,9 +113,11 @@ export class SkyTextEditorAdapterService {
    * Executes a command on the text editor with the corresponding id.
    */
   public execCommand(id: string, editorCommand: EditorCommand): void {
+    /* istanbul ignore else */
     if (id in this.editors) {
       const documentEl = this.getIframeDocumentEl(id);
 
+      /* istanbul ignore else */
       if (this.editorSelected(id)) {
         const commandIsSupportedAndEnabled = documentEl.execCommand(editorCommand.command, false, editorCommand.value);
 
@@ -210,6 +213,7 @@ export class SkyTextEditorAdapterService {
   }
 
   public focusEditor(id: string): void {
+    /* istanbul ignore else */
     if (id in this.editors) {
       const windowEl = this.getContentWindowEl(id);
       const iframeDocumentEl = this.getIframeDocumentEl(id);
@@ -250,6 +254,7 @@ export class SkyTextEditorAdapterService {
     let link: UrlModalResult = undefined;
     const anchorEl = this.getSelectedAnchorTag(editorId);
     if (anchorEl && anchorEl.href) {
+      /* istanbul ignore next */
       link = {
         target: anchorEl.getAttribute('target') === '_blank' ? UrlTarget.NewWindow : UrlTarget.None,
         url: anchorEl.href
@@ -275,6 +280,7 @@ export class SkyTextEditorAdapterService {
 
   public setPlaceholder(id: string, placeholder?: string): void {
     const documentEl = this.getIframeDocumentEl(id);
+    /* istanbul ignore next */
     documentEl.body.setAttribute('data-placeholder', placeholder || '');
   }
 
@@ -317,6 +323,7 @@ export class SkyTextEditorAdapterService {
     }
 
     const parentElement = this.getCurrentSelectionParentElement(editorId);
+    /* istanbul ignore next */
     const childElements = parentElement ? Array.from(parentElement.querySelectorAll('a')) : [];
 
     /* istanbul ignore next */
@@ -347,6 +354,7 @@ export class SkyTextEditorAdapterService {
     }
 
     const contentWindowEl = this.getContentWindowEl(id);
+    /* istanbul ignore else */
     if (contentWindowEl) {
       return contentWindowEl.document;
     }
@@ -358,6 +366,7 @@ export class SkyTextEditorAdapterService {
   private getFontSize(id: string): string {
     let fontSize = STYLE_STATE_DEFAULTS.fontSize.toString();
     const selection = this.getCurrentSelection(id);
+    /* istanbul ignore else */
     if (
       selection &&
       selection.anchorNode &&
@@ -424,6 +433,7 @@ export class SkyTextEditorAdapterService {
     const commandValue = documentEl.queryCommandValue(selector);
 
     // Edge is weird and returns numbers
+    /* istanbul ignore next */
     if (typeof commandValue === 'number') {
       /* istanbul ignore next */
       // tslint:disable-next-line: no-bitwise
@@ -528,6 +538,7 @@ export class SkyTextEditorAdapterService {
   private setEditorDisabled(id: string, focusableChildren: HTMLElement[], textEditorNativeElement: any, disabled: boolean): void {
     textEditorNativeElement.style.pointerEvents = disabled ? 'none' : 'auto';
     textEditorNativeElement.setAttribute('aria-disabled', disabled ? 'true' : 'false');
+    /* istanbul ignore next */
     focusableChildren.forEach(aFocusableChild => {
       aFocusableChild.tabIndex = disabled ? -1 : 0;
     });

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { SkyModalModule } from '@skyux/modals';
 import { SkyTabsModule } from '@skyux/tabs';
@@ -20,6 +21,7 @@ import { RichTextDisplayVisualComponent } from './rich-text-display/rich-text-di
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     SkyE2eThemeSelectorModule,
     SkyRichTextDisplayModule,
     SkyTextEditorModule,

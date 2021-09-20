@@ -41,8 +41,8 @@ export class SkyTextEditorUrlModalComponent {
   }
   public get activeTab(): number {
     return this._activeTab;
-  }
 
+}
   public set emailAddress(value: string) {
     this._emailAddress = value;
     this.valid = this.isValid();
@@ -82,8 +82,10 @@ export class SkyTextEditorUrlModalComponent {
         this.emailAddress = modalContext.urlResult.url.replace(emailKey, '');
 
         let queryStringIndex = this.emailAddress.indexOf(queryStringParamKey);
+        /* istanbul ignore next */
         queryStringIndex = queryStringIndex > -1 ? queryStringIndex : this.emailAddress.indexOf(queryStringParamKey.toLowerCase());
 
+        /* istanbul ignore else */
         if (queryStringIndex > -1) {
           this.subject = decodeURI(this.emailAddress).slice(queryStringIndex + queryStringParamKey.length);
           this.emailAddress = this.emailAddress.slice(0, queryStringIndex);
@@ -106,6 +108,7 @@ export class SkyTextEditorUrlModalComponent {
   }
 
   public save(): void {
+    /* istanbul ignore else */
     if (this.isValid()) {
       if (this.activeTab === 0) {
         this.modalInstance.save({

@@ -165,20 +165,21 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
   /**
    * Specifies the initial styles for all content, including background color, font size, and link state.
    */
-   @Input()
-   public set initialStyleState(state: SkyTextEditorStyleState) {
-     // Do not update the state after initialization has taken place
-     if (!this.initialized) {
-       this._initialStyleState = {
-         ...STYLE_STATE_DEFAULTS,
-         ...state
-       };
-     }
-   }
+  @Input()
+  public set initialStyleState(state: SkyTextEditorStyleState) {
+    // Do not update the state after initialization has taken place
+    /* istanbul ignore else */
+    if (!this.initialized) {
+      this._initialStyleState = {
+        ...STYLE_STATE_DEFAULTS,
+        ...state
+      };
+    }
+  }
 
-   public get initialStyleState(): SkyTextEditorStyleState {
-     return this._initialStyleState;
-   }
+  public get initialStyleState(): SkyTextEditorStyleState {
+    return this._initialStyleState;
+  }
 
   /**
    * Specifies the menus to include in the menu bar.
@@ -198,6 +199,7 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
    */
   @Input()
   public set placeholder(value: string) {
+    /* istanbul ignore else */
     if (value !== this._placeholder) {
       this._placeholder = value;
       if (this.initialized) {
@@ -222,6 +224,7 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
   public set value(value: string) {
     // Set clear state to be an empty string
     let valueString: string = value;
+    /* istanbul ignore next */
     if (!value || (value.trim() === '<p></p>' && value.trim() === '<br>')) {
       valueString = '';
     }

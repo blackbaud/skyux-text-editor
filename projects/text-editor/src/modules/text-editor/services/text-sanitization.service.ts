@@ -2,9 +2,7 @@ import {
   Injectable
 } from '@angular/core';
 
-// TODO: figure out how to get the following `import` to work with docs-tools library.
-// import DOMPurify from 'dompurify';
-const createDOMPurify = require('dompurify');
+import * as createDOMPurify from 'dompurify';
 const domPurify = createDOMPurify(window);
 
 domPurify.addHook('afterSanitizeAttributes', (node: Element) => {
