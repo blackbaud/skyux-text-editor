@@ -8,10 +8,11 @@ import {
   SkyE2eThemeSelectorModule
 } from '@skyux/e2e-client';
 
-import { SkyRichTextDisplayModule, SkyTextEditorModule } from 'projects/text-editor/src/public-api';
+import { SkyRichTextDisplayModule, SkyTextEditorModule } from '@skyux/text-editor';
 import { VisualComponent } from './visual.component';
 import { RichTextEditorVisualComponent } from './text-editor/text-editor-visual.component';
 import { RichTextDisplayVisualComponent } from './rich-text-display/rich-text-display-visual.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { RichTextDisplayVisualComponent } from './rich-text-display/rich-text-di
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    RouterModule,
     SkyE2eThemeSelectorModule,
     SkyRichTextDisplayModule,
     SkyTextEditorModule,

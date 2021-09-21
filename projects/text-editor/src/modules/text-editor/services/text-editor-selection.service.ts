@@ -13,7 +13,6 @@ export class SkyTextEditorSelectionService {
     const selectedNode = this.getCurrentSelection(documentEl).anchorNode as HTMLElement;
     return selectedNode &&
       (
-        /* istanbul ignore next */
         element.contains(selectedNode) || (selectedNode.parentNode && element.contains(selectedNode.parentNode))
       );
   }
@@ -44,7 +43,6 @@ export class SkyTextEditorSelectionService {
     /* istanbul ignore else */
     if (windowEl.getSelection) {
       const sel = windowEl.getSelection();
-      /* istanbul ignore else */
       if (sel.getRangeAt && sel.rangeCount) {
         return sel.getRangeAt(0);
       }
@@ -54,7 +52,6 @@ export class SkyTextEditorSelectionService {
   }
 
   public selectElement(documentEl: Document, windowEl: Window, element: HTMLElement): void {
-    /* istanbul ignore else */
     if (element) {
       /* istanbul ignore else */
       if (windowEl.getSelection) {

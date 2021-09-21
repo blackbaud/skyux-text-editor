@@ -20,6 +20,11 @@
       "text-editor": [
         "dist/text-editor/text-editor",
         "dist/text-editor"
+      ],
+      "@skyux/text-editor": [
+        "node_modules/@skyux/text-editor",
+        "dist/text-editor",
+        "projects/text-editor/src/public-api.ts"
       ]
     },
     "esModuleInterop": true
