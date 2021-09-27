@@ -32,7 +32,8 @@
             "karmaConfig": "projects/text-editor/karma.conf.js",
             "codeCoverage": true,
             "codeCoverageExclude": [
-              "**/fixtures/**"
+              "**/fixtures/**",
+              "projects/text-editor/src/test.ts"
             ],
             "styles": [
               "@skyux/theme/css/sky.css",
