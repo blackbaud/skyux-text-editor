@@ -1,3 +1,7 @@
+# 4.0.0-beta.2 (2021-09-15)
+
+- Added the ability to disable the text editor. [#21](https://github.com/blackbaud/skyux-text-editor/pull/21)
+
 # 5.0.0-beta.3 (2021-07-29)
 
 - Added bug fixes and features from the `master` branch. [#19](https://github.com/blackbaud/skyux-text-editor/pull/19)
