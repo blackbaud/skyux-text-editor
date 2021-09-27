@@ -5,13 +5,16 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "postbuild": "npm run skyux:generate-documentation",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "skyux:generate-lib-resources-module": "ng generate @skyux/i18n:lib-resources-module",
     "lint": "ng lint",
+    "e2e": "ng e2e",
     "skyux:generate-documentation": "ng generate @skyux-sdk/documentation-schematics:documentation",
-    "postbuild": "npm run skyux:generate-documentation",
-    "e2e": "ng e2e"
+    "skyux:generate-lib-resources-module": "ng generate @skyux/i18n:lib-resources-module",
+    "skyux:update": "npm run skyux:update-angular && npm run skyux:update-skyux",
+    "skyux:update-angular": "ng update @angular/core@12 @angular/cli@12 --allow-dirty --force",
+    "skyux:update-skyux": "ng update @skyux/packages@next --allow-dirty --force"
   },
   "private": true,
   "dependencies": {
