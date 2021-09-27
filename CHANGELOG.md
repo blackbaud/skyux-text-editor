@@ -1,6 +1,6 @@
 # 5.0.0-beta.4 (2021-09-27)
 
-- Migrated to Angular CLI. [#163](https://github.com/blackbaud/skyux-popovers/pull/163)
+- Migrated to Angular CLI. [#23](https://github.com/blackbaud/skyux-text-editor/pull/23)
 
 # 4.0.0-beta.2 (2021-09-15)
 
