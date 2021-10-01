@@ -22,7 +22,7 @@ import {
 } from 'projects/text-editor/src/public-api';
 
 @Component({
-  selector: 'text-editor-visual',
+  selector: 'app-text-editor-visual',
   templateUrl: './text-editor-visual.component.html',
   styleUrls: ['./text-editor-visual.component.scss']
 })
