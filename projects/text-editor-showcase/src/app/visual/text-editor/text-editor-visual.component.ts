@@ -17,11 +17,6 @@ import {
 } from '@angular/platform-browser';
 
 import {
-  SkyThemeService,
-  SkyThemeSettings
-} from '@skyux/theme';
-
-import {
   SkyTextEditorToolbarActionType,
   SkyTextEditorMenuType
 } from 'projects/text-editor/src/public-api';
@@ -89,8 +84,7 @@ export class RichTextEditorVisualComponent implements OnInit, AfterViewInit {
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private formBuilder: FormBuilder,
-    private sanitizer: DomSanitizer,
-    private themeSvc: SkyThemeService
+    private sanitizer: DomSanitizer
   ) {
     this.displayValue = this.sanitizer.bypassSecurityTrustHtml(this.value);
   }
