@@ -56,8 +56,6 @@
     "@skyux-sdk/documentation-schematics": "5.0.0",
     "@skyux-sdk/e2e": "5.0.0-beta.1",
     "@skyux-sdk/testing": "5.0.0",
-    "@skyux/animations": "^5.0.0",
-    "@skyux/tiles": "^5.0.0",
     "@types/dompurify": "2.2.3",
     "@types/jasmine": "~3.8.0",
     "@types/node": "^12.11.1",
