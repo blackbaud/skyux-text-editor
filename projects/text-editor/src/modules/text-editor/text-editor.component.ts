@@ -329,7 +329,6 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
   }
 
   private initIframe(): void {
-    console.log('init iframe');
     this.adapterService.addEditor(
       this.id,
       this.iframeRef.nativeElement,
