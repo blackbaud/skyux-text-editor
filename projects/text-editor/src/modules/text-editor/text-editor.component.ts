@@ -8,7 +8,8 @@ import {
   Input,
   OnDestroy,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
+  NgZone
 } from '@angular/core';
 
 import {
@@ -99,7 +100,6 @@ let nextUniqueId = 0;
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      // tslint:disable-next-line: no-forward-ref
       useExisting: forwardRef(() => SkyTextEditorComponent),
       multi: true
     }
@@ -150,12 +150,10 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
 
   public editorFocusStream = new Subject();
 
-  // tslint:disable: max-line-length
   /**
    * Specifies the fonts to include in the font picker.
    * @default [{name: 'Blackbaud Sans', value: '"Blackbaud Sans", Arial, sans-serif'}, {name: 'Arial', value: 'Arial'}, {name: 'Arial Black', value: '"Arial Black"'}, {name: 'Courier New', value: '"Courier New"'}, {name: 'Georgia', value: 'Georgia, serif'}, {name: 'Tahoma', value: 'Tahoma, Geneva, sans-serif'}, {name: 'Times New Roman', value: '"Times New Roman"'}, {name: 'Trebuchet MS', value: '"Trebuchet MS", sans-serif'}, {name: 'Verdana', value: 'Verdana, Geneva, sans-serif'}]
    */
-  // tslint:enable: max-line-length
   @Input()
   public fontList: SkyTextEditorFont[] = FONT_LIST_DEFAULTS;
 
@@ -223,12 +221,10 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
     return this._placeholder;
   }
 
-  // tslint:disable: max-line-length
   /**
    * Specifies the actions to include in the toolbar and determines their order.
    * @default [ 'font-family', 'font-size', 'font-style', 'color', 'list', 'link ]
    */
-  // tslint:enable: max-line-length
   @Input()
   public toolbarActions: SkyTextEditorToolbarActionType[] = TOOLBAR_ACTION_DEFAULTS;
 
@@ -249,7 +245,13 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
         this.adapterService.focusEditor(this.id);
         this.focusInitialized = true;
       }
-      this.onChange();
+      this._onChange(this._value);
+
+      // Angular doesn't run change detection for changes originating inside an iframe,
+      // so we have to run markForCheck() inside the NgZone to force change propigation to consuming components.
+        this.zone.run(() => {
+        this.changeDetector.markForCheck();
+      });
     }
   }
 
@@ -279,7 +281,8 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
     private coreAdapterService: SkyCoreAdapterService,
     private adapterService: SkyTextEditorAdapterService,
     private editorService: SkyTextEditorService,
-    private sanitizationService: SkyTextSanitizationService
+    private sanitizationService: SkyTextSanitizationService,
+    private zone: NgZone
   ) {}
 
   public ngAfterViewInit(): void {
@@ -302,6 +305,9 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
     }
   }
 
+  /**
+   * Implemented as part of ControlValueAccessor.
+   */
   public writeValue(obj: string): void {
     this.value = obj;
 
@@ -310,14 +316,22 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
     if (this.initialized && editorValue !== this._value) {
       this.adapterService.setEditorInnerHtml(this.id, this._value);
     }
+
+    this.changeDetector.markForCheck();
   }
 
-  public registerOnChange(fn: any): void {
+  /**
+   * Implemented as part of ControlValueAccessor.
+   */
+  public registerOnChange(fn: (value: any) => void): void {
     this._onChange = fn;
   }
 
-  public registerOnTouched(fn: any): void {
-    this.onTouch = fn;
+  /**
+   * Implemented as part of ControlValueAccessor.
+   */
+  public registerOnTouched(fn: () => void): void {
+    this._onTouched = fn;
   }
 
   /**
@@ -325,10 +339,6 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
    */
   public setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
-  }
-
-  public onChange(): void {
-    this._onChange(this.value);
   }
 
   public updateValueAndStyle(): void {
@@ -364,6 +374,18 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
         this.editorFocusStream.next();
       });
 
+    this.editorService.blurListener(this.id)
+      .pipe(
+        takeUntil(this.ngUnsubscribe)
+      )
+      .subscribe(() => {
+        // Angular doesn't run change detection for changes originating inside an iframe,
+        // so we have to run markForCheck() inside the NgZone to force change propigation to consuming components.
+        this.zone.run(() => {
+          this._onTouched();
+        });
+      });
+
     this.editorService.commandChangeListener(this.id)
       .pipe(
         takeUntil(this.ngUnsubscribe)
@@ -383,8 +405,8 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
   }
 
   /* istanbul ignore next */
-  public onTouch = () => {};
+  private _onTouched = () => {};
 
   /* istanbul ignore next */
-  private _onChange = (_: string) => {};
+  private _onChange: (value: any) => void = () => {};
 }

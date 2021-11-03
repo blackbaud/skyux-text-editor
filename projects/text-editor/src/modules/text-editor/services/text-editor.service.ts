@@ -24,6 +24,13 @@ export class SkyTextEditorService {
   public editors: { [key: string]: EditorSetting } = {};
 
   /**
+   * Returns the blur observable from the editor with the corresponding id.
+   */
+   public blurListener(id: string): Observable<unknown> {
+    return this.editors[id].blurObservable;
+  }
+
+  /**
    * Returns the click observable from the editor with the corresponding id.
    */
   public clickListener(id: string): Observable<unknown> {

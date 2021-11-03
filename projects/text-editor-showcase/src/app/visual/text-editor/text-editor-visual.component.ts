@@ -1,14 +1,14 @@
 import {
   Component,
-  ChangeDetectorRef,
-  OnInit,
-  AfterViewInit
+  OnInit
 } from '@angular/core';
 
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
-  FormGroup
+  FormGroup,
+  Validators
 } from '@angular/forms';
 
 import {
@@ -26,7 +26,7 @@ import {
   templateUrl: './text-editor-visual.component.html',
   styleUrls: ['./text-editor-visual.component.scss']
 })
-export class RichTextEditorVisualComponent implements OnInit, AfterViewInit {
+export class RichTextEditorVisualComponent implements OnInit {
 
   public displayValue: SafeHtml;
 
@@ -55,6 +55,10 @@ export class RichTextEditorVisualComponent implements OnInit, AfterViewInit {
 
   public placeholder: string = 'Please enter some text';
 
+  public get textEditorControl(): AbstractControl {
+    return this.myForm.get('textEditor');
+  }
+
   public toolbarActions: SkyTextEditorToolbarActionType[] = [
     'font-family',
     'font-size',
@@ -67,39 +71,22 @@ export class RichTextEditorVisualComponent implements OnInit, AfterViewInit {
     'link'
   ];
 
-  public set value(value: string) {
-    if (this.value !== value) {
-      this._value = value;
-      this.displayValue = this.sanitizer.bypassSecurityTrustHtml(value);
-      this.changeDetectorRef.detectChanges();
-    }
-  }
-
-  public get value(): string {
-    return this._value;
-  }
-
-  private _value = '<font style=\"font-size: 16px\" color=\"#a25353\"><b><i><u>Super styled text</u></i></b></font>';
-
   constructor(
-    private changeDetectorRef: ChangeDetectorRef,
     private formBuilder: FormBuilder,
     private sanitizer: DomSanitizer
-  ) {
-    this.displayValue = this.sanitizer.bypassSecurityTrustHtml(this.value);
-  }
+  ) {}
 
   public ngOnInit(): void {
     this.myForm = this.formBuilder.group({
-      textEditor: new FormControl('')
+      textEditor: new FormControl('', [ Validators.required ])
+    });
+
+    this.textEditorControl.valueChanges.subscribe((value) => {
+      this.displayValue = this.sanitizer.bypassSecurityTrustHtml(value);
     });
   }
 
-  public ngAfterViewInit(): void {
-    this.myForm.controls['textEditor'].setValue(this.value);
-  }
-
-  public onToggleAbleTextEditor(): void {
+  public onToggleDisableClick(): void {
     if (this.myForm.controls['textEditor'].disabled) {
       this.myForm.controls['textEditor'].enable();
     } else {
