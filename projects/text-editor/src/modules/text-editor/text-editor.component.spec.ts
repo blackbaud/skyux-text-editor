@@ -359,12 +359,15 @@ describe('Text editor', () => {
 
   describe('basic behaviors', () => {
     let testComponent: TextEditorFixtureComponent;
+    let ngModel: NgModel;
 
     beforeEach(() => {
       fixture = createComponent(TextEditorFixtureComponent);
       testComponent = fixture.componentInstance;
       iframeDocument = getIframeDocument();
       iframeElement = getIframeElement();
+      textEditorDebugElement = fixture.debugElement.query(By.directive(SkyTextEditorComponent))!;
+      ngModel = textEditorDebugElement.injector.get<NgModel>(NgModel);
     });
 
     afterEach(() => {
@@ -489,31 +492,27 @@ describe('Text editor', () => {
     }));
 
     it('should revert a single <br> tag to an empty string', fakeAsync(() => {
-      testComponent.value = 'foobar';
+      testComponent.value = HELLO_WORLD;
       fixture.detectChanges();
       tick();
-      fixture.detectChanges();
-      expect(testComponent.value).toEqual('foobar');
+      expect(ngModel.value).toEqual(HELLO_WORLD);
 
       testComponent.value = '<br>';
       fixture.detectChanges();
       tick();
-      fixture.detectChanges();
-      expect(testComponent.value).toEqual('');
+      expect(ngModel.value).toEqual('');
     }));
 
     it('should revert a single empty <p> tag to an empty string', fakeAsync(() => {
-      testComponent.value = 'foobar';
+      testComponent.value = HELLO_WORLD;
       fixture.detectChanges();
       tick();
-      fixture.detectChanges();
-      expect(testComponent.value).toEqual('foobar');
+      expect(ngModel.value).toEqual(HELLO_WORLD);
 
       testComponent.value = '<p></p>';
       fixture.detectChanges();
       tick();
-      fixture.detectChanges();
-      expect(testComponent.value).toEqual('');
+      expect(ngModel.value).toEqual('');
     }));
 
     it('should close dropdowns when editor is clicked', fakeAsync(() => {
@@ -1416,23 +1415,38 @@ describe('Text editor', () => {
       fixture = createComponent(TextEditorWithNgModel);
       testComponent = fixture.componentInstance;
       testComponent.isRequired = false;
-      fixture.detectChanges();
 
       textEditorDebugElement = fixture.debugElement.query(By.directive(SkyTextEditorComponent))!;
       textEditorNativeElement = textEditorDebugElement.nativeElement;
       editableElement = getIframeDocument().body;
       ngModel = textEditorDebugElement.injector.get<NgModel>(NgModel);
+      iframeDocument = getIframeDocument();
     });
 
     it('should be pristine, untouched, and valid initially', () => {
+      fixture.detectChanges();
+
       expect(ngModel.valid).toBe(true);
       expect(ngModel.pristine).toBe(true);
       expect(ngModel.touched).toBe(false);
     });
 
+    it('should be pristine, untouched, and valid when initialized with a value', fakeAsync(() => {
+      testComponent.value = HELLO_WORLD;
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
+      expect(ngModel.valid).toBe(true);
+      expect(ngModel.pristine).toBe(true);
+      expect(ngModel.touched).toBe(false);
+    }));
+
     it('should update text editor when model changes', fakeAsync(() => {
+      fixture.detectChanges();
+
       expect(textEditorDebugElement.componentInstance.value).toEqual('');
-      expect(ngModel.value).toBeNull();
+      expect(ngModel.value).toEqual('');
 
       testComponent.value = HELLO_WORLD;
       fixture.detectChanges();
@@ -1444,24 +1458,28 @@ describe('Text editor', () => {
     }));
 
     it('should mark text editor dirty after input event', () => {
+      fixture.detectChanges();
+
       expect(textEditorNativeElement.classList).toContain('ng-pristine');
 
-      editableElement.innerHTML = '<p>Hello world</p>';
-      SkyAppTestUtility.fireDomEvent(editableElement, 'input');
+      iframeDocument.body.innerHTML = '<p>Hello world</p>';
+      SkyAppTestUtility.fireDomEvent(iframeDocument, 'input');
       fixture.detectChanges();
 
       expect(textEditorNativeElement.classList).toContain('ng-dirty');
     });
 
     it('should mark input touched on blur', () => {
-      expect(textEditorNativeElement.classList).toContain('ng-untouched');
-
-      SkyAppTestUtility.fireDomEvent(editableElement, 'focus');
       fixture.detectChanges();
 
       expect(textEditorNativeElement.classList).toContain('ng-untouched');
 
-      SkyAppTestUtility.fireDomEvent(editableElement, 'blur');
+      SkyAppTestUtility.fireDomEvent(iframeDocument.body, 'focus');
+      fixture.detectChanges();
+
+      expect(textEditorNativeElement.classList).toContain('ng-untouched');
+
+      SkyAppTestUtility.fireDomEvent(iframeDocument.body, 'blur');
       fixture.detectChanges();
 
       expect(textEditorNativeElement.classList).toContain('ng-touched');
@@ -1473,14 +1491,14 @@ describe('Text editor', () => {
 
       expect(ngModel.valid).toBe(false);
 
-      editableElement.innerHTML = "<p>Hello world</p>";
-      SkyAppTestUtility.fireDomEvent(editableElement, 'input');
+      iframeDocument.body.innerHTML = HELLO_WORLD;
+      SkyAppTestUtility.fireDomEvent(iframeDocument, 'input');
       fixture.detectChanges();
 
       expect(ngModel.valid).toBe(true);
 
-      editableElement.innerHTML = "";
-      SkyAppTestUtility.fireDomEvent(editableElement, 'input');
+      iframeDocument.body.innerHTML = "";
+      SkyAppTestUtility.fireDomEvent(iframeDocument, 'input');
       fixture.detectChanges();
 
       expect(ngModel.valid).toBe(false);

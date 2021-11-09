@@ -45,6 +45,13 @@ export class SkyTextEditorService {
   }
 
   /**
+   * Returns the input change observable from the editor with the corresponding id.
+   */
+  public inputListener(id: string): Observable<unknown> {
+    return this.editors[id].inputObservable;
+  }
+
+  /**
    * Removes editor from the `editors` index by id.
    */
   public removeEditor(id: string): void {

@@ -4,17 +4,15 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  forwardRef,
   Input,
+  NgZone,
   OnDestroy,
   ViewChild,
   ViewEncapsulation,
-  NgZone
 } from '@angular/core';
 
 import {
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR
+  NgControl
 } from '@angular/forms';
 
 import {
@@ -97,17 +95,10 @@ let nextUniqueId = 0;
   selector: 'sky-text-editor',
   templateUrl: './text-editor.component.html',
   styleUrls: ['./text-editor.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SkyTextEditorComponent),
-      multi: true
-    }
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccessor, OnDestroy {
+export class SkyTextEditorComponent implements AfterViewInit, OnDestroy {
 
   /**
    * Indicates whether to put focus on the editor after it renders.
@@ -228,16 +219,29 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
   @Input()
   public toolbarActions: SkyTextEditorToolbarActionType[] = TOOLBAR_ACTION_DEFAULTS;
 
+  /**
+   * The internal value of the control.
+   */
   public set value(value: string) {
-    // Set clear state to be an empty string
-    let valueString: string = value;
-    if (!value || value.trim() === '<p></p>' || value.trim() === '<br>') {
-      valueString = '';
-    }
-    valueString = this.sanitizationService.sanitize(valueString).trim();
 
-    if (this._value !== valueString) {
-      this._value = valueString;
+    // Normalize value and set any empty state to an empty string.
+    let normalizedValue: string = value;
+    if (!value || value.trim() === '<p></p>' || value.trim() === '<br>' || value.trim() === '<p><br></p>') {
+      normalizedValue = '';
+    }
+    normalizedValue = this.sanitizationService.sanitize(normalizedValue).trim();
+
+    if (this._value !== normalizedValue) {
+      this._value = normalizedValue;
+
+      // Update angular form control if model has been normalized.
+      /* istanbul ignore else */
+      if (this.ngControl && this.ngControl.control) {
+        /* istanbul ignore else */
+        if (normalizedValue !== this.ngControl.control.value) {
+          this.ngControl.control.setValue(normalizedValue, { emitModelToViewChange: false });
+        }
+      }
 
       // Autofocus isn't testable in Firefox and IE.
       /* istanbul ignore next */
@@ -245,13 +249,6 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
         this.adapterService.focusEditor(this.id);
         this.focusInitialized = true;
       }
-      this._onChange(this._value);
-
-      // Angular doesn't run change detection for changes originating inside an iframe,
-      // so we have to run markForCheck() inside the NgZone to force change propigation to consuming components.
-        this.zone.run(() => {
-        this.changeDetector.markForCheck();
-      });
     }
   }
 
@@ -282,8 +279,11 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
     private adapterService: SkyTextEditorAdapterService,
     private editorService: SkyTextEditorService,
     private sanitizationService: SkyTextSanitizationService,
-    private zone: NgZone
-  ) {}
+    private ngControl: NgControl,
+    private zone: NgZone,
+  ) {
+    this.ngControl.valueAccessor = this;
+  }
 
   public ngAfterViewInit(): void {
     this.initIframe();
@@ -308,16 +308,14 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
   /**
    * Implemented as part of ControlValueAccessor.
    */
-  public writeValue(obj: string): void {
-    this.value = obj;
+  public writeValue(value: string): void {
+    this.value = value;
 
     // Update HTML if necessary.
     const editorValue = this.adapterService.getEditorInnerHtml(this.id);
     if (this.initialized && editorValue !== this._value) {
       this.adapterService.setEditorInnerHtml(this.id, this._value);
     }
-
-    this.changeDetector.markForCheck();
   }
 
   /**
@@ -341,8 +339,7 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
     this.disabled = isDisabled;
   }
 
-  public updateValueAndStyle(): void {
-    this.value = this.adapterService.getEditorInnerHtml(this.id);
+  private updateStyle(): void {
     this._initialStyleState = {
       ...this._initialStyleState,
       ...this.adapterService.getStyleState(this.id) as any
@@ -357,12 +354,24 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
       this.placeholder
     );
 
+    this.editorService.inputListener(this.id)
+      .pipe(
+        takeUntil(this.ngUnsubscribe)
+      )
+      .subscribe(() => {
+        // Angular doesn't run change detection for changes originating inside an iframe,
+        // so we have to call the onChange() event inside NgZone to force change propigation to consuming components.
+        this.zone.run(() => {
+          this.ViewToModelUpdate();
+        });
+      });
+
     this.editorService.selectionChangeListener(this.id)
       .pipe(
         takeUntil(this.ngUnsubscribe)
       )
       .subscribe(() => {
-        this.updateValueAndStyle();
+        this.updateStyle();
         this.editorFocusStream.next();
       });
 
@@ -391,7 +400,8 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
         takeUntil(this.ngUnsubscribe)
       )
       .subscribe(() => {
-        this.updateValueAndStyle();
+        this.updateStyle();
+        this.ViewToModelUpdate();
       });
 
     this.adapterService.setEditorInnerHtml(this.id, this._value);
@@ -402,6 +412,14 @@ export class SkyTextEditorComponent implements AfterViewInit, ControlValueAccess
     }
 
     this.initialized = true;
+  }
+
+  private ViewToModelUpdate(emitChange: boolean = true): void {
+    this.value = this.adapterService.getEditorInnerHtml(this.id);
+    /* istanbul ignore else */
+    if (emitChange) {
+      this._onChange(this._value);
+    }
   }
 
   /* istanbul ignore next */
