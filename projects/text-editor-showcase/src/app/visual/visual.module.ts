@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SkyModalModule } from '@skyux/modals';
 import { SkyTabsModule } from '@skyux/tabs';
@@ -22,6 +22,7 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     RouterModule,
     SkyE2eThemeSelectorModule,

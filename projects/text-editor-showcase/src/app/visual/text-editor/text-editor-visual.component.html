@@ -1,24 +1,23 @@
-<sky-e2e-theme-selector></sky-e2e-theme-selector>
-
-<br><br>
-
-<button
-  id="sky-btn-toggle-text-editor-ability"
-  class="sky-btn sky-btn-default"
-  type="button"
-  (click)="onToggleAbleTextEditor()"
+<div
+  class="sky-padding-even-default"
 >
-  Toggle Able/Disable Text Editor
-</button>
-
-<button
-  id="sky-btn-toggle-text-editor-ability"
-  class="sky-btn sky-btn-default"
-  type="button"
-  (click)="onToggleAbleTextEditor()"
->
-  Toggle Able/Disable Text Editor
-</button>
+  <label
+    class="sky-control-label"
+  >
+    Theme:
+    <sky-e2e-theme-selector></sky-e2e-theme-selector>
+  </label>
+  <br>
+  <br>
+  <button
+    class="sky-btn sky-btn-default"
+    id="sky-btn-toggle-text-editor-disable"
+    type="button"
+    (click)="onToggleDisableClick()"
+  >
+    Toggle disable
+  </button>
+</div>
 
 <div
   class="sky-padding-even-large"
@@ -41,18 +40,41 @@
       >
       </sky-text-editor>
     </div>
+
+    <h2>
+      Angular form control values
+    </h2>
+    <table>
+      <tr>
+        <th>Disabled</th>
+        <td>{{ textEditorControl.disabled }}</td>
+      </tr>
+      <tr>
+        <th>Pristine</th>
+        <td>{{ textEditorControl.pristine }}</td>
+      </tr>
+      <tr>
+        <th>Status</th>
+        <td>{{ textEditorControl.status }}</td>
+      </tr>
+      <tr>
+        <th>Touched</th>
+        <td>{{ textEditorControl.touched }}</td>
+      </tr>
+      <tr>
+        <th>Valid</th>
+        <td>{{ textEditorControl.valid }}</td>
+      </tr>
+      <tr>
+        <th>Value</th>
+        <td>{{ textEditorControl.value }}</td>
+      </tr>
+    </table>
+
     <h2>
       Preview HTML
     </h2>
-    <div *ngIf="value"
-      class="content-display"
-    >
-      {{ value }}
-    </div>
-    <h2>
-      Preview render
-    </h2>
-    <div
+    <div *ngIf="displayValue"
       class="content-display"
       [innerHTML]="displayValue"
     >
