@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {
-  NoopAnimationsModule
-} from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SkyThemeService } from '@skyux/theme';
 
@@ -11,16 +9,14 @@ import { AppComponent } from './app.component';
 import { VisualModule } from './visual/visual.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     NoopAnimationsModule,
     BrowserModule,
     AppRoutingModule,
-    VisualModule
+    VisualModule,
   ],
   providers: [SkyThemeService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

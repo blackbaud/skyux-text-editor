@@ -1,17 +1,8 @@
-import {
-  SkyHostBrowserBreakpoint
-} from '@skyux-sdk/e2e/host-browser/host-browser-breakpoint';
+import { SkyHostBrowserBreakpoint } from '@skyux-sdk/e2e/host-browser/host-browser-breakpoint';
 
-import {
-  expect,
-  SkyHostBrowser,
-  SkyVisualThemeSelector
-} from '@skyux-sdk/e2e';
+import { expect, SkyHostBrowser, SkyVisualThemeSelector } from '@skyux-sdk/e2e';
 
-import {
-  by,
-  element
-} from 'protractor';
+import { by, element } from 'protractor';
 
 describe('Text editor', () => {
   let browserSize: SkyHostBrowserBreakpoint;
@@ -50,7 +41,7 @@ describe('Text editor', () => {
   async function validateTextEditorDisabled(done: DoneFn): Promise<void> {
     await element(by.css('#sky-btn-toggle-text-editor-disable')).click();
     expect('#screenshot-text-editor').toMatchBaselineScreenshot(done, {
-      screenshotName: getScreenshotName('text-editor-disabled')
+      screenshotName: getScreenshotName('text-editor-disabled'),
     });
   }
 
@@ -58,26 +49,29 @@ describe('Text editor', () => {
     it('should match screenshot', async (done) => {
       await SkyHostBrowser.moveCursorOffScreen();
       expect('#screenshot-text-editor').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('text-editor')
+        screenshotName: getScreenshotName('text-editor'),
       });
     });
 
     it('should match link modal screenshot', async (done) => {
-      await element.all(by.css('.sky-text-editor-toolbar-action-link button')).first().click();
+      await element
+        .all(by.css('.sky-text-editor-toolbar-action-link button'))
+        .first()
+        .click();
       await SkyHostBrowser.moveCursorOffScreen();
       expect('.sky-modal').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('text-editor-link-modal')
+        screenshotName: getScreenshotName('text-editor-link-modal'),
       });
     });
 
     it('should match merge field screenshot', async (done) => {
-      await element(by.css(
-        '.sky-text-editor-menu-merge-field .sky-dropdown-button'
-      )).click();
+      await element(
+        by.css('.sky-text-editor-menu-merge-field .sky-dropdown-button')
+      ).click();
       await element(by.css('.sky-dropdown-item button')).click();
       await SkyHostBrowser.moveCursorOffScreen();
       expect('#screenshot-text-editor iframe').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('text-editor-merge-field')
+        screenshotName: getScreenshotName('text-editor-merge-field'),
       });
     });
 
@@ -87,7 +81,7 @@ describe('Text editor', () => {
   }
 
   describe('(size: lg)', () => {
-    beforeEach( async() => {
+    beforeEach(async () => {
       currentTheme = undefined;
       currentThemeMode = undefined;
       await SkyHostBrowser.get('visual/text-editor');
@@ -114,7 +108,7 @@ describe('Text editor', () => {
   });
 
   describe('(size: xs)', () => {
-    beforeEach( async() => {
+    beforeEach(async () => {
       currentTheme = undefined;
       currentThemeMode = undefined;
       await SkyHostBrowser.get('visual/text-editor');
@@ -139,5 +133,4 @@ describe('Text editor', () => {
       runTests();
     });
   });
-
 });
