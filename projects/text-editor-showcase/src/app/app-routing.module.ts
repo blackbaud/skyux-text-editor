@@ -6,12 +6,15 @@ import { RichTextEditorVisualComponent } from './visual/text-editor/text-editor-
 
 const routes: Routes = [
   { path: '', component: VisualComponent },
-  { path: 'visual/rich-text-display', component: RichTextDisplayVisualComponent },
-  { path: 'visual/text-editor', component: RichTextEditorVisualComponent }
+  {
+    path: 'visual/rich-text-display',
+    component: RichTextDisplayVisualComponent,
+  },
+  { path: 'visual/text-editor', component: RichTextEditorVisualComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -1,54 +1,43 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import {
   AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
-  Validators
+  Validators,
 } from '@angular/forms';
 
-import {
-  DomSanitizer,
-  SafeHtml
-} from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import {
   SkyTextEditorToolbarActionType,
-  SkyTextEditorMenuType
+  SkyTextEditorMenuType,
 } from 'projects/text-editor/src/public-api';
 
 @Component({
   selector: 'app-text-editor-visual',
   templateUrl: './text-editor-visual.component.html',
-  styleUrls: ['./text-editor-visual.component.scss']
+  styleUrls: ['./text-editor-visual.component.scss'],
 })
 export class RichTextEditorVisualComponent implements OnInit {
-
   public displayValue: SafeHtml;
 
-  public menus: SkyTextEditorMenuType[] = [
-    'edit',
-    'format',
-    'merge-field'
-  ];
+  public menus: SkyTextEditorMenuType[] = ['edit', 'format', 'merge-field'];
 
   public mergeFields = [
     {
       id: '0',
-      name: 'Best field'
+      name: 'Best field',
     },
     {
       id: '1',
-      name: 'Second best field'
+      name: 'Second best field',
     },
     {
       id: '2',
-      name: 'A field that is really too long for its own good'
-    }
+      name: 'A field that is really too long for its own good',
+    },
   ];
 
   public myForm: FormGroup;
@@ -68,7 +57,7 @@ export class RichTextEditorVisualComponent implements OnInit {
     'alignment',
     'indentation',
     'undo-redo',
-    'link'
+    'link',
   ];
 
   constructor(
@@ -78,7 +67,10 @@ export class RichTextEditorVisualComponent implements OnInit {
 
   public ngOnInit(): void {
     this.myForm = this.formBuilder.group({
-      textEditor: new FormControl('<font style=\"font-size: 16px\" color=\"#a25353\"><b><i><u>Super styled text</u></i></b></font>', [ Validators.required ])
+      textEditor: new FormControl(
+        '<font style="font-size: 16px" color="#a25353"><b><i><u>Super styled text</u></i></b></font>',
+        [Validators.required]
+      ),
     });
 
     this.textEditorControl.valueChanges.subscribe((value) => {
@@ -93,5 +85,4 @@ export class RichTextEditorVisualComponent implements OnInit {
       this.myForm.controls['textEditor'].disable();
     }
   }
-
 }
