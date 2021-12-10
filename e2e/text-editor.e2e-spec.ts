@@ -14,7 +14,6 @@ import {
   element,
   ExpectedConditions
 } from 'protractor';
-import { ThemePlatformHelper } from './utils/theme-platform-utils';
 
 describe('Text editor', () => {
   let browserSize: SkyHostBrowserBreakpoint;
@@ -74,11 +73,6 @@ describe('Text editor', () => {
     });
 
     it('should match merge field screenshot', async (done) => {
-      // This test fails in ADO for some reason.
-      if (ThemePlatformHelper.shouldSkipVisualTests()) {
-        // return done();
-      }
-
       await element(by.css(
         '.sky-text-editor-menu-merge-field .sky-dropdown-button'
       )).click();
