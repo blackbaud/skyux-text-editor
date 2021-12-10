@@ -80,7 +80,6 @@ describe('Text editor', () => {
       await SkyHostBrowser.moveCursorOffScreen();
 
       browser.wait(ExpectedConditions.presenceOf(element(by.css('#screenshot-text-editor .sky-text-editor-wrapper'))), 5000);
-      await SkyHostBrowser.scrollTo('#screenshot-text-editor .sky-text-editor-wrapper');
 
       expect('#screenshot-text-editor .sky-text-editor-wrapper').toMatchBaselineScreenshot(done, {
         screenshotName: getScreenshotName('text-editor-merge-field')
