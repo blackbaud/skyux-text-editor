@@ -79,7 +79,13 @@ describe('Text editor', () => {
       await element(by.css('.sky-dropdown-item button')).click();
       await SkyHostBrowser.moveCursorOffScreen();
 
-      browser.wait(ExpectedConditions.elementToBeClickable(element(by.css('#screenshot-text-editor .sky-text-editor-wrapper'))), 5000);
+      await browser.wait(
+        ExpectedConditions.elementToBeClickable(
+          element(by.css('#screenshot-text-editor .sky-text-editor-wrapper'))
+        ),
+        5000
+      );
+
       await SkyHostBrowser.scrollTo('#screenshot-text-editor');
 
       expect('#screenshot-text-editor .sky-text-editor-wrapper').toMatchBaselineScreenshot(done, {
