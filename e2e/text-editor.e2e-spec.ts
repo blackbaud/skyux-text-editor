@@ -9,8 +9,10 @@ import {
 } from '@skyux-sdk/e2e';
 
 import {
+  browser,
   by,
-  element
+  element,
+  ExpectedConditions
 } from 'protractor';
 
 describe('Text editor', () => {
@@ -76,7 +78,11 @@ describe('Text editor', () => {
       )).click();
       await element(by.css('.sky-dropdown-item button')).click();
       await SkyHostBrowser.moveCursorOffScreen();
-      expect('#screenshot-text-editor iframe').toMatchBaselineScreenshot(done, {
+
+      browser.wait(ExpectedConditions.presenceOf(element(by.css('#screenshot-text-editor .sky-text-editor-wrapper'))), 5000);
+      await SkyHostBrowser.scrollTo('#screenshot-text-editor .sky-text-editor-wrapper');
+
+      expect('#screenshot-text-editor .sky-text-editor-wrapper').toMatchBaselineScreenshot(done, {
         screenshotName: getScreenshotName('text-editor-merge-field')
       });
     });
